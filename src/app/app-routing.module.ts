@@ -18,19 +18,21 @@ import { TooltipsComponent } from './components/tooltips/tooltips.component';
 import { ProductComponent } from './dashboard/dashboard-components/product/product.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FullComponent } from './layouts/full/full.component';
+import {LoginComponent} from "./components/login/login.component";
+import {AuthGuard} from "./gaurds/auth.guard";
 
 const routes: Routes = [
   {
     path:"",
     component:FullComponent,
     children: [
-      {path:"", redirectTo:"/home", pathMatch:"full"},
+      {path:"", redirectTo:"/login", pathMatch:"full"},
       {path:"home", component:DashboardComponent},
       {path:"alerts", component:AlertsComponent},
       {path:"forms", component:FormsComponent},
       {path:"table", component:ProductComponent},
       {path:"grid-list", component:GridListComponent},
-      {path:"menu", component:MenuComponent},
+      {path:"menu", component:MenuComponent, canActivate:[AuthGuard]},
       {path:"tabs", component:TabsComponent},
       {path:"expansion", component:ExpansionComponent},
       {path:"chips", component:ChipsComponent},
@@ -44,6 +46,7 @@ const routes: Routes = [
       {path:"button", component:ButtonsComponent},
     ]
   },
+  {path:"login",component:LoginComponent, pathMatch:"full"},
   {path:"", redirectTo:"/home", pathMatch:"full"},
   {path:"**", redirectTo:"/home", pathMatch:"full"},
 ];

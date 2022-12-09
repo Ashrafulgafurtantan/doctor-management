@@ -11,14 +11,16 @@ import { TabsComponent } from './tabs/tabs.component';
 import { ExpansionComponent } from './expansion/expansion.component';
 import { ChipsComponent } from './chips/chips.component';
 import { ProgressComponent } from './progress/progress.component';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { ProgressSnipperComponent } from './progress-snipper/progress-snipper.component';
 import { SnackbarComponent } from './snackbar/snackbar.component';
 import { SliderComponent } from './slider/slider.component';
 import { SlideToggleComponent } from './slide-toggle/slide-toggle.component';
 import { ButtonsComponent } from './buttons/buttons.component';
-import { TooltipsComponent } from './tooltips/tooltips.component'
+import { TooltipsComponent } from './tooltips/tooltips.component';
+import { LoginComponent } from './login/login.component'
+
 
 
 @NgModule({
@@ -38,12 +40,14 @@ import { TooltipsComponent } from './tooltips/tooltips.component'
     SlideToggleComponent,
     ButtonsComponent,
     TooltipsComponent,
+    LoginComponent,
   ],
   imports: [
     CommonModule,
     FeatherModule.pick(allIcons),
     DemoFlexyModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     AlertsComponent,
@@ -62,4 +66,5 @@ import { TooltipsComponent } from './tooltips/tooltips.component'
     ButtonsComponent,
   ]
 })
+// @ts-ignore
 export class ComponentsModule { }
