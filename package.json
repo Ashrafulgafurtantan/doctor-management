@@ -23,7 +23,9 @@
     "@angular/router": "^14.0.2",
     "angular-feather": "^6.3.0",
     "apexcharts": "^3.35.3",
+    "eslint": "^8.29.0",
     "ng-apexcharts": "^1.7.1",
+    "prettier": "^2.8.1",
     "rxjs": "~7.5.5",
     "tslib": "^2.4.0",
     "zone.js": "~0.11.6"
