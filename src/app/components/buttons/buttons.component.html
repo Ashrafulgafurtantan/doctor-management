@@ -4,9 +4,9 @@
 
     <h4>Basic Buttons</h4>
     <div class="button-row mb-24">
-      <button mat-button>Basic</button>
-      <button mat-button color="primary">Primary</button>
-      <button mat-button color="accent">Accent</button>
+      <button (click)="simpleAlert()" mat-button>Basic</button>
+      <button (click)="alertWithSuccess()" mat-button color="primary">Primary</button>
+      <button (click)="confirmBox()" mat-button color="accent">Accent</button>
       <button mat-button color="warn">Warn</button>
       <button mat-button disabled>Disabled</button>
       <a mat-button routerLink=".">Link</a>
