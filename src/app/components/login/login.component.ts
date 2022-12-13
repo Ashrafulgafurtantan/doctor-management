@@ -20,10 +20,9 @@ export class LoginComponent implements OnInit {
     });
   }
   ngOnInit(): void {
+    let isLoggedIn = JSON.parse(localStorage.getItem("currentUser")|| '{}');
 
-    let isLoggedIn = JSON.parse(localStorage.getItem("isLogin")|| '{}');
-    console.log(isLoggedIn)
-    if(isLoggedIn){
+    if(Object.keys(isLoggedIn).length !== 0){
       this._router.navigateByUrl('/home').then(r => console.log(""));
     }
   }
@@ -35,8 +34,8 @@ export class LoginComponent implements OnInit {
     }else{
       this.user.role = 2;
     }
-
     localStorage.setItem("currentUser",JSON.stringify(this.user));
-    this._router.navigateByUrl('/home').then(r => console.log(""));
+    this._router.navigate(['home'], { state: { needCredentials: true } });
+    // this._router.navigateByUrl('/home',{ state: {user:"Hello", foo: 'bar'} }).then(r => console.log(""));
   }
 }

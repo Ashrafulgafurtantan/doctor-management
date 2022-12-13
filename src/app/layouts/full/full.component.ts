@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import {Router} from "@angular/router";
 
 interface sidebarMenu {
   link: string;
@@ -24,7 +25,7 @@ export class FullComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) { }
+  constructor(private breakpointObserver: BreakpointObserver, private _router:Router) { }
 
   routerActive: string = "activelink";
 
@@ -115,5 +116,8 @@ export class FullComponent {
       menu: "Slide Toggle",
     },
   ]
-
+  logout(){
+    localStorage.setItem("currentUser",JSON.stringify({}));
+    this._router.navigateByUrl('/login').then(r => console.log(""));
+  }
 }

@@ -17,7 +17,7 @@ export class ButtonsComponent implements OnInit {
   }
 
   alertWithSuccess(){
-    Swal.fire('Thank you...', 'You submitted succesfully!', 'success')
+    Swal.fire('Good Job', 'Successfully Logged In', 'OK')
   }
 
   confirmBox() {
