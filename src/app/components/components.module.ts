@@ -19,7 +19,8 @@ import { SliderComponent } from './slider/slider.component';
 import { SlideToggleComponent } from './slide-toggle/slide-toggle.component';
 import { ButtonsComponent } from './buttons/buttons.component';
 import { TooltipsComponent } from './tooltips/tooltips.component';
-import { LoginComponent } from './login/login.component'
+import { LoginComponent } from './login/login.component';
+import { AttendanceViewComponent } from './attendance-view/attendance-view.component'
 
 
 
@@ -41,6 +42,7 @@ import { LoginComponent } from './login/login.component'
     ButtonsComponent,
     TooltipsComponent,
     LoginComponent,
+    AttendanceViewComponent,
   ],
   imports: [
     CommonModule,

@@ -41,6 +41,11 @@ export class FullComponent {
       menu: "Buttons",
     },
     {
+      link: "/view",
+      icon: "calendar",
+      menu: "Attendance",
+    },
+    {
       link: "/forms",
       icon: "layout",
       menu: "Forms",

@@ -20,6 +20,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { FullComponent } from './layouts/full/full.component';
 import {LoginComponent} from "./components/login/login.component";
 import {AuthGuard} from "./gaurds/auth.guard";
+import {AttendanceViewComponent} from "./components/attendance-view/attendance-view.component";
 
 const routes: Routes = [
   {
@@ -29,6 +30,7 @@ const routes: Routes = [
       {path:"", redirectTo:"/login", pathMatch:"full"},
       {path:"home", component:DashboardComponent},
       {path:"alerts", component:AlertsComponent},
+      {path:"view", component:AttendanceViewComponent},
       {path:"forms", component:FormsComponent},
       {path:"table", component:ProductComponent},
       {path:"grid-list", component:GridListComponent},

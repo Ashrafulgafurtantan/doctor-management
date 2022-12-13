@@ -16,10 +16,10 @@
  import { MatDatepickerModule } from '@angular/material/datepicker';
  import { MatDialogModule } from '@angular/material/dialog';
  import { MatExpansionModule } from '@angular/material/expansion';
- import { MatFormFieldModule } from '@angular/material/form-field';
+ import {MatFormField, MatFormFieldModule} from '@angular/material/form-field';
  import { MatGridListModule } from '@angular/material/grid-list';
  import { MatIconModule } from '@angular/material/icon';
- import { MatInputModule } from '@angular/material/input';
+ import {MatInput, MatInputModule} from '@angular/material/input';
  import { MatListModule } from '@angular/material/list';
  import { MatMenuModule } from '@angular/material/menu';
  import { MatPaginatorModule } from '@angular/material/paginator';
@@ -40,7 +40,7 @@
  import { MatBadgeModule } from '@angular/material/badge';
  import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
  import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
- 
+
  import { CdkTableModule } from '@angular/cdk/table';
  import { CdkAccordionModule } from '@angular/cdk/accordion';
  import { A11yModule } from '@angular/cdk/a11y';
@@ -50,7 +50,7 @@
  import { ObserversModule } from '@angular/cdk/observers';
  import { PortalModule } from '@angular/cdk/portal';
  import { FlexLayoutModule } from '@angular/flex-layout';
- 
+
  /**
   * NgModule that includes all Material modules that are required to serve the demo-app.
   */
@@ -99,7 +99,10 @@
          PlatformModule,
          PortalModule,
          FlexLayoutModule,
+         MatSortModule,
+         MatPaginatorModule,
+         MatInputModule,
+         MatFormFieldModule
      ]
  })
  export class DemoFlexyModule { }
- 
