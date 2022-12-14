@@ -21,6 +21,9 @@ import { ButtonsComponent } from './buttons/buttons.component';
 import { TooltipsComponent } from './tooltips/tooltips.component';
 import { LoginComponent } from './login/login.component';
 import { AttendanceCreateComponent } from './attendance-create/attendance-create.component';
+import { OrderListComponent } from './order-list/order-list.component';
+import { OrderCreateComponent } from './order-create/order-create.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +44,9 @@ import { AttendanceCreateComponent } from './attendance-create/attendance-create
     TooltipsComponent,
     LoginComponent,
     AttendanceCreateComponent,
+    OrderListComponent,
+    OrderCreateComponent,
+    SearchComponent,
   ],
   imports: [
     CommonModule,

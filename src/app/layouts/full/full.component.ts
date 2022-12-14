@@ -41,15 +41,21 @@ export class FullComponent {
       menu: "Attendance",
     },
     {
+      link: "/orders",
+      icon: "calendar",
+      menu: "Order",
+    },
+    {
+      link: "/search",
+      icon: "search",
+      menu: "Search",
+    },
+    {
       link: "/button",
       icon: "disc",
       menu: "Buttons",
     },
-/*    {
-      link: "/create",
-      icon: "calendar",
-      menu: "Create",
-    },*/
+
     {
       link: "/forms",
       icon: "layout",

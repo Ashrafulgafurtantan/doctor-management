@@ -1,0 +1,26 @@
+.container{
+  display: flex;
+  justify-content: center;
+}
+mat-form-field {
+  margin-right: 12px;
+}
+.container div{
+  margin: 5px 10px;
+  width: 33%;
+}
+.mat-form-field {
+  width:100%;
+}
+.search{
+  display: block;
+  border: none;
+  width: 100%;
+  justify-content: center;
+  height: 50px;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: center;
+  background-color: #03C9D7FF;
+
+}

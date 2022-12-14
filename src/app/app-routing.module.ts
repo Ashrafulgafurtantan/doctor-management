@@ -21,6 +21,9 @@ import { FullComponent } from './layouts/full/full.component';
 import {LoginComponent} from "./components/login/login.component";
 import {AuthGuard} from "./gaurds/auth.guard";
 import {AttendanceCreateComponent} from "./components/attendance-create/attendance-create.component";
+import {OrderListComponent} from "./components/order-list/order-list.component";
+import {OrderCreateComponent} from "./components/order-create/order-create.component";
+import {SearchComponent} from "./components/search/search.component";
 
 const routes: Routes = [
   {
@@ -31,6 +34,9 @@ const routes: Routes = [
       {path:"home", component:DashboardComponent},
       {path:"alerts", component:AlertsComponent},
       {path:"create", component:AttendanceCreateComponent},
+      {path:"search", component:SearchComponent},
+      {path:"orders", component:OrderListComponent},
+      {path:"orders/create", component:OrderCreateComponent},
       {path:"forms", component:FormsComponent},
       {path:"table", component:ProductComponent},
       {path:"grid-list", component:GridListComponent},
