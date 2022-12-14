@@ -20,9 +20,7 @@ import { SlideToggleComponent } from './slide-toggle/slide-toggle.component';
 import { ButtonsComponent } from './buttons/buttons.component';
 import { TooltipsComponent } from './tooltips/tooltips.component';
 import { LoginComponent } from './login/login.component';
-import { AttendanceViewComponent } from './attendance-view/attendance-view.component'
-
-
+import { AttendanceCreateComponent } from './attendance-create/attendance-create.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +40,7 @@ import { AttendanceViewComponent } from './attendance-view/attendance-view.compo
     ButtonsComponent,
     TooltipsComponent,
     LoginComponent,
-    AttendanceViewComponent,
+    AttendanceCreateComponent,
   ],
   imports: [
     CommonModule,

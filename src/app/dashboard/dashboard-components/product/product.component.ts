@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
+import {Router} from "@angular/router";
 
 export interface PeriodicElement {
   id: number;
@@ -32,7 +33,7 @@ export class ProductComponent implements OnInit {
 
   @ViewChild(MatSort,{static:true}) sort: MatSort | any;
   @ViewChild(MatPaginator,{static:true}) paginator: MatPaginator | any;
-  constructor() {
+  constructor(private  _router:Router) {
     this.products=ELEMENT_DATA;
     this.dataSource = new MatTableDataSource(this.products);
   }
@@ -40,6 +41,9 @@ export class ProductComponent implements OnInit {
   ngOnInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+  }
+  createAttendance(){
+    this._router.navigateByUrl('/create').then(()=>console.log(""));
   }
   applyFilter(e: any):void{
     const filterValue = e.value;

@@ -36,15 +36,20 @@ export class FullComponent {
       menu: "Dashboard",
     },
     {
+      link: "/table",
+      icon: "calendar",
+      menu: "Attendance",
+    },
+    {
       link: "/button",
       icon: "disc",
       menu: "Buttons",
     },
-    {
-      link: "/view",
+/*    {
+      link: "/create",
       icon: "calendar",
-      menu: "Attendance",
-    },
+      menu: "Create",
+    },*/
     {
       link: "/forms",
       icon: "layout",
@@ -65,11 +70,7 @@ export class FullComponent {
       icon: "menu",
       menu: "Menus",
     },
-    {
-      link: "/table",
-      icon: "grid",
-      menu: "Tables",
-    },
+
     {
       link: "/expansion",
       icon: "divide-circle",
