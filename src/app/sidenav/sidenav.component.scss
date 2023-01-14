@@ -51,6 +51,7 @@
     }
   }
 }
+
 .sidenav-collapsed {
   width: 16.5625rem;
 }
@@ -91,6 +92,17 @@
     }
   }
 }
+.own-icon{
+  font-size: 22px;
+  width: 2rem;
+  min-width: 2rem;
+  margin: 0 0.5rem;
+  text-align: center;
+  color: #f3f3f3 ;
+}
+.own-text{
+  font-size: 18px;
+}
 
 .exc{
   display: flex;
@@ -102,6 +114,7 @@
   width: 100%;
   margin-bottom: 0.625rem;
 }
+
 .exc:hover {
   background-color: #fff;
   color: #000;
@@ -110,12 +123,13 @@
   }
 
 }
-.own-icon{
 
-  font-size: 22px;
-  width: 2rem;
-  min-width: 2rem;
-  margin: 0 0.5rem;
-  text-align: center;
-  color: #f3f3f3 ;
+.active {
+  background-color: #fff;
+
+  .own-icon,
+  .own-text,
+  .sidenav-link-text {
+    color: #000;
+  }
 }

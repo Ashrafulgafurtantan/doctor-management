@@ -1,11 +1,11 @@
 <div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed': ''">
-    <div class="logo-container">
-        <button class="logo" (click)="toggleCollapse()">A</button>
-        <div class="logo-text" *ngIf="collapsed">Angular</div>
-        <button class="btn-close" (click)="closeSidenav()" *ngIf="collapsed" >
-            <i class="fal fa-times close-icon"></i>
-        </button>
-    </div>
+       <div class="logo-container">
+           <button class="logo" (click)="toggleCollapse()">A</button>
+           <div class="logo-text" *ngIf="collapsed">Angular</div>
+           <button class="btn-close" (click)="closeSidenav()" *ngIf="collapsed" >
+               <i class="fal fa-times close-icon"></i>
+           </button>
+       </div>
        <!-- <ul class="sidenav-nav">
             <li class="sidenav-nav-item" *ngFor="let data of navData">
                 <a class="sidenav-nav-link"  [routerLink]="[data.routeLink]" >
@@ -15,34 +15,32 @@
             </li>
         </ul>-->
 
-    <mat-tree style="background-color: #263238" class="sidenav-nav" [dataSource]="dataSource" [treeControl]="treeControl">
-        <!-- This is the tree node template for leaf nodes -->
-        <div >
-            <mat-tree-node style="color: #f3f3f3;text-decoration: none;"
-                           class="sidenav-nav-item" *matTreeNodeDef="let node">
-                <!-- use a disabled button to provide padding for tree leaf -->
-               <div class="exc">
+       <mat-tree style="background-color: #263238" class="sidenav-nav" [dataSource]="dataSource" [treeControl]="treeControl">
+           <!-- This is the tree node template for leaf nodes -->
+           <div >
+               <mat-tree-node style="color: #f3f3f3;text-decoration: none;"
+                              class="sidenav-nav-item" *matTreeNodeDef="let node">
+                   <!-- use a disabled button to provide padding for tree leaf -->
+                   <a class="exc" routerLink="{{ node.routerLink }}"
+                      routerLinkActive="active"
+                      [routerLinkActiveOptions]="{exact:true}"
+                   >
+                       <mat-icon class="own-icon">{{node.icon}}</mat-icon>
+                       <span class="own-text"  *ngIf="collapsed">{{node.name}}</span>
+                   </a>
+               </mat-tree-node>
+           </div>
+           <!-- This is the tree node template for expandable nodes   -->
+           <mat-tree-node style="color: #f3f3f3;text-decoration: none;"
+                          class="sidenav-nav-item" *matTreeNodeDef="let node;when: hasChild" >
+               <a matTreeNodeToggle class="exc"  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{exact:true}">
                    <mat-icon class="own-icon">{{node.icon}}</mat-icon>
-
-                    <span *ngIf="collapsed">{{node.name}}</span>
-               </div>
-            </mat-tree-node>
-        </div>
-            <!-- This is the tree node template for expandable nodes -->
-            <mat-tree-node style="color: #f3f3f3;text-decoration: none;"
-                           class="sidenav-nav-item" *matTreeNodeDef="let node;when: hasChild" >
-                <div class="exc">
-                   <mat-icon class="own-icon ">{{node.icon}}</mat-icon>
-                   <button mat-icon-button matTreeNodeToggle  *ngIf="collapsed"
-                           [attr.aria-label]="'Toggle ' + node.name">
-                       <mat-icon class="mat-icon-rtl-mirror">
-                           {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-                       </mat-icon>
-                   </button>
-                   <span style="font-size: 16px;" *ngIf="collapsed">{{node.name}}</span>
-               </div>
-            </mat-tree-node>
-
-    </mat-tree>
-
+                   <mat-icon class="mat-icon-rtl-mirror"  *ngIf="collapsed">
+                       {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                   </mat-icon>
+                   <span class="own-text" *ngIf="collapsed">{{node.name}}</span>
+               </a>
+           </mat-tree-node>
+       </mat-tree>
 </div>
