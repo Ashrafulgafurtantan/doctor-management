@@ -43,7 +43,6 @@ interface ExampleFlatNode {
   styleUrls: ['./statistics.component.scss']
 })
 export class StatisticsComponent implements OnInit {
-  icon='person';
   private _transformer = (node: SideNavNode, level: number) => {
     return {
       expandable: !!node.children && node.children.length > 0,
