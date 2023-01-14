@@ -24,6 +24,8 @@ import {AttendanceCreateComponent} from "./components/attendance-create/attendan
 import {OrderListComponent} from "./components/order-list/order-list.component";
 import {OrderCreateComponent} from "./components/order-create/order-create.component";
 import {SearchComponent} from "./components/search/search.component";
+import {SidenavComponent} from "./sidenav/sidenav.component";
+import {StatisticsComponent} from "./statistics/statistics.component";
 
 const routes: Routes = [
   {
@@ -51,9 +53,11 @@ const routes: Routes = [
       {path:"slider", component:SliderComponent},
       {path:"slide-toggle", component:SlideToggleComponent},
       {path:"tooltip", component:TooltipsComponent},
-      {path:"button", component:ButtonsComponent},
+      {path:"stat", component:StatisticsComponent},
     ]
   },
+  {path:"button", component:ButtonsComponent},
+  {path:"sid", component:SidenavComponent},
   {path:"login",component:LoginComponent, pathMatch:"full"},
   {path:"", redirectTo:"/home", pathMatch:"full"},
   {path:"**", redirectTo:"/home", pathMatch:"full"},

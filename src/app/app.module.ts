@@ -16,6 +16,7 @@ import { ComponentsModule } from './components/components.module';
 import { BodyComponent } from './body/body.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { StatisticsComponent } from './statistics/statistics.component';
+import {MatTreeModule} from "@angular/material/tree";
 
 @NgModule({
   declarations: [
@@ -25,16 +26,17 @@ import { StatisticsComponent } from './statistics/statistics.component';
     SidenavComponent,
     StatisticsComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    FeatherModule.pick(allIcons),
-    DemoFlexyModule,
-    DashboardModule,
-    ComponentsModule,
-    FormsModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        FeatherModule.pick(allIcons),
+        DemoFlexyModule,
+        DashboardModule,
+        ComponentsModule,
+        FormsModule,
+        MatTreeModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
