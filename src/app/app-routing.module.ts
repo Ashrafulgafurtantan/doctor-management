@@ -17,26 +17,22 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { TooltipsComponent } from './components/tooltips/tooltips.component';
 import { ProductComponent } from './dashboard/dashboard-components/product/product.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { FullComponent } from './layouts/full/full.component';
 import {LoginComponent} from "./components/login/login.component";
 import {AuthGuard} from "./gaurds/auth.guard";
 import {AttendanceCreateComponent} from "./components/attendance-create/attendance-create.component";
 import {OrderListComponent} from "./components/order-list/order-list.component";
 import {OrderCreateComponent} from "./components/order-create/order-create.component";
 import {SearchComponent} from "./components/search/search.component";
-import {SidenavComponent} from "./sidenav/sidenav.component";
-import {StatisticsComponent} from "./statistics/statistics.component";
-
 const routes: Routes = [
   {path:"", redirectTo:"/login", pathMatch:"full"},
-  {path:"home", component:DashboardComponent},
+  {path:"home", component:DashboardComponent, canActivate:[AuthGuard]},
   {path:"alerts", component:AlertsComponent},
-  {path:"create", component:AttendanceCreateComponent},
+  {path:"create", component:AttendanceCreateComponent, canActivate:[AuthGuard]},
   {path:"search", component:SearchComponent},
-  {path:"orders", component:OrderListComponent},
-  {path:"orders/create", component:OrderCreateComponent},
+  {path:"orders", component:OrderListComponent, canActivate:[AuthGuard]},
+  {path:"orders/create", component:OrderCreateComponent, canActivate:[AuthGuard]},
   {path:"forms", component:FormsComponent},
-  {path:"table", component:ProductComponent},
+  {path:"table", component:ProductComponent, canActivate:[AuthGuard]},
   {path:"grid-list", component:GridListComponent},
   {path:"menu", component:MenuComponent, canActivate:[AuthGuard]},
   {path:"tabs", component:TabsComponent},
@@ -49,9 +45,7 @@ const routes: Routes = [
   {path:"slider", component:SliderComponent},
   {path:"slide-toggle", component:SlideToggleComponent},
   {path:"tooltip", component:TooltipsComponent},
-  {path:"stat", component:StatisticsComponent},
   {path:"button", component:ButtonsComponent},
-  {path:"sid", component:SidenavComponent},
   {path:"login",component:LoginComponent, pathMatch:"full"},
   {path:"", redirectTo:"/home", pathMatch:"full"},
   {path:"**", redirectTo:"/home", pathMatch:"full"},
