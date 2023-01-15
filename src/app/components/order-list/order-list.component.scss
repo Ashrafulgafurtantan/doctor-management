@@ -1,16 +1,18 @@
-.mat-row:nth-child(even){
+.mat-row:nth-child(even) {
   background-color: #ddd;
-  text-align: center;
+  //text-align: center;
 }
-.mat-row:nth-child(odd){
+
+.mat-row:nth-child(odd) {
   background-color: white;
-  text-align: center;
+  //text-align: center;
 }
-th{
+
+th {
   font-size: 8pt;
   text-transform: uppercase;
   color: #fff;
   background-color: black;
-  text-align: center;
+  //text-align: center;
 }
 

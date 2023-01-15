@@ -81,8 +81,6 @@ export class OrderListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }

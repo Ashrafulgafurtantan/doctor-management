@@ -69,8 +69,44 @@ ul {
   height: 24px !important;
 }
 
+.align-items-start {
+  align-items: flex-start;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.align-items-end {
+  align-items: flex-end;
+}
+
+.justify-content-start {
+  justify-content: start;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.justify-content-end {
+  justify-content: end;
+}
+
 .w-100 {
   width: 100%;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.w-60 {
+  width: 60%;
+}
+
+.w-40 {
+  width: 40%;
 }
 
 .h-100 {
@@ -106,29 +142,6 @@ ul {
   display: block !important;
 }
 
-.align-items-start {
-  align-items: flex-start;
-}
-
-.align-items-center {
-  align-items: center;
-}
-
-.align-items-end {
-  align-items: flex-end;
-}
-
-.justify-content-start {
-  justify-content: start;
-}
-
-.justify-content-center {
-  justify-content: center;
-}
-
-.justify-content-end {
-  justify-content: end;
-}
 
 .text-start {
   text-align: start;
@@ -141,8 +154,6 @@ ul {
 .text-end {
   text-align: end;
 }
-
-
 
 
 // @=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@
@@ -180,7 +191,6 @@ ul {
 .me-auto {
   margin-right: auto;
 }
-
 
 
 // @=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@
@@ -223,7 +233,6 @@ ul {
 }
 
 
-
 // @=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@
 // Opacity
 // @=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@
@@ -231,9 +240,11 @@ ul {
 .op-7 {
   opacity: 0.7;
 }
+
 .op-6 {
   opacity: 0.6;
 }
+
 .op-5 {
   opacity: 0.5;
 }

@@ -1,1 +1,223 @@
-<p>order-create works!</p>
+<div class="card">
+    <div class="card-body">
+        <h4 class="mb-32">Order Create</h4>
+        <form (ngSubmit)="submitOrder()">
+            <div class="container">
+                <div>
+                    <mat-form-field appearance="outline">
+                        <input (focus)="picker.open()" [matDatepicker]="picker" matInput placeholder="Attendance Date"
+                               readonly>
+                        <mat-icon matSuffix>today</mat-icon>
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                    </mat-form-field>
+                    <mat-datepicker #picker></mat-datepicker>
+                </div>
+                <div>
+                    <mat-form-field appearance="outline">
+                        <input (focus)="picker2.open()" [matDatepicker]="picker2" matInput placeholder="Attendance Date"
+                               readonly>
+                        <mat-icon matSuffix>today</mat-icon>
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                    </mat-form-field>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </div>
+                <div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Choose an option</mat-label>
+                        <mat-select>
+                            <mat-option value="option1">option1</mat-option>
+                            <mat-option value="option2">option2</mat-option>
+                            <mat-option value="option3">option3</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="container">
+                <div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Bill To</mat-label>
+                        <mat-select>
+                            <mat-option value="option1">Bill Option 1</mat-option>
+                            <mat-option value="option2">Bill Option 2</mat-option>
+                            <mat-option value="option3">Bill Option 3</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="fill" class="w-100 fs-16">
+                        <mat-label>Address</mat-label>
+                        <textarea matInput placeholder="Address" rows="2"></textarea>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="outline" class="w-100 fs-16">
+                        <mat-label>Patient Name</mat-label>
+                        <input matInput placeholder="Patient Name" type="text">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="container">
+                <div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Select Item</mat-label>
+                        <mat-select>
+                            <mat-option value="option1">Item 1</mat-option>
+                            <mat-option value="option2">Item 2</mat-option>
+                            <mat-option value="option3">Item 3</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="outline" class="w-100 fs-16">
+                        <mat-label>Order No</mat-label>
+                        <input matInput placeholder="Order No" type="text">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="d-flex"> <!--  tooth and table -->
+                <div class="w-60"><!--  left and right side teeth-->
+                    <div class="d-flex">
+                        <div class="w-50"> <!--  left side teeth-->
+                            <div class="green-div"><!--  Green DIV-->
+                                <div *ngFor="let item of leftUpper" class="tooth-num-div"> <!--  Teeth & Num-->
+                                    <span>{{item}}</span>
+                                    <i class="fal fa-tooth own-icon"></i>
+                                </div>
+                            </div>
+                            <div class="green-div"><!--  Green DIV-->
+                                <div *ngFor="let item of leftDown" class="tooth-num-div"> <!--  Teeth & Num-->
+                                    <span>{{item}}</span>
+                                    <i class="fal fa-tooth own-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-50"><!--  Right side teeth-->
+                            <div class="green-div"><!--  Green DIV-->
+                                <div *ngFor="let item of rightUpper" class="tooth-num-div"> <!--  Teeth & Num-->
+                                    <span>{{item}}</span>
+                                    <i class="fal fa-tooth own-icon"></i>
+                                </div>
+                            </div>
+                            <div class="green-div"><!--  Green DIV-->
+                                <div *ngFor="let item of rightDown" class="tooth-num-div"> <!--  Teeth & Num-->
+                                    <span>{{item}}</span>
+                                    <i class="fal fa-tooth own-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <button class="jaw-type-size-btn-color expand-in-specif-place" color="primary"
+                                mat-raised-button>Upper Jaw
+                        </button>
+                        <button class="jaw-type-size-btn-color expand-in-specif-place" color="primary"
+                                mat-raised-button>Lower Jaw
+                        </button>
+                        <button class="jaw-type-size-btn-color expand-in-specif-place" color="primary"
+                                mat-raised-button>Both Jaw
+                        </button>
+                    </div>
+                    <div class="container">
+                        <button class="jaw-type-size-btn-color expand-in-specif-place" color="primary"
+                                mat-raised-button>Small
+                        </button>
+                        <button class="jaw-type-size-btn-color expand-in-specif-place" color="primary"
+                                mat-raised-button>Medium
+                        </button>
+                        <button class="jaw-type-size-btn-color expand-in-specif-place" color="primary"
+                                mat-raised-button>Large
+                        </button>
+                    </div>
+                    <div class="container">
+                        <div class=" expand-in-specif-place">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Select Shade Guide</mat-label>
+                                <mat-select>
+                                    <mat-option value="option1">Shade Guide 1</mat-option>
+                                    <mat-option value="option2">Shade Guide 2</mat-option>
+                                    <mat-option value="option3">Shade Guide 3</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class=" expand-in-specif-place">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Shade</mat-label>
+                                <mat-select>
+                                    <mat-option value="option1">Shade 1</mat-option>
+                                    <mat-option value="option2">Shade 2</mat-option>
+                                    <mat-option value="option3">Shade 3</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class=" expand-in-specif-place">
+                            <mat-form-field appearance="fill" class="w-100 fs-16">
+                                <mat-label>Order Note</mat-label>
+                                <textarea matInput placeholder="Order Note" rows="2"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-40">
+                    <div>
+                        <div class="table-responsive">
+                            <table [dataSource]="dataSource" class="text-nowrap w-100" mat-table>
+                                <ng-container matColumnDef="actions">
+                                    <th *matHeaderCellDef mat-header-cell> Actions</th>
+                                    <td *matCellDef="let element" class="fw-medium" mat-cell>
+                                        <button color="warn" mat-icon-button>
+                                            <mat-icon aria-label="icon-button">cancel</mat-icon>
+                                        </button>
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="itemName">
+                                    <th *matHeaderCellDef mat-header-cell>Item Name</th>
+                                    <td *matCellDef="let element" class="fw-medium"
+                                        mat-cell> {{element['itemName']}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="description">
+                                    <th *matHeaderCellDef mat-header-cell> Description</th>
+                                    <td *matCellDef="let element" class="fw-medium"
+                                        mat-cell> {{element['description']}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="qty">
+                                    <th *matHeaderCellDef mat-header-cell> QTY</th>
+                                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['qty']}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="price">
+                                    <th *matHeaderCellDef mat-header-cell> Price</th>
+                                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['price']}} </td>
+                                </ng-container>
+                                <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+                                <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+                            </table>
+                        </div>
+                        <div>
+                            <table class="html-table" style="width: 100%;border-collapse: collapse;">
+                                <tr>
+                                    <td>Sub Total</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>Discount</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>Total</td>
+                                    <td>0</td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div>
+                    <button class="search" mat-raised-butto type="submit">SUBMIT</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

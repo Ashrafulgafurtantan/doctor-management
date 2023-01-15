@@ -1,28 +1,29 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FeatherModule } from 'angular-feather';
-import { allIcons } from 'angular-feather/icons';
-import { FormsModule } from '@angular/forms'
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {FeatherModule} from 'angular-feather';
+import {allIcons} from 'angular-feather/icons';
+import {FormsModule} from '@angular/forms'
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import { DemoFlexyModule } from './demo-flexy-module'
+import {DemoFlexyModule} from './demo-flexy-module'
 
 // Modules
-import { DashboardModule } from './dashboard/dashboard.module';
-import { ComponentsModule } from './components/components.module';
-import { BodyComponent } from './body/body.component';
-import { SidenavComponent } from './sidenav/sidenav.component';
+import {DashboardModule} from './dashboard/dashboard.module';
+import {ComponentsModule} from './components/components.module';
+import {BodyComponent} from './body/body.component';
+import {SidenavComponent} from './sidenav/sidenav.component';
 import {MatTreeModule} from "@angular/material/tree";
+import {MAT_DATE_LOCALE} from "@angular/material/core";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    BodyComponent,
-    SidenavComponent,
-  ],
+    declarations: [
+        AppComponent,
+        BodyComponent,
+        SidenavComponent,
+    ],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -34,7 +35,10 @@ import {MatTreeModule} from "@angular/material/tree";
         FormsModule,
         MatTreeModule
     ],
-  providers: [],
-  bootstrap: [AppComponent]
+    providers: [
+        {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
+    ],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
