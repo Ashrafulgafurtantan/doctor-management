@@ -248,3 +248,23 @@ ul {
 .op-5 {
   opacity: 0.5;
 }
+
+.block-btn-global {
+  display: block;
+  width: 100%;
+
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.submit-btn-global {
+  background-color: #03C9D7FF;
+  margin: 0px 7px 0px 0px;
+}
+
+.cancel-btn-global {
+  background-color: #E46A76FF;
+  margin: 0px 0px 0px 7px;
+}

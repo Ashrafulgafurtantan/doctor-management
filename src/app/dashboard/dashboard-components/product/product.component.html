@@ -4,50 +4,52 @@
 
     <mat-grid-list cols="4" rowHeight="40px">
       <mat-grid-tile colspan="3">
-        <span class="title" >Attendance</span>
+        <span class="title">Attendance</span>
       </mat-grid-tile>
       <mat-grid-tile colspan="1">
-        <button mat-raised-button color="info" class="create-attendance" (click)="createAttendance()" >Create Attendance</button>
+        <button (click)="createAttendance()" class="create-attendance"
+                color="info" mat-raised-button>Create Attendance
+        </button>
       </mat-grid-tile>
     </mat-grid-list>
 
     <mat-form-field appearance="fill">
       <mat-label>Search</mat-label>
-      <input matInput (keyup)="applyFilter($event.target)">
+      <input (keyup)="applyFilter($event.target)" matInput>
     </mat-form-field>
     <div class="table-responsive">
-      <table mat-table [dataSource]="dataSource" class="text-nowrap w-100" matSort>
+      <table [dataSource]="dataSource" class="text-nowrap w-100" mat-table matSort>
 
         <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee ID </th>
-          <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.id}} </td>
+          <th *matHeaderCellDef mat-header-cell mat-sort-header> Employee ID</th>
+          <td *matCellDef="let element" class="fw-medium" mat-cell> {{element.id}} </td>
         </ng-container>
 
         <ng-container matColumnDef="assigned">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name </th>
-          <td mat-cell class="fw-medium" *matCellDef="let element"> {{element.name}} </td>
+          <th *matHeaderCellDef mat-header-cell mat-sort-header> Employee Name</th>
+          <td *matCellDef="let element" class="fw-medium" mat-cell> {{element.name}} </td>
         </ng-container>
 
         <ng-container matColumnDef="priority">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Present Info </th>
-          <td mat-cell *matCellDef="let element">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header> Present Info</th>
+          <td *matCellDef="let element" mat-cell>
             <span class="badge {{element.badge}} rounded-pill">{{element.priority}}</span>
           </td>
         </ng-container>
 
         <ng-container matColumnDef="date">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Attendance Date </th>
-          <td mat-cell *matCellDef="let element">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header> Attendance Date</th>
+          <td *matCellDef="let element" mat-cell>
             <p class="mb-0 fw-medium">{{element.date}}</p>
           </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
       </table>
       <mat-paginator [length]="products.length"
-                     [pageSize]="3"
                      [pageSizeOptions]="[3, 10, 25, 100]"
+                     [pageSize]="3"
                      aria-label="Select page">
       </mat-paginator>
     </div>

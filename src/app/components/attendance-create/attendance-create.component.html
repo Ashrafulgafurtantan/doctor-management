@@ -2,8 +2,8 @@
     <mat-card-content>
         <h3>Create Attendance</h3>
         <mat-form-field appearance="outline">
-            <input matInput placeholder="Attendance Date" [matDatepicker]="picker" (focus)="picker.open()" readonly>
-            <mat-hint>MM/DD/YYYY</mat-hint>
+            <input (focus)="picker.open()" [matDatepicker]="picker" matInput placeholder="Attendance Date" readonly>
+            <mat-hint>DD/MM/YYYY</mat-hint>
         </mat-form-field>
         <mat-datepicker #picker></mat-datepicker>
 
@@ -23,20 +23,40 @@
                 <tr *ngFor="let p of products; let i=index; let odd = odd" [ngClass]="odd ? 'odd_col' : 'even_col'">
                     <td>{{ p.employeeId }}</td>
                     <td>{{ p.employeeName }}</td>
-                    <td><mat-checkbox color="primary" value="{{p.present}}" [(ngModel)]="products[i].present" class="d-block mb-16">P</mat-checkbox></td>
-                    <td><mat-checkbox color="primary" value="{{p.halfPresent}}" [(ngModel)]="products[i].halfPresent" class="d-block mb-16">HP</mat-checkbox></td>
-                    <td><mat-checkbox color="primary" value="{{p.leave}}" [(ngModel)]="products[i].leave" class="d-block mb-16">L</mat-checkbox></td>
-                    <td><mat-checkbox color="primary" value="{{p.absent}}" [(ngModel)]="products[i].absent" class="d-block mb-16">A</mat-checkbox></td>
+                    <td>
+                        <mat-checkbox [(ngModel)]="products[i].present" class="d-block mb-16" color="primary"
+                                      value="{{p.present}}">P
+                        </mat-checkbox>
+                    </td>
+                    <td>
+                        <mat-checkbox [(ngModel)]="products[i].halfPresent" class="d-block mb-16" color="primary"
+                                      value="{{p.halfPresent}}">HP
+                        </mat-checkbox>
+                    </td>
+                    <td>
+                        <mat-checkbox [(ngModel)]="products[i].leave" class="d-block mb-16" color="primary"
+                                      value="{{p.leave}}">L
+                        </mat-checkbox>
+                    </td>
+                    <td>
+                        <mat-checkbox [(ngModel)]="products[i].absent" class="d-block mb-16" color="primary"
+                                      value="{{p.absent}}">A
+                        </mat-checkbox>
+                    </td>
                 </tr>
                 </tbody>
             </table>
 
             <mat-grid-list cols="4" rowHeight="40px">
                 <mat-grid-tile colspan="3">
-                    <button mat-raised-button class="block submit" color="primary" (click)="submit()">Create</button>
+                    <button (click)="submit()" class="block-btn-global submit-btn-global" color="primary"
+                            mat-raised-button>Create
+                    </button>
                 </mat-grid-tile>
                 <mat-grid-tile colspan="1">
-                    <button mat-raised-button class="block cancel" color="danger" (click)="cancel()">Cancel</button>
+                    <button (click)="cancel()" class="block-btn-global cancel-btn-global" color="danger"
+                            mat-raised-button>Cancel
+                    </button>
                 </mat-grid-tile>
             </mat-grid-list>
         </div>

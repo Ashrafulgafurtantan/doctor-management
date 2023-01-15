@@ -21,34 +21,34 @@ export class OrderCreateComponent implements OnInit {
 
     constructor(private _router: Router) {
         this.itemList = [
-            /* {
-                 itemName: "Jasmine",
-                 description: "Edward",
-                 qty: "001",
-                 price: "5048",
+            {
+                itemName: "Jasmine",
+                description: "Edward",
+                qty: "001",
+                price: "5048",
 
-             },
-             {
+            },
+            {
 
-                 itemName: "Martin",
-                 description: "Chandler",
-                 qty: "002",
-                 price: "2796",
-             },
-             {
+                itemName: "Martin",
+                description: "Chandler",
+                qty: "002",
+                price: "2796",
+            },
+            {
 
-                 itemName: "Killian",
-                 description: "Lillian",
-                 qty: "003",
-                 price: "7698",
-             },
-             {
+                itemName: "Killian",
+                description: "Lillian",
+                qty: "003",
+                price: "7698",
+            },
+            {
 
-                 itemName: "Rylie",
-                 description: "Kyla",
-                 qty: "004",
-                 price: "2828",
-             },*/
+                itemName: "Rylie",
+                description: "Kyla",
+                qty: "004",
+                price: "2828",
+            },
 
         ];
         this.dataSource = new MatTableDataSource(this.itemList);
