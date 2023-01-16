@@ -1,21 +1,35 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {AuthenticationService} from "./services/authentication.service";
+import {TREE_DATA} from "./sidenav/nav-data";
+
 interface SideNavToggle {
-  screenWidth: number;
-  collapsed: boolean;
+    screenWidth: number;
+    collapsed: boolean;
 }
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'flexy-angular';
-  isSideNavCollapsed = false;
-  screenWidth = 0;
+export class AppComponent implements OnInit {
+    title = 'Vivadent';
+    isSideNavCollapsed = false;
+    screenWidth = 0;
+    isLoginPage = false;
 
-  onToggleSideNav(data: SideNavToggle): void {
-    this.screenWidth = data.screenWidth;
-    this.isSideNavCollapsed = data.collapsed;
-  }
+    onToggleSideNav(data: SideNavToggle): void {
+        this.screenWidth = data.screenWidth;
+        this.isSideNavCollapsed = data.collapsed;
+    }
+
+    ngOnInit(): void {
+        let url: string = window.location.href;
+        const array = url.split("/");
+        const lastElement = array.pop();
+        if (lastElement == 'login')
+            this.isLoginPage = true;
+        console.log(this.isLoginPage);
+    }
+
 }

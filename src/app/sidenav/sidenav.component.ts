@@ -1,13 +1,15 @@
-import { Component, Output, EventEmitter, OnInit, HostListener } from '@angular/core';
+import {Component, Output, EventEmitter, OnInit, HostListener} from '@angular/core';
 import {TREE_DATA} from "./nav-data";
-import {SideNavNode,ExampleFlatNode} from './helper';
+import {SideNavNode, ExampleFlatNode} from './helper';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
+import {AuthenticationService} from "../services/authentication.service";
 
 interface SideNavToggle {
   screenWidth: number;
   collapsed: boolean;
 }
+
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
@@ -18,12 +20,16 @@ export class SidenavComponent implements OnInit {
   screenWidth = 0;
   collapsed = false;
 
-  constructor() {
+  constructor(private _authService: AuthenticationService) {
     this.dataSource.data = TREE_DATA;
   }
 
   ngOnInit(): void {
     this.screenWidth = window.innerWidth;
+  }
+
+  logout() {
+    this._authService.logout();
   }
 
   toggleCollapse(): void {
@@ -60,10 +66,11 @@ export class SidenavComponent implements OnInit {
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.screenWidth = window.innerWidth;
-    if(this.screenWidth <= 768 ) {
+    if (this.screenWidth <= 768) {
       this.collapsed = false;
       this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
     }

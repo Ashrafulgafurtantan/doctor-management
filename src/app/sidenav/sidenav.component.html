@@ -40,6 +40,7 @@
             </mat-tree-node>
         </mat-tree>
     </div>
+    <!--    LOGOUT-->
     <mat-toolbar class="header ps-24 pe-24">
         <div class="ms-auto">
             <button [matMenuTriggerFor]="menu" class="fs-16 pt-4 pb-4 ps-8 pe-8 text-light-muted" mat-button>
@@ -57,7 +58,7 @@
                 <hr>
 
                 <div class="p-16">
-                    <button class="btn btn-info w-100" mat-button>Logout</button>
+                    <button (click)="logout()" class="btn btn-info w-100" mat-button>Logout</button>
                 </div>
 
             </mat-menu>

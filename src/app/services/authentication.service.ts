@@ -56,7 +56,8 @@ export class AuthenticationService {
     logout() {
         this.authState.next(false);
         this.storageService.clearStorage();
-        this._router.navigate(['login'], {state: {needCredentials: true}});
+        window.location.assign('login');
+        // this._router.navigate(['login'], {state: {needCredentials: true}});
         //this._router.navigateByUrl('/', {replaceUrl: true});
     }
 

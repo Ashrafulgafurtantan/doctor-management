@@ -41,7 +41,8 @@ export class LoginComponent implements OnInit {
                     (resp: any) => {
                         console.log(resp);
                         if (!resp.message) {
-                            this._router.navigate(['home'], {state: {needCredentials: true}});
+                            window.location.assign('home');
+                            // this._router.navigate(['home'], {state: {needCredentials: true}});
                         } else {
                             // this._messageService.showToastMessage(msg, false);
                         }
