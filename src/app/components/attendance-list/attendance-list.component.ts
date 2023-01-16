@@ -1,17 +1,19 @@
 // @ts-nocheck
 import {Component, OnInit, ViewChild} from '@angular/core';
+import {Router} from "@angular/router";
+import {AttendanceService} from "../../services/attendance.service";
+import {MatDatepickerInputEvent} from "@angular/material/datepicker";
+import {MatTable, MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
-import {MatTableDataSource} from "@angular/material/table";
-import {Router} from "@angular/router";
-import {AttendanceService} from "../../../services/attendance.service";
+import {PeriodicElement} from "../../dashboard/dashboard-components/product/product.component";
 
-export interface PeriodicElement {
-    id: number;
-    name: string;
-    priority: string;
-    badge: string;
+export interface TableElement {
+    id: string;
+    employee_id: string;
     date: string;
+    status: string;
+    badge: string;
 }
 
 enum AttendanceStatus {
@@ -34,26 +36,24 @@ enum AttendanceStatus {
     },
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [];
-
+const ELEMENT_DATA: TableElement[] = [];
 
 @Component({
-    selector: 'app-product',
-    templateUrl: './product.component.html',
-    styleUrls: ['./product.component.scss']
+    selector: 'app-attendance-list',
+    templateUrl: './attendance-list.component.html',
+    styleUrls: ['./attendance-list.component.scss']
 })
-export class ProductComponent implements OnInit {
+export class AttendanceListComponent implements OnInit {
 
-    displayedColumns: string[] = ['id', 'assigned', 'priority', 'date'];
-    dataSource: MatTableDataSource<any>;
-    products: PeriodicElement[];
-
-    @ViewChild(MatSort, {static: true}) sort: MatSort | any;
+    displayedColumns: string[] = ['date', 'employee_id', 'id', 'status'];
+    dataSource: MatTableDataSource<TableElement>;
+    attendanceList: TableElement[];
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator | any;
+    @ViewChild(MatSort, {static: true}) sort: MatSort | any;
 
     constructor(private _router: Router, private _attendanceService: AttendanceService) {
-        this.products = ELEMENT_DATA;
-        this.dataSource = new MatTableDataSource(this.products);
+        this.attendanceList = ELEMENT_DATA;
+        this.dataSource = new MatTableDataSource(this.attendanceList);
     }
 
     ngOnInit(): void {
@@ -66,20 +66,19 @@ export class ProductComponent implements OnInit {
             for (let key in resp) {
                 const obj = resp[key];
                 obj.forEach((item: any) => {
-                    const real: PeriodicElement = {
-                        priority: AttendanceStatus[item.status]['status'],
+                    const real: TableElement = {
                         badge: AttendanceStatus[item.status]['color'],
-                        date: '23-0-2023',
                         id: item.id,
-                        name: item.employee_id,
+                        employee_id: item.employee_id,
+                        date: item.date.substring(0, 10),
+                        status: AttendanceStatus[item.status]['status'],
                     }
                     ELEMENT_DATA.push(real);
-
                 });
             }
-            this.products = [];
-            this.products = ELEMENT_DATA;
-            this.dataSource = new MatTableDataSource(this.products);
+            this.attendanceList = [];
+            this.attendanceList = ELEMENT_DATA;
+            this.dataSource = new MatTableDataSource(this.attendanceList);
             setTimeout(() => {
                 this.dataSource.sort = this.sort;
                 this.dataSource.paginator = this.paginator

@@ -12,7 +12,7 @@ export class AuthenticationService {
     authState = new BehaviorSubject(false);
 
     constructor(
-        private router: Router,
+        private _router: Router,
         private http: HttpClient,
         private storageService: StorageService
     ) {
@@ -34,7 +34,6 @@ export class AuthenticationService {
             tap((resp: any) => {
                 if (!resp.message) {
                     this.saveTOStorage(resp);
-                    //  this.getStorageInfo();
                 } else {
                     this.authState.next(false);
                 }
@@ -57,6 +56,8 @@ export class AuthenticationService {
     logout() {
         this.authState.next(false);
         this.storageService.clearStorage();
+        this._router.navigate(['login'], {state: {needCredentials: true}});
+        //this._router.navigateByUrl('/', {replaceUrl: true});
     }
 
 }

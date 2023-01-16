@@ -1,71 +1,66 @@
-import { Component, OnInit } from '@angular/core';
-import {Product} from "../../models/attendance.model";
+import {Component, OnInit} from '@angular/core';
+import {AttendanceModel} from "../../models/attendance.model";
 import {Router} from "@angular/router";
+import {AttendanceService} from "../../services/attendance.service";
+import {Subscription} from "rxjs";
+import {MatDatepickerInputEvent} from "@angular/material/datepicker";
 
 @Component({
-  selector: 'app-attendance-create',
-  templateUrl: './attendance-create.component.html',
-  styleUrls: ['./attendance-create.component.scss']
+    selector: 'app-attendance-create',
+    templateUrl: './attendance-create.component.html',
+    styleUrls: ['./attendance-create.component.scss']
 })
 export class AttendanceCreateComponent implements OnInit {
 
-  constructor(private _router:Router) { }
+    attendanceList: AttendanceModel[] = [];
+    employeeListSubscription: Subscription | undefined;
+    dateTimeString: string | undefined;
+    dateError: boolean = false;
 
-  ngOnInit(): void {
-    this.getProducts();
-  }
-  products: Product[] = [];
+    constructor(private _router: Router, private _attendanceService: AttendanceService) {
+    }
+
+    ngOnInit(): void {
+        this.getEmployeeList();
+    }
+
+    addEvent(event: MatDatepickerInputEvent<Date>) {
+        this.dateTimeString = event.value?.toLocaleDateString();
+    }
+
+    getEmployeeList() {
+        this.employeeListSubscription = this._attendanceService.getEmployeeList().subscribe((resp: any) => {
+            resp.forEach((item: any) => {
+                let attendance = new AttendanceModel();
+                attendance.id = item.id;
+                attendance.name = item.name;
+                this.attendanceList.push(attendance);
+            });
+        });
+    }
 
 
-  getProducts(): void {
-    this.products=[
+    onSubmit() {
+        if (this.dateTimeString == undefined) {
+            this.dateError = true;
+            return;
+        }
+        this.attendanceList.map((item: AttendanceModel) => {
+            item.status = item.present ? 1 : item.halfPresent ? 2 : item.leave ? 3 : 4;
+        });
+        const obj = {
+            date: this.dateTimeString,
+            employees: [
+                ...this.attendanceList
+            ]
+        };
+        this._attendanceService.postAttendance(obj).subscribe((resp: any) => {
+            console.log(resp);
+        });
 
-      {
-        employeeId: 1,
-        employeeName: "Ashraf",
-        leave: false,
-        absent:false,
-        present: false,
-        halfPresent: false,
-      },
-      {
-      employeeId: 2,
-        employeeName: "Sun",
-        leave: false,
-        absent:false,
-        present: false,
-        halfPresent: false,
-      },
-      {
-        employeeId: 3,
-        employeeName: "Akram",
-        leave: false,
-        absent:false,
-        present: false,
-        halfPresent: false,
-      },
-      {
-        employeeId: 4,
-        employeeName: "Ryan",
-        leave: false,
-        absent:false,
-        present: false,
-        halfPresent: false,
-      },  {
-        employeeId: 5,
-        employeeName: "Ifti",
-        leave: false,
-        absent:false,
-        present: false,
-        halfPresent: false,
-      },
+    }
 
-    ];
-  }
-  submit(){
-    console.log(this.products);
-  }
-  cancel(){
-    this._router.navigateByUrl('/table').then();
-  }
+    cancel() {
+        this._router.navigateByUrl('/table').then();
+    }
 }

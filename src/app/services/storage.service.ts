@@ -8,7 +8,7 @@ export class StorageService {
     token: string | any;
     url: string | any;
 
-    constructor(private _router: Router) {
+    constructor() {
     }
 
     setStorage(key: any, value: any) {
@@ -21,6 +21,5 @@ export class StorageService {
 
     clearStorage() {
         localStorage.clear();
-        this._router.navigateByUrl('/', {replaceUrl: true});
     }
 }

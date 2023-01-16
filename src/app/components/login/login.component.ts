@@ -32,19 +32,6 @@ export class LoginComponent implements OnInit {
           }*/
     }
 
-    /*    onSubmit() {
-            this.user.username = this.loginForm.value.username;
-            this.user.password = this.loginForm.value.password;
-            if (this.user.username.toLowerCase() == 'admin') {
-                this.user.role = 1;
-            } else {
-                this.user.role = 2;
-            }
-            localStorage.setItem("currentUser", JSON.stringify(this.user));
-            this._router.navigate(['home'], {state: {needCredentials: true}});
-            // this._router.navigateByUrl('/home',{ state: {user:"Hello", foo: 'bar'} }).then(r => console.log(""));
-        }*/
-
     onSubmit() {
 
         if (this.loginForm.valid) {

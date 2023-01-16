@@ -1,8 +1,10 @@
 <div>
     <div [ngClass]="collapsed ? 'sidenav-collapsed': ''" class="sidenav">
         <div class="logo-container">
-            <button (click)="toggleCollapse()" class="logo">A</button>
-            <div *ngIf="collapsed" class="logo-text">Angular</div>
+            <img (click)="toggleCollapse()" alt="" class="rounded-circle" src="assets/images/logo.jpg"
+                 style="width: 50px;height: 50px;">
+
+            <div *ngIf="collapsed" class="logo-text">Vivadent</div>
             <button (click)="closeSidenav()" *ngIf="collapsed" class="btn-close">
                 <i class="fal fa-times close-icon"></i>
             </button>
@@ -41,9 +43,9 @@
     <mat-toolbar class="header ps-24 pe-24">
         <div class="ms-auto">
             <button [matMenuTriggerFor]="menu" class="fs-16 pt-4 pb-4 ps-8 pe-8 text-light-muted" mat-button>
-                <img alt="" class="rounded-circle" src="assets/images/user2.webp">
+                <img alt="" class="rounded-circle" src="assets/images/logo.jpg" style="width: 50px;height: 50px">
                 <span class="fw-light ms-8 text-secondary">Hi,</span>
-                <span class="fw-bold ms-8">Julia</span>
+                <span class="fw-bold ms-8">Jahid</span>
                 <i-feather class="feather-base mt-n2" name="chevron-down"></i-feather>
             </button>
             <mat-menu #menu="matMenu" class="profile-dropdown">

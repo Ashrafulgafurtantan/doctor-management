@@ -1,8 +1,9 @@
-export interface Product  {
-    employeeId?: number;
-    employeeName?: string;
-    present?: boolean;
-    halfPresent?: boolean;
-    absent?: boolean;
-    leave?: boolean;
+export class AttendanceModel {
+    id: number | undefined;
+    name: string | undefined;
+    present: boolean = false;
+    halfPresent: boolean = false;
+    absent: boolean = false;
+    leave: boolean = false;
+    status: number | undefined;
 }

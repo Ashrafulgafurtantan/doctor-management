@@ -3,60 +3,62 @@
         <h4 class="mb-32">Orders List</h4>
         <mat-form-field appearance="fill">
             <mat-label>Search</mat-label>
-            <input matInput (keyup)="applyFilter($event.target)">
+            <input (keyup)="applyFilter($event.target)" matInput>
         </mat-form-field>
         <div class="table-responsive">
-            <table mat-table [dataSource]="dataSource" class="text-nowrap w-100" matSort>
+            <table [dataSource]="dataSource" class="text-nowrap w-100" mat-table matSort>
                 <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>ID </th>
-                    <td mat-cell class="fw-medium" *matCellDef="let element"> {{element['id']}} </td>
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header>ID</th>
+                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['id']}} </td>
                 </ng-container>
                 <ng-container matColumnDef="orderNo">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Order No </th>
-                    <td mat-cell class="fw-medium" *matCellDef="let element"> {{element['orderNo']}} </td>
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header> Order No</th>
+                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['orderNo']}} </td>
                 </ng-container>
                 <ng-container matColumnDef="clientName">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Name  </th>
-                    <td mat-cell class="fw-medium" *matCellDef="let element"> {{element['clientName']}} </td>
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header> Client Name</th>
+                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['clientName']}} </td>
                 </ng-container>
                 <ng-container matColumnDef="orderDate">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Date </th>
-                    <td mat-cell *matCellDef="let element">
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header> Order Date</th>
+                    <td *matCellDef="let element" mat-cell>
                         <p class="mb-0 fw-medium">{{element['orderDate']}}</p>
                     </td>
                 </ng-container>
                 <ng-container matColumnDef="patientName">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Patient Name </th>
-                    <td mat-cell class="fw-medium" *matCellDef="let element"> {{element['patientName']}} </td>
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header> Patient Name</th>
+                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['patientName']}} </td>
                 </ng-container>
                 <ng-container matColumnDef="deliveryDate">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Delivery Date </th>
-                    <td mat-cell class="fw-medium" *matCellDef="let element"> {{element['deliveryDate']}} </td>
-                </ng-container> <ng-container matColumnDef="madeBy">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Made By </th>
-                <td mat-cell class="fw-medium" *matCellDef="let element"> {{element['madeBy']}} </td>
-                </ng-container> <ng-container matColumnDef="amount">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Amount </th>
-                    <td mat-cell class="fw-medium" *matCellDef="let element"> {{element['amount']}} </td>
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header> Delivery Date</th>
+                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['deliveryDate']}} </td>
+                </ng-container>
+                <ng-container matColumnDef="madeBy">
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header> Made By</th>
+                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['madeBy']}} </td>
+                </ng-container>
+                <ng-container matColumnDef="amount">
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header> Amount</th>
+                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['amount']}} </td>
                 </ng-container>
                 <ng-container matColumnDef="status">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-                    <td mat-cell class="fw-medium" *matCellDef="let element"> {{element['status']}} <br>
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header> Status</th>
+                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['status']}} <br>
                         <button mat-icon-button style="color: #00C292FF">
                             <mat-icon aria-label="icon-button">edit_square</mat-icon>
                         </button>
                     </td>
                 </ng-container>
                 <ng-container matColumnDef="actions">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
-                    <td mat-cell class="fw-medium" *matCellDef="let element">
-                        <button mat-icon-button color="primary">
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header> Actions</th>
+                    <td *matCellDef="let element" class="fw-medium" mat-cell>
+                        <button color="primary" mat-icon-button>
                             <mat-icon aria-label="icon-button">edit_square</mat-icon>
                         </button>
-                        <button mat-icon-button color="accent">
+                        <button color="accent" mat-icon-button>
                             <mat-icon aria-label="icon-button">print</mat-icon>
                         </button>
-                        <button mat-icon-button color="warn">
+                        <button color="warn" mat-icon-button>
                             <mat-icon aria-label="icon-button">cancel</mat-icon>
                         </button>
 
@@ -64,14 +66,13 @@
                 </ng-container>
 
 
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+                <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
             </table>
-            <mat-paginator [length]="itemList.length"
+            <mat-paginator [pageSizeOptions]="[3, 10, 25, 100]"
                            [pageSize]="3"
-                           [pageSizeOptions]="[3, 10, 25, 100]"
-                           aria-label="Select page">
+                           aria-label="Select page"
+                           length="28">
             </mat-paginator>
         </div>
     </mat-card-content>
