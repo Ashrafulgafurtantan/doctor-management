@@ -29,11 +29,11 @@
             <!-- This is the tree node template for expandable nodes   -->
             <mat-tree-node *matTreeNodeDef="let node;when: hasChild"
                            class="sidenav-nav-item" style="color: #f3f3f3;text-decoration: none;">
-                <a [routerLinkActiveOptions]="{exact:true}" class="exc" matTreeNodeToggle
+                <a style="position: relative" [routerLinkActiveOptions]="{exact:true}" class="exc" matTreeNodeToggle
                    routerLinkActive="active">
                     <mat-icon class="own-icon">{{node.icon}}</mat-icon>
-                    <mat-icon *ngIf="collapsed" class="mat-icon-rtl-mirror">
-                        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                    <mat-icon style="position: absolute; right: 1px;" *ngIf="collapsed" class="mat-icon-rtl-mirror">
+                        {{treeControl.isExpanded(node) ? 'expand_less' : 'expand_more'}}
                     </mat-icon>
                     <span *ngIf="collapsed" class="own-text">{{node.name}}</span>
                 </a>
