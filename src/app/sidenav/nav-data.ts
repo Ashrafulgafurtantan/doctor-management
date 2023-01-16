@@ -8,9 +8,20 @@ export const TREE_DATA: SideNavNode[] = [
     },
     {
         name: 'Employee',
-        icon: 'person',
+        icon: 'manage_accounts',
         routerLink: '/',
-        children: [{name: 'Attendance', icon: 'adjust', routerLink: '/attendance-list'}],
+        children: [
+            {name: 'Attendance', icon: 'adjust', routerLink: '/attendance-list'},
+            {name: 'Employee Create', icon: 'adjust', routerLink: '/employee-create'}
+        ],
+    },
+    {
+        name: 'Client',
+        icon: 'person_add',
+        routerLink: '/',
+        children: [
+            {name: 'Client Create', icon: 'adjust', routerLink: '/client-create'}
+        ],
     },
     {
         name: 'Order',

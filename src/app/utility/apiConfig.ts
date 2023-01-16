@@ -4,4 +4,6 @@ export enum ApiConfig {
     getEmployeeList = 'employees/all',
     getAttendanceList = 'employees/attendance',
     postEmployeeAttendance = 'employees/attendance',
+    postClientCreate = 'clients',
+    postEmployeeCreate = 'employees'
 }

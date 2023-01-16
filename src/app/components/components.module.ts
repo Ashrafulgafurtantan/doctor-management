@@ -15,6 +15,8 @@ import {OrderListComponent} from './order-list/order-list.component';
 import {OrderCreateComponent} from './order-create/order-create.component';
 import {SearchComponent} from './search/search.component';
 import {AttendanceListComponent} from './attendance-list/attendance-list.component';
+import { EmployeeCreateComponent } from './employee-create/employee-create.component';
+import { ClientCreateComponent } from './client-create/client-create.component';
 
 @NgModule({
     declarations: [
@@ -29,6 +31,8 @@ import {AttendanceListComponent} from './attendance-list/attendance-list.compone
         OrderCreateComponent,
         SearchComponent,
         AttendanceListComponent,
+        EmployeeCreateComponent,
+        ClientCreateComponent,
     ],
     imports: [
         CommonModule,
