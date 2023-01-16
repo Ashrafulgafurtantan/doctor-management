@@ -1,23 +1,27 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
-import { Observable } from 'rxjs';
+import {Observable} from 'rxjs';
 import {UserModel} from "../models/user.model";
+import {AuthenticationService} from "../services/authentication.service";
+import {StorageService} from "../services/storage.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  currentUser:UserModel | any;
+  currentUser: null | undefined;
 
-  constructor(private router : Router) { }
+  constructor(private router: Router, private _storage: StorageService) {
+  }
+
   canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+      route: ActivatedRouteSnapshot,
+      state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    this.currentUser= JSON.parse(localStorage.getItem("currentUser")|| '{}');
-    if(this.currentUser.role !==1 ) {
-       this.router.navigate(["login"]);
-       return false;
+    this.currentUser = JSON.parse(this._storage.getStorage('user_info'));
+    if (this.currentUser == null) {
+      this.router.navigate(["login"]);
+      return false;
     }
     return true;
   }

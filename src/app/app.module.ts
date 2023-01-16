@@ -17,6 +17,7 @@ import {BodyComponent} from './body/body.component';
 import {SidenavComponent} from './sidenav/sidenav.component';
 import {MatTreeModule} from "@angular/material/tree";
 import {MAT_DATE_LOCALE} from "@angular/material/core";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
     declarations: [
@@ -26,6 +27,7 @@ import {MAT_DATE_LOCALE} from "@angular/material/core";
     ],
     imports: [
         BrowserModule,
+        HttpClientModule,
         AppRoutingModule,
         BrowserAnimationsModule,
         FeatherModule.pick(allIcons),

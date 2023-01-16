@@ -1,5 +1,8 @@
 export class UserModel {
-    public username : string| any;
-    public password : string| any;
-    public role : Number| any;
+
+    public id: string | any;
+    public name: string | any;
+    public username: string | any;
+
+    public role: Number | any;
 }
