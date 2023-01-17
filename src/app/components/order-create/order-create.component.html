@@ -1,12 +1,14 @@
+<!--@ts-nocheck-->
 <div class="card">
     <div class="card-body">
         <h4 class="mb-32">Order Create</h4>
-        <form (ngSubmit)="submitOrder()">
+        <form [formGroup]="orderCreateForm" #ordForm="ngForm">
             <div class="container">
                 <div>
                     <mat-form-field appearance="outline">
-                        <input (focus)="picker.open()" [matDatepicker]="picker" matInput placeholder="Attendance Date"
-                               readonly>
+                        <input matInput formControlName="order_date"
+                               (focus)="picker.open()" [matDatepicker]="picker" placeholder="Order Date"
+                        >
                         <mat-icon matSuffix>today</mat-icon>
                         <mat-hint>DD/MM/YYYY</mat-hint>
                     </mat-form-field>
@@ -14,8 +16,8 @@
                 </div>
                 <div>
                     <mat-form-field appearance="outline">
-                        <input (focus)="picker2.open()" [matDatepicker]="picker2" matInput placeholder="Attendance Date"
-                               readonly>
+                        <input matInput formControlName="delivery_date"
+                               (focus)="picker2.open()" [matDatepicker]="picker2" placeholder="Delivery Date">
                         <mat-icon matSuffix>today</mat-icon>
                         <mat-hint>DD/MM/YYYY</mat-hint>
                     </mat-form-field>
@@ -23,11 +25,10 @@
                 </div>
                 <div>
                     <mat-form-field appearance="outline">
-                        <mat-label>Choose an option</mat-label>
-                        <mat-select>
-                            <mat-option value="option1">option1</mat-option>
-                            <mat-option value="option2">option2</mat-option>
-                            <mat-option value="option3">option3</mat-option>
+                        <mat-label>Made By</mat-label>
+                        <mat-select formControlName="employee_id">
+                            <mat-option *ngFor="let item of employeeList"
+                                        [value]="item['id']">{{item['name']}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
@@ -36,23 +37,22 @@
                 <div>
                     <mat-form-field appearance="outline">
                         <mat-label>Bill To</mat-label>
-                        <mat-select>
-                            <mat-option value="option1">Bill Option 1</mat-option>
-                            <mat-option value="option2">Bill Option 2</mat-option>
-                            <mat-option value="option3">Bill Option 3</mat-option>
+                        <mat-select formControlName="client_id" (selectionChange)="onChangeClientOption($event.value)">
+                            <mat-option *ngFor="let item of clientList"
+                                        [value]="item['id']">{{item['name']}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
                 <div>
                     <mat-form-field appearance="fill" class="w-100 fs-16">
                         <mat-label>Address</mat-label>
-                        <textarea matInput placeholder="Address" rows="2"></textarea>
+                        <textarea readonly matInput placeholder="Address" rows="2">{{clientAddress}}</textarea>
                     </mat-form-field>
                 </div>
                 <div>
                     <mat-form-field appearance="outline" class="w-100 fs-16">
                         <mat-label>Patient Name</mat-label>
-                        <input matInput placeholder="Patient Name" type="text">
+                        <input matInput formControlName="patient_name" placeholder="Patient Name" type="text">
                     </mat-form-field>
                 </div>
             </div>
@@ -60,17 +60,17 @@
                 <div>
                     <mat-form-field appearance="outline">
                         <mat-label>Select Item</mat-label>
-                        <mat-select>
-                            <mat-option value="option1">Item 1</mat-option>
-                            <mat-option value="option2">Item 2</mat-option>
-                            <mat-option value="option3">Item 3</mat-option>
+                        <mat-select formControlName="single_item"
+                                    (selectionChange)="onChangeTeethItemOption($event.value)">
+                            <mat-option *ngFor="let item of teethItemList"
+                                        [value]="item['id']">{{item['name']}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
                 <div>
                     <mat-form-field appearance="outline" class="w-100 fs-16">
                         <mat-label>Order No</mat-label>
-                        <input matInput placeholder="Order No" type="text">
+                        <input matInput formControlName="order_no" placeholder="Order No" type="text">
                     </mat-form-field>
                 </div>
             </div>
@@ -79,13 +79,17 @@
                     <div class="d-flex">
                         <div class="w-50"> <!--  left side teeth-->
                             <div class="green-div"><!--  Green DIV-->
-                                <div *ngFor="let item of leftUpper" class="tooth-num-div"> <!--  Teeth & Num-->
+                                <div (click)="onSelectSingleTooth(item)" *ngFor="let item of leftUpper"
+                                     class="tooth-num-div">
+                                    <!--  Teeth & Num-->
                                     <span>{{item}}</span>
                                     <i class="fal fa-tooth own-icon"></i>
                                 </div>
                             </div>
                             <div class="green-div"><!--  Green DIV-->
-                                <div *ngFor="let item of leftDown" class="tooth-num-div"> <!--  Teeth & Num-->
+                                <div (click)="onSelectSingleTooth(item)" *ngFor="let item of leftDown"
+                                     class="tooth-num-div">
+                                    <!--  Teeth & Num-->
                                     <span>{{item}}</span>
                                     <i class="fal fa-tooth own-icon"></i>
                                 </div>
@@ -93,13 +97,16 @@
                         </div>
                         <div class="w-50"><!--  Right side teeth-->
                             <div class="green-div"><!--  Green DIV-->
-                                <div *ngFor="let item of rightUpper" class="tooth-num-div"> <!--  Teeth & Num-->
+                                <div (click)="onSelectSingleTooth(item)" *ngFor="let item of rightUpper"
+                                     class="tooth-num-div"> <!--  Teeth & Num-->
                                     <span>{{item}}</span>
                                     <i class="fal fa-tooth own-icon"></i>
                                 </div>
                             </div>
                             <div class="green-div"><!--  Green DIV-->
-                                <div *ngFor="let item of rightDown" class="tooth-num-div"> <!--  Teeth & Num-->
+                                <div (click)="onSelectSingleTooth(item)" *ngFor="let item of rightDown"
+                                     class="tooth-num-div">
+                                    <!--  Teeth & Num-->
                                     <span>{{item}}</span>
                                     <i class="fal fa-tooth own-icon"></i>
                                 </div>
@@ -107,24 +114,30 @@
                         </div>
                     </div>
                     <div class="container">
-                        <button class="jaw-type-size-btn-color expand-in-specif-place" color="primary"
+                        <button (click)="onSelectSingleTooth('Upper Jaw')"
+                                class="jaw-type-size-btn-color expand-in-specif-place" color="primary"
                                 mat-raised-button>Upper Jaw
                         </button>
-                        <button class="jaw-type-size-btn-color expand-in-specif-place" color="primary"
+                        <button (click)="onSelectSingleTooth('Lower Jaw')"
+                                class="jaw-type-size-btn-color expand-in-specif-place" color="primary"
                                 mat-raised-button>Lower Jaw
                         </button>
-                        <button class="jaw-type-size-btn-color expand-in-specif-place" color="primary"
+                        <button (click)="onSelectSingleTooth('Both Jaw')"
+                                class="jaw-type-size-btn-color expand-in-specif-place" color="primary"
                                 mat-raised-button>Both Jaw
                         </button>
                     </div>
                     <div class="container">
-                        <button class="jaw-type-size-btn-color expand-in-specif-place" color="primary"
+                        <button (click)="onSelectSingleTooth('Small')"
+                                class="jaw-type-size-btn-color expand-in-specif-place" color="primary"
                                 mat-raised-button>Small
                         </button>
-                        <button class="jaw-type-size-btn-color expand-in-specif-place" color="primary"
+                        <button (click)="onSelectSingleTooth('Medium')"
+                                class="jaw-type-size-btn-color expand-in-specif-place" color="primary"
                                 mat-raised-button>Medium
                         </button>
-                        <button class="jaw-type-size-btn-color expand-in-specif-place" color="primary"
+                        <button (click)="onSelectSingleTooth('Large')"
+                                class="jaw-type-size-btn-color expand-in-specif-place" color="primary"
                                 mat-raised-button>Large
                         </button>
                     </div>
@@ -132,20 +145,18 @@
                         <div class=" expand-in-specif-place">
                             <mat-form-field appearance="outline">
                                 <mat-label>Select Shade Guide</mat-label>
-                                <mat-select>
-                                    <mat-option value="option1">Shade Guide 1</mat-option>
-                                    <mat-option value="option2">Shade Guide 2</mat-option>
-                                    <mat-option value="option3">Shade Guide 3</mat-option>
+                                <mat-select formControlName="shade_guide">
+                                    <mat-option *ngFor="let item of shadeGuidList"
+                                                [value]="item">{{item}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
                         <div class=" expand-in-specif-place">
                             <mat-form-field appearance="outline">
                                 <mat-label>Shade</mat-label>
-                                <mat-select>
-                                    <mat-option value="option1">Shade 1</mat-option>
-                                    <mat-option value="option2">Shade 2</mat-option>
-                                    <mat-option value="option3">Shade 3</mat-option>
+                                <mat-select formControlName="shade">
+                                    <mat-option *ngFor="let item of shadeList"
+                                                [value]="item">{{item}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
@@ -162,11 +173,11 @@
                 <div class="w-40">
                     <div>
                         <div class="table-responsive">
-                            <table [dataSource]="dataSource" class="text-nowrap w-100" mat-table>
+                            <table [dataSource]="dataSource" class=" w-100" mat-table>
                                 <ng-container matColumnDef="actions">
                                     <th *matHeaderCellDef mat-header-cell> Actions</th>
-                                    <td *matCellDef="let element" class="fw-medium" mat-cell>
-                                        <button color="warn" mat-icon-button>
+                                    <td *matCellDef="let element; let i = index" class="fw-medium" mat-cell>
+                                        <button (click)="deleteReceiptItem(i)" color="warn" mat-icon-button>
                                             <mat-icon aria-label="icon-button">cancel</mat-icon>
                                         </button>
                                     </td>
@@ -181,9 +192,10 @@
                                     <td *matCellDef="let element" class="fw-medium"
                                         mat-cell> {{element['description']}} </td>
                                 </ng-container>
-                                <ng-container matColumnDef="qty">
+                                <ng-container matColumnDef="quantity">
                                     <th *matHeaderCellDef mat-header-cell> QTY</th>
-                                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['qty']}} </td>
+                                    <td *matCellDef="let element" class="fw-medium"
+                                        mat-cell> {{element['quantity']}} </td>
                                 </ng-container>
                                 <ng-container matColumnDef="price">
                                     <th *matHeaderCellDef mat-header-cell> Price</th>
@@ -196,16 +208,32 @@
                         <div>
                             <table class="html-table" style="width: 100%;border-collapse: collapse;">
                                 <tr>
+                                    <td><input style="border: 1px solid gray;font-size: 16px;padding: 5px 0px" matInput
+                                               formControlName="additional_info"
+                                               placeholder="Additional Info" type="text"></td>
+                                    <td class="narrowRow">
+                                        <input (ngModelChange)="calculateSubTotal()"
+                                               style="border: 1px solid gray;font-size: 16px;padding: 5px 0px" matInput
+                                               formControlName="additional_price"
+                                               placeholder="0.00" type="number">
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td>Sub Total</td>
-                                    <td>0</td>
+                                    <td class="narrowRow">{{subTotal}}</td>
                                 </tr>
                                 <tr>
                                     <td>Discount</td>
-                                    <td>0</td>
+                                    <td class="narrowRow">
+                                        <input (ngModelChange)="calculateTotal()"
+                                               style="border: 1px solid gray;font-size: 16px;padding: 5px 0px" matInput
+                                               formControlName="discount"
+                                               placeholder="0.00" type="number">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Total</td>
-                                    <td>0</td>
+                                    <td class="narrowRow">{{total}}</td>
                                 </tr>
 
                             </table>
@@ -215,7 +243,10 @@
             </div>
             <mat-grid-list cols="4" rowHeight="40px">
                 <mat-grid-tile colspan="3">
-                    <button class="block-btn-global submit-btn-global" color="primary" mat-raised-button>Create</button>
+                    <button (click)="submitOrder()" type="submit" class="block-btn-global submit-btn-global"
+                            color="primary" mat-raised-button>
+                        Create
+                    </button>
                 </mat-grid-tile>
                 <mat-grid-tile colspan="1">
                     <button class="block-btn-global cancel-btn-global" color="danger" mat-raised-button>Cancel</button>
