@@ -24,6 +24,14 @@ export const TREE_DATA: SideNavNode[] = [
         ],
     },
     {
+        name: 'Item',
+        icon: 'post_add',
+        routerLink: '/',
+        children: [
+            {name: 'Item Create', icon: 'adjust', routerLink: '/item-create'}
+        ],
+    },
+    {
         name: 'Order',
         icon: 'shopping_cart',
         routerLink: '/',

@@ -5,5 +5,4 @@ export class AttendanceModel {
     halfPresent: boolean = false;
     absent: boolean = false;
     leave: boolean = false;
-    status: number | undefined;
 }

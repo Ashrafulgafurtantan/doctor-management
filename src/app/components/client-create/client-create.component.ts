@@ -12,6 +12,7 @@ export class ClientCreateComponent implements OnInit {
 
     url: any;
     clientFormGroup!: FormGroup;
+    imageFile!: File;
 
     constructor(public formBuilder: FormBuilder, private _clientService: ClientService) {
     }
@@ -25,32 +26,40 @@ export class ClientCreateComponent implements OnInit {
             name: ['', [Validators.required]],
             phone: ['', [Validators.required]],
             address: ['', [Validators.required]],
-            photo: ['',],
+            // photo: ['',],
         });
     }
 
+
     onSubmit() {
         if (this.clientFormGroup.valid) {
-            console.log(this.clientFormGroup.value)
-            this._clientService.clientCreatePostRequest(this.clientFormGroup.value)
+            const formData = this.createPostRequestFormData();
+            this._clientService.clientCreatePostRequest(formData)
                 .subscribe((resp: any) => {
                     console.log(resp);
                 });
         }
     }
 
+    createPostRequestFormData(): FormData {
+        const formData = new FormData();
+        //formData.append('photo', this.imageFile);
+        formData.append('name', this.clientFormGroup.value.name);
+        formData.append('phone', this.clientFormGroup.value.phone);
+        formData.append('address', this.clientFormGroup.value.address);
+        return formData;
+    }
+
     onFileSelected(event: any) {
-        const file: File = event.target.files[0];
-        if (file) {
-            console.log(file.name);
-            console.log(file.size);
+        this.imageFile = event.target.files[0];
+        if (this.imageFile) {
             const reader = new FileReader();
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(this.imageFile);
             reader.onload = (_event) => {
                 this.url = reader.result;
             }
             this.clientFormGroup.patchValue({
-                photo: file
+                photo: this.imageFile
             });
         }
     }

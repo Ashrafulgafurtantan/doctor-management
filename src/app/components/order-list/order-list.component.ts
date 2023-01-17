@@ -1,8 +1,36 @@
+// @ts-nocheck
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {Router} from "@angular/router";
+import {AttendanceService} from "../../services/attendance.service";
+import {TableElement} from "../attendance-list/attendance-list.component";
+import {OrderService} from "../../services/order.service";
+
+export interface OrderTableElement {
+    id: number;
+    order_no: string;
+    client_id: string;
+    order_date: string;
+    patient_name: string;
+    delivery_date: string;
+    employee_id: string;
+    total_amount: number;
+    status: number;
+}
+
+enum OrderStatus {
+    0 = 'Received',
+    1 = 'In-progress',
+    2 = 'redo',
+    3 = 'trial',
+    4 = 'delivered',
+}
+
+//0=>Received, 1=>In-progress, 2=> redo, 3=>trial, 4=> delivered
+
+const ELEMENT_DATA: OrderTableElement[] = [];
 
 @Component({
     selector: 'app-order-list',
@@ -10,84 +38,38 @@ import {Router} from "@angular/router";
     styleUrls: ['./order-list.component.scss']
 })
 export class OrderListComponent implements OnInit {
+    displayedColumns: string[] = ['id', 'order_no', 'client_id', 'order_date',
+        'patient_name', 'delivery_date', 'employee_id', 'total_amount', 'status', 'actions'];
+    dataSource: MatTableDataSource<OrderTableElement>;
+    itemList: OrderTableElement[];
 
-    displayedColumns: string[] = ['id', 'orderNo', 'clientName', 'orderDate',
-        'patientName', 'deliveryDate', 'madeBy', 'amount', 'status', 'actions'];
-    dataSource: MatTableDataSource<any>;
-    itemList: any = [];
-
-    @ViewChild(MatSort, {static: true}) sort: MatSort | any;
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator | any;
+    @ViewChild(MatSort, {static: true}) sort: MatSort | any;
 
-    constructor(private _router: Router) {
-        this.itemList = [
-            {
-                id: "001",
-                orderNo: "15LuST2U",
-                clientName: "Jasmine",
-                orderDate: "17/06/2005",
-                patientName: "Turner",
-                deliveryDate: "25/12/2012",
-                madeBy: "Edward",
-                amount: "5048",
-                status: "Delivered",
-            },
-            {
-                id: "002",
-                orderNo: "tqrw6gud",
-                clientName: "Martin",
-                orderDate: "20/10/2014",
-                patientName: "Toby",
-                deliveryDate: "05/12/2014",
-                madeBy: "Chandler",
-                amount: "2796",
-                status: "In-Trial",
-            },
-            {
-                id: "003",
-                orderNo: "bkObDGhM",
-                clientName: "Killian",
-                orderDate: "29/08/2015",
-                patientName: "Jayvon",
-                deliveryDate: "06/04/2016",
-                madeBy: "Lillian",
-                amount: "7698",
-                status: "Redo",
-            },
-            {
-                id: "004",
-                orderNo: "pCVXXcp9",
-                clientName: "Rylie",
-                orderDate: "20/04/2018",
-                patientName: "Dakota",
-                deliveryDate: "11/10/2019",
-                madeBy: "Kyla",
-                amount: "2828",
-                status: "In-Process",
-            },
-            {
-                id: "005",
-                orderNo: "9jo0PXA4",
-                clientName: "Albert",
-                orderDate: "18/12/2019",
-                patientName: "Avery",
-                deliveryDate: "20/06/2020",
-                madeBy: "Gustavo",
-                amount: "1215",
-                status: "Received",
-            },
-
-        ];
+    constructor(private _router: Router, private _orderService: OrderService) {
+        this.itemList = ELEMENT_DATA;
         this.dataSource = new MatTableDataSource(this.itemList);
     }
 
+
     ngOnInit(): void {
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.getOrderList();
     }
 
-    createAttendance() {
-        this._router.navigateByUrl('orders/create').then(() => console.log(""));
+    getOrderList() {
+        this._orderService.getOrderListRequest().subscribe((resp: any) => {
+            console.log(resp);
+            this.itemList = resp;
+            this.itemList.forEach((item: OrderTableElement) => {
+                item.status = OrderStatus[item.status];
+
+            });
+            this.dataSource = new MatTableDataSource(this.itemList);
+            setTimeout(() => {
+                this.dataSource.sort = this.sort;
+                this.dataSource.paginator = this.paginator
+            });
+        });
     }
 
     applyFilter(e: any): void {

@@ -51,8 +51,7 @@
             </button>
             <mat-menu #menu="matMenu" class="profile-dropdown">
                 <div class="p-16 mb-4">
-                    <button class="fs-16" mat-menu-item>Change Password</button>
-                    <button class="fs-16" mat-menu-item>My Settings</button>
+                    <button (click)="onClickSettings()" class="fs-16" mat-menu-item>My Settings</button>
                 </div>
 
                 <hr>

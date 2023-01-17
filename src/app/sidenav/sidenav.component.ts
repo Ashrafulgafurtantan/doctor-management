@@ -4,6 +4,7 @@ import {SideNavNode, ExampleFlatNode} from './helper';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {AuthenticationService} from "../services/authentication.service";
+import {Router} from "@angular/router";
 
 interface SideNavToggle {
   screenWidth: number;
@@ -20,7 +21,7 @@ export class SidenavComponent implements OnInit {
   screenWidth = 0;
   collapsed = false;
 
-  constructor(private _authService: AuthenticationService) {
+  constructor(private _authService: AuthenticationService, private _router: Router) {
     this.dataSource.data = TREE_DATA;
   }
 
@@ -40,6 +41,10 @@ export class SidenavComponent implements OnInit {
   closeSidenav(): void {
     this.collapsed = false;
     this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
+  }
+
+  onClickSettings() {
+    this._router.navigateByUrl('/profile').then(() => console.log(""));
   }
 
   private _transformer = (node: SideNavNode, level: number) => {

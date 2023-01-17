@@ -1,3 +1,4 @@
+<!--@ts-nocheck-->
 <mat-card class="w-100">
     <mat-card-content>
         <h4 class="mb-32">Orders List</h4>
@@ -11,39 +12,40 @@
                     <th *matHeaderCellDef mat-header-cell mat-sort-header>ID</th>
                     <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['id']}} </td>
                 </ng-container>
-                <ng-container matColumnDef="orderNo">
+                <ng-container matColumnDef="order_no">
                     <th *matHeaderCellDef mat-header-cell mat-sort-header> Order No</th>
-                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['orderNo']}} </td>
+                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['order_no']}} </td>
                 </ng-container>
-                <ng-container matColumnDef="clientName">
+                <ng-container matColumnDef="client_id">
                     <th *matHeaderCellDef mat-header-cell mat-sort-header> Client Name</th>
-                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['clientName']}} </td>
+                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['client']['name']}} </td>
                 </ng-container>
-                <ng-container matColumnDef="orderDate">
+                <ng-container matColumnDef="order_date">
                     <th *matHeaderCellDef mat-header-cell mat-sort-header> Order Date</th>
                     <td *matCellDef="let element" mat-cell>
-                        <p class="mb-0 fw-medium">{{element['orderDate']}}</p>
+                        <p class="mb-0 fw-medium">{{element['order_date'].substring(0, 10)}}</p>
                     </td>
                 </ng-container>
-                <ng-container matColumnDef="patientName">
+                <ng-container matColumnDef="patient_name">
                     <th *matHeaderCellDef mat-header-cell mat-sort-header> Patient Name</th>
-                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['patientName']}} </td>
+                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['patient_name']}} </td>
                 </ng-container>
-                <ng-container matColumnDef="deliveryDate">
+                <ng-container matColumnDef="delivery_date">
                     <th *matHeaderCellDef mat-header-cell mat-sort-header> Delivery Date</th>
-                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['deliveryDate']}} </td>
+                    <td *matCellDef="let element" class="fw-medium"
+                        mat-cell> {{element['delivery_date'].substring(0, 10)}} </td>
                 </ng-container>
-                <ng-container matColumnDef="madeBy">
+                <ng-container matColumnDef="employee_id">
                     <th *matHeaderCellDef mat-header-cell mat-sort-header> Made By</th>
-                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['madeBy']}} </td>
+                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['employee']['name']}} </td>
                 </ng-container>
-                <ng-container matColumnDef="amount">
+                <ng-container matColumnDef="total_amount">
                     <th *matHeaderCellDef mat-header-cell mat-sort-header> Amount</th>
-                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['amount']}} </td>
+                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['total_amount']}} </td>
                 </ng-container>
                 <ng-container matColumnDef="status">
                     <th *matHeaderCellDef mat-header-cell mat-sort-header> Status</th>
-                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['status']}} <br>
+                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['status'] }} <br>
                         <button mat-icon-button style="color: #00C292FF">
                             <mat-icon aria-label="icon-button">edit_square</mat-icon>
                         </button>
@@ -64,15 +66,11 @@
 
                     </td>
                 </ng-container>
-
-
                 <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
                 <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
             </table>
-            <mat-paginator [pageSizeOptions]="[3, 10, 25, 100]"
-                           [pageSize]="3"
-                           aria-label="Select page"
-                           length="28">
+            <mat-paginator length="itemList.length" [pageSizeOptions]="[3, 10, 25, 100]" [pageSize]="3"
+                           aria-label="Select page">
             </mat-paginator>
         </div>
     </mat-card-content>

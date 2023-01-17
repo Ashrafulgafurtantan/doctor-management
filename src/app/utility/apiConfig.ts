@@ -8,6 +8,7 @@ export enum ApiConfig {
     postClientCreate = 'clients',
     postEmployeeCreate = 'employees',
     postOrderCreate = 'orders',
+    postItemCreate = 'items',
     getOrderList = 'orders/all',
     getItemList = 'items/all',
 }

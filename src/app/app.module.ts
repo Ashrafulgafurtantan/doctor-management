@@ -17,7 +17,8 @@ import {BodyComponent} from './body/body.component';
 import {SidenavComponent} from './sidenav/sidenav.component';
 import {MatTreeModule} from "@angular/material/tree";
 import {MAT_DATE_LOCALE} from "@angular/material/core";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {AuthInterceptorService} from "./services/auth-interceptor.service";
 
 @NgModule({
     declarations: [
@@ -38,7 +39,8 @@ import {HttpClientModule} from "@angular/common/http";
         MatTreeModule
     ],
     providers: [
-        {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
+        {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
+        {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true,},
     ],
     bootstrap: [AppComponent]
 })

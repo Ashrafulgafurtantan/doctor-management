@@ -29,7 +29,6 @@ export class AppComponent implements OnInit {
         const lastElement = array.pop();
         if (lastElement == 'login')
             this.isLoginPage = true;
-        console.log(this.isLoginPage);
     }
 
 }

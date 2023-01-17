@@ -16,6 +16,7 @@ export class AttendanceCreateComponent implements OnInit {
     employeeListSubscription: Subscription | undefined;
     dateTimeString: string | undefined;
     dateError: boolean = false;
+    employeeList: any = [];
 
     constructor(private _router: Router, private _attendanceService: AttendanceService) {
     }
@@ -39,6 +40,12 @@ export class AttendanceCreateComponent implements OnInit {
         });
     }
 
+    createEmployeeList(id: number, status: number) {
+        this.employeeList.push({
+            id: id,
+            status: status,
+        });
+    }
 
     onSubmit() {
         if (this.dateTimeString == undefined) {
@@ -46,13 +53,19 @@ export class AttendanceCreateComponent implements OnInit {
             return;
         }
         this.attendanceList.map((item: AttendanceModel) => {
-            item.status = item.present ? 1 : item.halfPresent ? 2 : item.leave ? 3 : 4;
+            if (item.present) {
+                this.createEmployeeList(Number(item.id), 1);
+            } else if (item.halfPresent) {
+                this.createEmployeeList(Number(item.id), 2);
+            } else if (item.leave) {
+                this.createEmployeeList(Number(item.id), 3);
+            } else if (item.absent) {
+                this.createEmployeeList(Number(item.id), 4);
+            }
         });
         const obj = {
             date: this.dateTimeString,
-            employees: [
-                ...this.attendanceList
-            ]
+            employees: this.employeeList,
         };
         this._attendanceService.postAttendance(obj).subscribe((resp: any) => {
             console.log(resp);

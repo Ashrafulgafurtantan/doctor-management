@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {AlertsComponent} from './alerts/alerts.component';
@@ -15,8 +16,10 @@ import {OrderListComponent} from './order-list/order-list.component';
 import {OrderCreateComponent} from './order-create/order-create.component';
 import {SearchComponent} from './search/search.component';
 import {AttendanceListComponent} from './attendance-list/attendance-list.component';
-import { EmployeeCreateComponent } from './employee-create/employee-create.component';
-import { ClientCreateComponent } from './client-create/client-create.component';
+import {EmployeeCreateComponent} from './employee-create/employee-create.component';
+import {ClientCreateComponent} from './client-create/client-create.component';
+import {ProfileComponent} from './profile/profile.component';
+import {ItemComponent} from './item/item.component';
 
 @NgModule({
     declarations: [
@@ -33,6 +36,8 @@ import { ClientCreateComponent } from './client-create/client-create.component';
         AttendanceListComponent,
         EmployeeCreateComponent,
         ClientCreateComponent,
+        ProfileComponent,
+        ItemComponent,
     ],
     imports: [
         CommonModule,

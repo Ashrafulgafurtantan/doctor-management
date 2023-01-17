@@ -16,6 +16,8 @@ import {SearchComponent} from "./components/search/search.component";
 import {AttendanceListComponent} from './components/attendance-list/attendance-list.component';
 import {EmployeeCreateComponent} from "./components/employee-create/employee-create.component";
 import {ClientCreateComponent} from "./components/client-create/client-create.component";
+import {ProfileComponent} from "./components/profile/profile.component";
+import {ItemComponent} from './components/item/item.component';
 
 const routes: Routes = [
     {path: "", redirectTo: "/login", pathMatch: "full"},
@@ -25,7 +27,9 @@ const routes: Routes = [
     {path: "attendance-list", component: AttendanceListComponent, canActivate: [AuthGuard]},
     {path: "employee-create", component: EmployeeCreateComponent, canActivate: [AuthGuard]},
     {path: "client-create", component: ClientCreateComponent, canActivate: [AuthGuard]},
+    {path: "item-create", component: ItemComponent, canActivate: [AuthGuard]},
     {path: "search", component: SearchComponent},
+    {path: "profile", component: ProfileComponent},
     {path: "orders", component: OrderListComponent, canActivate: [AuthGuard]},
     {path: "orders/create", component: OrderCreateComponent, canActivate: [AuthGuard]},
     {path: "forms", component: FormsComponent},

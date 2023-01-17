@@ -77,12 +77,10 @@ export class OrderCreateComponent implements OnInit {
 
     formInit() {
         this.orderCreateForm = this.formBuilder.group({
-            discount: [''],
-            additional_info: [''],
-            additional_price: [''],
+
             client_id: ['', [Validators.required]],
             employee_id: ['', [Validators.required]],
-            status: ['', [Validators.required]],
+            status: ['0', [Validators.required]],
             total_amount: ['', [Validators.required]],
             order_date: ['', [Validators.required]],
             delivery_date: ['', [Validators.required]],
@@ -90,7 +88,11 @@ export class OrderCreateComponent implements OnInit {
             order_no: ['', [Validators.required]],
             shade_guide: ['', [Validators.required]],
             shade: ['', [Validators.required]],
+            notes: [''],
             items: ['', [Validators.required]],
+            discount: [''],
+            additional_info: [''],
+            additional_price: [''],
             single_item: ['', [Validators.required]],
         });
     }
@@ -140,17 +142,15 @@ export class OrderCreateComponent implements OnInit {
             items: this.itemList,
         });
 
-        //----END ALL Patch----------//
         let formData = this.orderCreateForm.value;
         formData['order_date'] = formData['order_date'].toLocaleDateString();
         formData['delivery_date'] = formData['delivery_date'].toLocaleDateString();
         if (this.orderCreateForm.valid) {
-            console.log("Valid");
-            // console.log(this.clientFormGroup.value);
-            /*  this._orderService.orderCreatePostRequest(formData)
-                  .subscribe((resp: any) => {
-                      console.log(resp);
-                  });*/
+            console.log(this.orderCreateForm.value);
+            this._orderService.orderCreatePostRequest(formData)
+                .subscribe((resp: any) => {
+                    console.log('Order Created Successfully');
+                });
         }
     }
 

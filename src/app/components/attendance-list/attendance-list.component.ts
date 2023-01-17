@@ -2,11 +2,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
 import {AttendanceService} from "../../services/attendance.service";
-import {MatDatepickerInputEvent} from "@angular/material/datepicker";
-import {MatTable, MatTableDataSource} from "@angular/material/table";
+import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
-import {PeriodicElement} from "../../dashboard/dashboard-components/product/product.component";
 
 export interface TableElement {
     id: string;
@@ -69,7 +67,7 @@ export class AttendanceListComponent implements OnInit {
                     const real: TableElement = {
                         badge: AttendanceStatus[item.status]['color'],
                         id: item.id,
-                        employee_id: item.employee_id,
+                        employee_id: item.employee['name'],
                         date: item.date.substring(0, 10),
                         status: AttendanceStatus[item.status]['status'],
                     }
