@@ -12,6 +12,7 @@ import {AuthenticationService} from "../../services/authentication.service";
 export class LoginComponent implements OnInit {
     loginForm: FormGroup | any;
     user: UserModel = new UserModel();
+    visibilityForPass: boolean = false;
 
     constructor(private _router: Router, private _authService: AuthenticationService) {
         this.initializeForm();
@@ -30,6 +31,11 @@ export class LoginComponent implements OnInit {
           if (Object.keys(isLoggedIn).length !== 0) {
               this._router.navigateByUrl('/home').then(r => console.log(""));
           }*/
+    }
+
+    toggleVisibility() {
+        this.visibilityForPass = !this.visibilityForPass;
+
     }
 
     onSubmit() {

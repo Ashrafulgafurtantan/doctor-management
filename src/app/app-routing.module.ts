@@ -1,11 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AlertsComponent} from './components/alerts/alerts.component';
-import {ButtonsComponent} from './components/buttons/buttons.component';
-import {FormsComponent} from './components/forms/forms.component';
-import {ToolbarComponent} from './components/toolbar/toolbar.component';
-import {TooltipsComponent} from './components/tooltips/tooltips.component';
-import {ProductComponent} from './dashboard/dashboard-components/product/product.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {LoginComponent} from "./components/login/login.component";
 import {AuthGuard} from "./gaurds/auth.guard";
@@ -34,11 +29,6 @@ const routes: Routes = [
     {path: "orders", component: OrderListComponent, canActivate: [AuthGuard]},
     {path: "orders/create", component: OrderCreateComponent, canActivate: [AuthGuard]},
     {path: 'orders/status/:orderID', component: OrderStatusComponent, canActivate: [AuthGuard]},
-    {path: "forms", component: FormsComponent},
-    {path: "table", component: ProductComponent, canActivate: [AuthGuard]},
-    {path: "toolbar", component: ToolbarComponent},
-    {path: "tooltip", component: TooltipsComponent},
-    {path: "button", component: ButtonsComponent},
     {path: "login", component: LoginComponent, pathMatch: "full"},
     {path: "", redirectTo: "/home", pathMatch: "full"},
     {path: "**", redirectTo: "/home", pathMatch: "full"},

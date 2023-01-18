@@ -4,12 +4,8 @@ import {CommonModule} from '@angular/common';
 import {AlertsComponent} from './alerts/alerts.component';
 import {FeatherModule} from 'angular-feather';
 import {allIcons} from 'angular-feather/icons';
-import {FormsComponent} from './forms/forms.component';
 import {DemoFlexyModule} from '../demo-flexy-module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {ToolbarComponent} from './toolbar/toolbar.component';
-import {ButtonsComponent} from './buttons/buttons.component';
-import {TooltipsComponent} from './tooltips/tooltips.component';
 import {LoginComponent} from './login/login.component';
 import {AttendanceCreateComponent} from './attendance-create/attendance-create.component';
 import {OrderListComponent} from './order-list/order-list.component';
@@ -20,15 +16,11 @@ import {EmployeeCreateComponent} from './employee-create/employee-create.compone
 import {ClientCreateComponent} from './client-create/client-create.component';
 import {ProfileComponent} from './profile/profile.component';
 import {ItemComponent} from './item/item.component';
-import { OrderStatusComponent } from './order-status/order-status.component';
+import {OrderStatusComponent} from './order-status/order-status.component';
 
 @NgModule({
     declarations: [
         AlertsComponent,
-        FormsComponent,
-        ToolbarComponent,
-        ButtonsComponent,
-        TooltipsComponent,
         LoginComponent,
         AttendanceCreateComponent,
         OrderListComponent,
@@ -50,9 +42,6 @@ import { OrderStatusComponent } from './order-status/order-status.component';
     ],
     exports: [
         AlertsComponent,
-        FormsComponent,
-        ToolbarComponent,
-        ButtonsComponent,
     ]
 })
 // @ts-ignore

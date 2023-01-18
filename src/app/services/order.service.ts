@@ -14,16 +14,16 @@ export class OrderService {
                 private http: HttpClient,) {
     }
 
+    getOrderById(id: any) {
+        return this.http.get(ApiConfig.baseUrl + 'orders/' + id);
+    }
+
     getOrderCreatePageEntryReason(): any {
         return this.isEnteredForCreateOrder;
     }
 
     setOrderCreatePageEntryReason(res: any) {
         this.isEnteredForCreateOrder = res;
-    }
-
-    getOrderById(id: any) {
-        return this.http.get(ApiConfig.baseUrl + 'orders/' + id);
     }
 
     getEmployeeList() {

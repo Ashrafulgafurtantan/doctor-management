@@ -13,4 +13,5 @@ export enum ApiConfig {
     postItemCreate = 'items',
     getOrderList = 'orders/all',
     getItemList = 'items/all',
+    putPasswordChange = 'users/password',
 }
