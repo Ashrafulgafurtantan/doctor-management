@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {EmployeeService} from "../../services/employee.service";
 import {ClientService} from "../../services/client.service";
 import {Router} from "@angular/router";
+import {AlertMessageService} from "../../services/alert-message.service";
 
 @Component({
     selector: 'app-client-create',
@@ -15,7 +16,9 @@ export class ClientCreateComponent implements OnInit {
     clientFormGroup!: FormGroup;
     imageFile!: File;
 
-    constructor(public formBuilder: FormBuilder, private _router: Router, private _clientService: ClientService) {
+    constructor(public formBuilder: FormBuilder,
+                private _alertMsg: AlertMessageService,
+                private _router: Router, private _clientService: ClientService) {
     }
 
     ngOnInit(): void {
@@ -38,6 +41,7 @@ export class ClientCreateComponent implements OnInit {
             this._clientService.clientCreatePostRequest(formData)
                 .subscribe((resp: any) => {
                     console.log(resp);
+                    this._alertMsg.successfulSubmissionAlert('Client Created Successfully');
                     this._router.navigateByUrl('/home').then();
                 });
         }

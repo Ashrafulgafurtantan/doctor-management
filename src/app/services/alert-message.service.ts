@@ -14,4 +14,14 @@ export class AlertMessageService {
     loginSuccessfulAlert() {
         Swal.fire('Good Job!', 'Successfully Logged In.', 'success');
     }
+
+    successfulSubmissionAlert(title: string) {
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: title,
+            showConfirmButton: false,
+            timer: 1200
+        })
+    }
 }

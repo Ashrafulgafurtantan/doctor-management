@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {EmployeeService} from "../../services/employee.service";
 import {ProfileService} from "../../services/profile.service";
+import {AlertMessageService} from "../../services/alert-message.service";
+import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
     selector: 'app-profile',
@@ -16,7 +18,10 @@ export class ProfileComponent implements OnInit {
     visibilityForConfirmedPass: boolean = false;
 
 
-    constructor(public formBuilder: FormBuilder, private _profileService: ProfileService) {
+    constructor(public formBuilder: FormBuilder,
+                private _alertMsg: AlertMessageService,
+                private _authService: AuthenticationService,
+                private _profileService: ProfileService) {
     }
 
     ngOnInit(): void {
@@ -49,6 +54,8 @@ export class ProfileComponent implements OnInit {
             this._profileService.changePasswordPutRequest(this.profileFormGroup.value)
                 .subscribe((resp: any) => {
                     console.log(resp);
+                    this._alertMsg.successfulSubmissionAlert('Password Changed Successfully');
+                    this._authService.logout();
                 });
         }
     }

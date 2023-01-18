@@ -4,8 +4,6 @@ import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {Router} from "@angular/router";
-import {AttendanceService} from "../../services/attendance.service";
-import {TableElement} from "../attendance-list/attendance-list.component";
 import {OrderService} from "../../services/order.service";
 
 export interface OrderTableElement {
@@ -20,7 +18,7 @@ export interface OrderTableElement {
     status: number;
 }
 
-enum OrderStatus {
+export enum OrderStatus {
     0 = 'Received',
     1 = 'In-progress',
     2 = 'redo',

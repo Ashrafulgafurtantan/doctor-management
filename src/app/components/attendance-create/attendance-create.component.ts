@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {AttendanceService} from "../../services/attendance.service";
 import {Subscription} from "rxjs";
 import {MatDatepickerInputEvent} from "@angular/material/datepicker";
+import {AlertMessageService} from "../../services/alert-message.service";
 
 @Component({
     selector: 'app-attendance-create',
@@ -18,7 +19,9 @@ export class AttendanceCreateComponent implements OnInit {
     dateError: boolean = false;
     employeeList: any = [];
 
-    constructor(private _router: Router, private _attendanceService: AttendanceService) {
+    constructor(private _router: Router,
+                private _alertMsg: AlertMessageService,
+                private _attendanceService: AttendanceService) {
     }
 
     ngOnInit(): void {
@@ -68,6 +71,7 @@ export class AttendanceCreateComponent implements OnInit {
             employees: this.employeeList,
         };
         this._attendanceService.postAttendance(obj).subscribe((resp: any) => {
+            this._alertMsg.successfulSubmissionAlert('Attendance Created Successfully');
             this._router.navigateByUrl('/attendance-list').then();
         });
 

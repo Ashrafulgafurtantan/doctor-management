@@ -11,13 +11,11 @@ import {AlertMessageService} from "../services/alert-message.service";
     styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-    isLoginNeeded = false;
 
     constructor(private _router: Router,
                 private _activateRoute: ActivatedRoute,
                 private _alertMsg: AlertMessageService) {
     }
-
 
     ngOnInit(): void {
         this.showLoginAlertOrNot();
