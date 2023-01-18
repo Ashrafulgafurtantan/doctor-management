@@ -30,10 +30,10 @@ export class OrderCreateComponent implements OnInit {
     shadeGuidList!: [];
     shadeList!: [];
     clientAddress: null;
-    receiptList!: [];
     subTotal!: number = 0;
     total!: number = 0;
     currentReceipt: any;
+    forEditing!: any;
 
     constructor(public formBuilder: FormBuilder, private _router: Router, private _orderService: OrderService) {
         this.shadeList = SHADE_LIST;
@@ -43,10 +43,40 @@ export class OrderCreateComponent implements OnInit {
 
     ngOnInit(): void {
         this.formInit();
+        this.forEditEntry();
         this.getEmployeeList();
         this.getClientList();
         this.getItemList();
 
+    }
+
+    forEditEntry() {
+        this.forEditing = this._orderService.getOrderCreatePageEntryReason();
+        console.log(this.forEditing);
+        this._orderService.setOrderCreatePageEntryReason(null);
+        if (this.forEditing) {
+            this._orderService.getOrderById(this.forEditing).subscribe((item: any) => {
+                this.clientAddress = item.client.address;
+                this.orderCreateForm.patchValue(item);
+                this.orderCreateForm.patchValue({
+                    order_date: new Date(item.order_date),
+                    delivery_date: new Date(item.delivery_date),
+                });
+                this.itemList = [];
+                item.orderitems.forEach((receipt: any) => {
+                    const receiptObj = {
+                        description: receipt.description,
+                        id: receipt.item_id,
+                        price: receipt.item.price,
+                        quantity: receipt.quantity,
+                        itemName: receipt.item.name,
+                    }
+                    this.itemList.push(receiptObj);
+                });
+                this.dataSource = new MatTableDataSource(this.itemList);
+                this.calculateSubTotal();
+            })
+        }
     }
 
     getEmployeeList() {
@@ -74,6 +104,7 @@ export class OrderCreateComponent implements OnInit {
             this.teethItemList = resp;
         });
     }
+
 
     formInit() {
         this.orderCreateForm = this.formBuilder.group({
@@ -146,12 +177,30 @@ export class OrderCreateComponent implements OnInit {
         formData['order_date'] = formData['order_date'].toLocaleDateString();
         formData['delivery_date'] = formData['delivery_date'].toLocaleDateString();
         if (this.orderCreateForm.valid) {
-            console.log(this.orderCreateForm.value);
-            this._orderService.orderCreatePostRequest(formData)
-                .subscribe((resp: any) => {
-                    console.log('Order Created Successfully');
-                });
+            if (this.forEditing) {
+                console.log("updateOrder");
+                this.updateOrder(formData);
+            } else {
+                console.log("createOrder");
+                this.createOrder(formData);
+            }
+
         }
     }
+
+    createOrder(formData: FormData) {
+        this._orderService.orderCreatePostRequest(formData)
+            .subscribe((resp: any) => {
+                console.log('Order Created Successfully');
+            });
+    }
+
+    updateOrder(formData: FormData) {
+        this._orderService.orderCreatePostRequest(formData)
+            .subscribe((resp: any) => {
+                console.log('Order Updated Successfully');
+            });
+    }
+
 
 }

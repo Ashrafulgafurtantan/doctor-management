@@ -8,8 +8,22 @@ import {ApiConfig} from "../utility/apiConfig";
 })
 export class OrderService {
 
+    isEnteredForCreateOrder!: null;
+
     constructor(private _router: Router,
                 private http: HttpClient,) {
+    }
+
+    getOrderCreatePageEntryReason(): any {
+        return this.isEnteredForCreateOrder;
+    }
+
+    setOrderCreatePageEntryReason(res: any) {
+        this.isEnteredForCreateOrder = res;
+    }
+
+    getOrderById(id: any) {
+        return this.http.get(ApiConfig.baseUrl + 'orders/' + id);
     }
 
     getEmployeeList() {
@@ -26,6 +40,14 @@ export class OrderService {
 
     orderCreatePostRequest(formData: any) {
         return this.http.post(ApiConfig.baseUrl + ApiConfig.postOrderCreate, formData);
+    }
+
+    orderUpdatePutRequest(formData: any) {
+        return this.http.put(ApiConfig.baseUrl + ApiConfig.putOrderUpdate, formData);
+    }
+
+    changeOrderStatus(formObj: any) {
+        return this.http.put(ApiConfig.baseUrl + ApiConfig.putOrderStatusUpdate, formObj);
     }
 
     getOrderListRequest() {

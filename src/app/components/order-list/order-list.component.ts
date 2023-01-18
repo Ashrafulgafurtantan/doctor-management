@@ -28,8 +28,6 @@ enum OrderStatus {
     4 = 'delivered',
 }
 
-//0=>Received, 1=>In-progress, 2=> redo, 3=>trial, 4=> delivered
-
 const ELEMENT_DATA: OrderTableElement[] = [];
 
 @Component({
@@ -70,6 +68,19 @@ export class OrderListComponent implements OnInit {
                 this.dataSource.paginator = this.paginator
             });
         });
+    }
+
+    deleteOrder() {
+
+    }
+
+    changeStatusOrder(index) {
+        this._router.navigate([`orders/status/${this.itemList[index].id}`]).then();
+    }
+
+    editOrder(index) {
+        this._orderService.setOrderCreatePageEntryReason(this.itemList[index].id);
+        this._router.navigate(['orders/create']).then();
     }
 
     applyFilter(e: any): void {

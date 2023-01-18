@@ -1,0 +1,79 @@
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {ItemService} from "../../services/item.service";
+import {OrderService} from "../../services/order.service";
+import {ActivatedRoute, Router} from "@angular/router";
+
+@Component({
+    selector: 'app-order-status',
+    templateUrl: './order-status.component.html',
+    styleUrls: ['./order-status.component.scss']
+})
+export class OrderStatusComponent implements OnInit {
+
+    orderId!: any;
+    selectedStatusId!: any;
+    statusOption: any[] = [
+        {
+            statusId: 0,
+            statusName: 'Received',
+        },
+
+        {
+            statusId: 1,
+            statusName: 'In-progress',
+        },
+        {
+            statusId: 2,
+            statusName: 'Redo',
+        },
+        {
+            statusId: 3,
+            statusName: 'Trial',
+        },
+        {
+            statusId: 4,
+            statusName: 'Delivered',
+        },
+
+    ]
+
+    constructor(private _orderService: OrderService, private _activatedRoute: ActivatedRoute) {
+    }
+
+    ngOnInit(): void {
+        this.getOrderIdFromUrl();
+    }
+
+    getOrderIdFromUrl() {
+        this._activatedRoute.paramMap.subscribe((params) => {
+            this.orderId = params.get('orderID');
+        });
+        this.getSingleOrder(this.orderId);
+    }
+
+    getSingleOrder(id: any) {
+        this._orderService.getOrderById(id).subscribe((order: any) => {
+            console.log(order);
+            this.orderId = order.id;
+            this.selectedStatusId = order.status;
+        });
+    }
+
+    onChangeStatusOption(e: any) {
+        this.selectedStatusId = e;
+    }
+
+    onSubmit() {
+        const putObj = {
+            id: this.orderId,
+            status: this.selectedStatusId
+        };
+        console.log(putObj);
+        this._orderService.changeOrderStatus(putObj)
+            .subscribe((resp: any) => {
+                console.log("Status Change Successfully");
+            });
+    }
+
+}

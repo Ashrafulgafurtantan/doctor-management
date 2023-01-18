@@ -20,6 +20,7 @@ import {EmployeeCreateComponent} from './employee-create/employee-create.compone
 import {ClientCreateComponent} from './client-create/client-create.component';
 import {ProfileComponent} from './profile/profile.component';
 import {ItemComponent} from './item/item.component';
+import { OrderStatusComponent } from './order-status/order-status.component';
 
 @NgModule({
     declarations: [
@@ -38,6 +39,7 @@ import {ItemComponent} from './item/item.component';
         ClientCreateComponent,
         ProfileComponent,
         ItemComponent,
+        OrderStatusComponent,
     ],
     imports: [
         CommonModule,
