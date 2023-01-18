@@ -27,4 +27,19 @@ export class DashboardComponent implements OnInit {
         Swal.fire('Good Job!', 'Successfully Logged In.', 'success')
     }
 
+    gotoOrderPage() {
+        this._router.navigate(["/orders"]).then();
+    }
+    gotoEmployeePage() {
+            this._router.navigate(["/employees"]).then();
+        }
+    gotoClientPage() {
+        this._router.navigate(["/clients"]).then();
+    }
+    gotoItemPage() {
+        this._router.navigate(["/items"]).then();
+    }
+
+
+
 }
