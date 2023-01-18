@@ -4,6 +4,7 @@ import {EmployeeService} from "../../services/employee.service";
 import {ProfileService} from "../../services/profile.service";
 import {AlertMessageService} from "../../services/alert-message.service";
 import {AuthenticationService} from "../../services/authentication.service";
+import {StorageService} from "../../services/storage.service";
 
 @Component({
     selector: 'app-profile',
@@ -11,14 +12,14 @@ import {AuthenticationService} from "../../services/authentication.service";
     styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-
+    currentUser!: any;
     profileFormGroup!: FormGroup;
     visibilityForPass: boolean = false;
     visibilityForNewPass: boolean = false;
     visibilityForConfirmedPass: boolean = false;
 
-
     constructor(public formBuilder: FormBuilder,
+                private _storage: StorageService,
                 private _alertMsg: AlertMessageService,
                 private _authService: AuthenticationService,
                 private _profileService: ProfileService) {
@@ -26,6 +27,14 @@ export class ProfileComponent implements OnInit {
 
     ngOnInit(): void {
         this.formInit();
+        this.getUserId();
+    }
+
+    getUserId() {
+        this.currentUser = JSON.parse(this._storage.getStorage('user_info'));
+        this.profileFormGroup.patchValue({
+            username: this.currentUser.username,
+        })
     }
 
     toggleVisibility(params: string) {
@@ -53,9 +62,10 @@ export class ProfileComponent implements OnInit {
             console.log(this.profileFormGroup.value)
             this._profileService.changePasswordPutRequest(this.profileFormGroup.value)
                 .subscribe((resp: any) => {
-                    console.log(resp);
                     this._alertMsg.successfulSubmissionAlert('Password Changed Successfully');
                     this._authService.logout();
+                }, (e) => {
+                    this._alertMsg.errorAlert();
                 });
         }
     }

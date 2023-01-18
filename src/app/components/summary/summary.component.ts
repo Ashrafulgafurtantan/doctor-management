@@ -24,6 +24,9 @@ export class SummaryComponent implements OnInit {
     params!: any;
     workStatusHref = "";
     workHref = "";
+    allWorkStatusHref = "";
+
+    //all-work-status
 
     constructor(public formBuilder: FormBuilder,
                 private _activatedRoute: ActivatedRoute,
@@ -45,13 +48,17 @@ export class SummaryComponent implements OnInit {
                 this.title = "Report - Work Status Wise Summary";
             } else if (this.params == 'work') {
                 this.title = "Report - Work Summary";
+            } else if (this.params == 'all-work-status') {
+                this.title = "Report - All Work Status Summary";
             }
         });
     }
 
     formatHref() {
+        //summary/all/start/{start_date}/end/{end_date}
         this.workStatusHref = `${this.apiConfig.downloadPdfUrl}clients/${this.clientId}/start/${this.startDateString}/end/${this.endDateString}`;
         this.workHref = `${this.apiConfig.downloadPdfUrl}summary/clients/${this.clientId}/start/${this.startDateString}/end/${this.endDateString}`;
+        this.allWorkStatusHref = `${this.apiConfig.downloadPdfUrl}summary/all/start/${this.startDateString}/end/${this.endDateString}`;
     }
 
     formInit() {

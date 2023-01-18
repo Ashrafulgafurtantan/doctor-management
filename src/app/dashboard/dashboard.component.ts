@@ -36,15 +36,15 @@ export class DashboardComponent implements OnInit {
     }
 
     gotoEmployeePage() {
-        this._router.navigate(["/employees"]).then();
+        this._router.navigate(["/employee-list"]).then();
     }
 
     gotoClientPage() {
-        this._router.navigate(["/clients"]).then();
+        this._router.navigate(["/client-list"]).then();
     }
 
     gotoItemPage() {
-        this._router.navigate(["/items"]).then();
+        this._router.navigate(["/item-list"]).then();
     }
 
 

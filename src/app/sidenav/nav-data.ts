@@ -48,10 +48,10 @@ export const TREE_DATA: SideNavNode[] = [
         name: 'Summary',
         icon: 'assignment',
         routerLink: '/',
-        children: [{name: 'Work Status Summary', icon: 'adjust', routerLink: '/summary/work-status',}, {
-            name: 'Work Summary',
-            routerLink: '/summary/work',
-            icon: 'adjust'
-        }],
+        children: [
+            {name: 'Work Status Summary', icon: 'adjust', routerLink: '/summary/work-status',},
+            {name: 'Work Summary', routerLink: '/summary/work', icon: 'adjust'},
+            {name: 'All Work Status Summary', routerLink: '/summary/all-work-status', icon: 'adjust'},
+        ],
     },
 ];

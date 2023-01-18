@@ -38,7 +38,7 @@ export class EmployeeCreateComponent implements OnInit {
             this._employeeService.employeeCreatePostRequest(formData)
                 .subscribe((resp: any) => {
                     console.log(resp);
-                    this._router.navigateByUrl('/attendance-list').then();
+                    this._router.navigateByUrl('/employee-list').then();
                     this._alertMsg.successfulSubmissionAlert('Employee Created Successfully');
                 });
         }

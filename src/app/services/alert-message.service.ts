@@ -26,6 +26,14 @@ export class AlertMessageService {
         })
     }
 
+    errorAlert() {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!\nPlease Try Again',
+        })
+    }
+
     deleteItemAlert() {
         return Swal.fire({
             title: 'Are you sure?',

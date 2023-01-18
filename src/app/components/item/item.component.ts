@@ -34,7 +34,7 @@ export class ItemComponent implements OnInit {
             this._itemService.itemCreatePostRequest(this.itemFormGroup.value)
                 .subscribe((resp: any) => {
                     console.log(resp);
-                    this._router.navigateByUrl('/home').then();
+                    this._router.navigateByUrl('/item-list').then();
                     this._alertMsg.successfulSubmissionAlert('Item Created Successfully');
                 });
         }

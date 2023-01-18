@@ -3,7 +3,7 @@
         <h4 class="mb-32">{{title}}</h4>
         <div>
             <form [formGroup]="summaryFormGroup">
-                <div class="container">
+                <div class="container" *ngIf="params !== 'all-work-status'">
                     <div>
                         <mat-form-field appearance="outline">
                             <mat-label>Choose an option</mat-label>
@@ -43,16 +43,11 @@
                     </div>
                 </div>
 
-                <!--                [href]="params == 'work-status'? "
-
-                                [href]="apiConfig.downloadPdfUrl +'summary/clients/'+clientId+'/start/'+startDateString+'/end/'+endDateString"
-                                [href]="apiConfig.downloadPdfUrl + 'clients/'+clientId+'/start/'+startDateString+'/end/'+endDateString"-->
-
                 <div class="container">
                     <div>
                         <a mat-raised-butto class="search"
                            target="_blank"
-                           [href]="params == 'work-status'?workStatusHref:workHref"
+                           [href]="params == 'work-status'?workStatusHref:params == 'work'?workHref: allWorkStatusHref"
                         >
                             Search
                         </a>

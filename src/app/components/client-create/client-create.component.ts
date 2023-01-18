@@ -42,7 +42,7 @@ export class ClientCreateComponent implements OnInit {
                 .subscribe((resp: any) => {
                     console.log(resp);
                     this._alertMsg.successfulSubmissionAlert('Client Created Successfully');
-                    this._router.navigateByUrl('/home').then();
+                    this._router.navigateByUrl('/client-list').then();
                 });
         }
     }
