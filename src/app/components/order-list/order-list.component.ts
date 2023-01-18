@@ -5,6 +5,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {Router} from "@angular/router";
 import {OrderService} from "../../services/order.service";
+import {ApiConfig} from "../../utility/apiConfig";
 
 export interface OrderTableElement {
     id: number;
@@ -38,7 +39,7 @@ export class OrderListComponent implements OnInit {
         'patient_name', 'delivery_date', 'employee_id', 'total_amount', 'status', 'actions'];
     dataSource: MatTableDataSource<OrderTableElement>;
     itemList: OrderTableElement[];
-
+    apiConfig = ApiConfig;
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator | any;
     @ViewChild(MatSort, {static: true}) sort: MatSort | any;
 
@@ -71,6 +72,7 @@ export class OrderListComponent implements OnInit {
     deleteOrder() {
 
     }
+
 
     changeStatusOrder(index) {
         this._router.navigate([`orders/status/${this.itemList[index].id}`]).then();
