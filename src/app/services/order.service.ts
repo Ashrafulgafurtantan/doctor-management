@@ -8,22 +8,12 @@ import {ApiConfig} from "../utility/apiConfig";
 })
 export class OrderService {
 
-    isEnteredForCreateOrder!: null;
-
     constructor(private _router: Router,
                 private http: HttpClient,) {
     }
 
     getOrderById(id: any) {
         return this.http.get(ApiConfig.baseUrl + 'orders/' + id);
-    }
-
-    getOrderCreatePageEntryReason(): any {
-        return this.isEnteredForCreateOrder;
-    }
-
-    setOrderCreatePageEntryReason(res: any) {
-        this.isEnteredForCreateOrder = res;
     }
 
     getEmployeeList() {

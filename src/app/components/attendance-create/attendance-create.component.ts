@@ -68,12 +68,12 @@ export class AttendanceCreateComponent implements OnInit {
             employees: this.employeeList,
         };
         this._attendanceService.postAttendance(obj).subscribe((resp: any) => {
-            console.log(resp);
+            this._router.navigateByUrl('/attendance-list').then();
         });
 
     }
 
     cancel() {
-        this._router.navigateByUrl('/table').then();
+        this._router.navigateByUrl('/attendance-list').then();
     }
 }

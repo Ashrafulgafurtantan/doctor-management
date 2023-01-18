@@ -66,7 +66,7 @@ export class AttendanceListComponent implements OnInit {
                 obj.forEach((item: any) => {
                     const real: TableElement = {
                         badge: AttendanceStatus[item.status]['color'],
-                        id: item.id,
+                        id: item.employee['id'],
                         employee_id: item.employee['name'],
                         date: item.date.substring(0, 10),
                         status: AttendanceStatus[item.status]['status'],

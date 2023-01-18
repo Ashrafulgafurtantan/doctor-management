@@ -23,7 +23,9 @@
                     <button class="block-btn-global submit-btn-global" color="primary" mat-raised-button>Create</button>
                 </mat-grid-tile>
                 <mat-grid-tile colspan="1">
-                    <button class="block-btn-global cancel-btn-global" color="danger" mat-raised-button>Cancel</button>
+                    <button (click)="cancel()" class="block-btn-global cancel-btn-global" color="danger"
+                            mat-raised-button>Cancel
+                    </button>
                 </mat-grid-tile>
             </mat-grid-list>
         </form>

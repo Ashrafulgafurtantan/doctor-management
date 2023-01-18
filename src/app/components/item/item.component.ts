@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ItemService} from "../../services/item.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-item',
@@ -10,7 +11,7 @@ import {ItemService} from "../../services/item.service";
 export class ItemComponent implements OnInit {
     itemFormGroup!: FormGroup;
 
-    constructor(public formBuilder: FormBuilder, private _itemService: ItemService) {
+    constructor(public formBuilder: FormBuilder, private _router: Router, private _itemService: ItemService) {
     }
 
     ngOnInit(): void {
@@ -30,8 +31,13 @@ export class ItemComponent implements OnInit {
             this._itemService.itemCreatePostRequest(this.itemFormGroup.value)
                 .subscribe((resp: any) => {
                     console.log(resp);
+                    this._router.navigateByUrl('/home').then();
                 });
         }
+    }
+
+    cancel() {
+        this._router.navigateByUrl('/home').then();
     }
 
 }

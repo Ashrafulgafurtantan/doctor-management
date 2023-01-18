@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {EmployeeService} from "../../services/employee.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-employee-create',
@@ -12,7 +13,7 @@ export class EmployeeCreateComponent implements OnInit {
     employeeFormGroup!: FormGroup;
     imageFile!: File;
 
-    constructor(public formBuilder: FormBuilder, private _employeeService: EmployeeService) {
+    constructor(public formBuilder: FormBuilder, private _router: Router, private _employeeService: EmployeeService) {
     }
 
     ngOnInit(): void {
@@ -34,6 +35,7 @@ export class EmployeeCreateComponent implements OnInit {
             this._employeeService.employeeCreatePostRequest(formData)
                 .subscribe((resp: any) => {
                     console.log(resp);
+                    this._router.navigateByUrl('/attendance-list').then();
                 });
         }
     }
@@ -62,6 +64,10 @@ export class EmployeeCreateComponent implements OnInit {
                 nid: this.imageFile
             });
         }
+    }
+
+    cancel() {
+        this._router.navigateByUrl('/attendance-list').then();
     }
 
 }

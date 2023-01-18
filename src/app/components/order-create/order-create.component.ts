@@ -1,7 +1,7 @@
 // @ts-nocheck
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {OrderService} from "../../services/order.service";
 import {SHADE_LIST} from './shade-data';
@@ -14,16 +14,13 @@ import {SHADE_GUID_LIST} from './shade-data';
 })
 export class OrderCreateComponent implements OnInit {
     orderCreateForm: FormGroup | any;
-// quantity
     displayedColumns: string[] = ['actions', 'itemName', 'description', 'quantity', 'price'];
-
     dataSource: MatTableDataSource<any>;
     itemList: any = [];
     leftUpper: any = [18, 17, 16, 15, 14, 13, 12, 11];
     leftDown: any = [48, 47, 46, 45, 44, 43, 42, 41];
     rightUpper: any = [21, 22, 23, 24, 25, 26, 27, 28];
     rightDown: any = [31, 32, 33, 34, 35, 36, 37, 38];
-
     employeeList!: [];
     clientList!: [];
     teethItemList!: [];
@@ -33,9 +30,12 @@ export class OrderCreateComponent implements OnInit {
     subTotal!: number = 0;
     total!: number = 0;
     currentReceipt: any;
-    forEditing!: any;
+    updateOrderId: any = null;
 
-    constructor(public formBuilder: FormBuilder, private _router: Router, private _orderService: OrderService) {
+
+    constructor(public formBuilder: FormBuilder,
+                private _activateRoute: ActivatedRoute,
+                private _router: Router, private _orderService: OrderService) {
         this.shadeList = SHADE_LIST;
         this.shadeGuidList = SHADE_GUID_LIST;
 
@@ -43,40 +43,46 @@ export class OrderCreateComponent implements OnInit {
 
     ngOnInit(): void {
         this.formInit();
-        this.forEditEntry();
+        this.updatePart();
         this.getEmployeeList();
         this.getClientList();
         this.getItemList();
-
     }
 
-    forEditEntry() {
-        this.forEditing = this._orderService.getOrderCreatePageEntryReason();
-        console.log(this.forEditing);
-        this._orderService.setOrderCreatePageEntryReason(null);
-        if (this.forEditing) {
-            this._orderService.getOrderById(this.forEditing).subscribe((item: any) => {
-                this.clientAddress = item.client.address;
-                this.orderCreateForm.patchValue(item);
-                this.orderCreateForm.patchValue({
-                    order_date: new Date(item.order_date),
-                    delivery_date: new Date(item.delivery_date),
-                });
-                this.itemList = [];
-                item.orderitems.forEach((receipt: any) => {
-                    const receiptObj = {
-                        description: receipt.description,
-                        id: receipt.item_id,
-                        price: receipt.item.price,
-                        quantity: receipt.quantity,
-                        itemName: receipt.item.name,
-                    }
-                    this.itemList.push(receiptObj);
-                });
-                this.dataSource = new MatTableDataSource(this.itemList);
-                this.calculateSubTotal();
-            })
-        }
+    updatePart() {
+        this._activateRoute.queryParams
+            .subscribe(params => {
+                    this.updateOrderId = null;
+                    this.updateOrderId = params.orderId;
+                    console.log(this.updateOrderId);
+                    if (this.updateOrderId)
+                        this.fetchOrderData(this.updateOrderId);
+                }
+            );
+    }
+
+    fetchOrderData(id: any) {
+        this._orderService.getOrderById(id).subscribe((item: any) => {
+            this.clientAddress = item.client.address;
+            this.orderCreateForm.patchValue(item);
+            this.orderCreateForm.patchValue({
+                order_date: new Date(item.order_date),
+                delivery_date: new Date(item.delivery_date),
+            });
+            this.itemList = [];
+            item.orderitems.forEach((receipt: any) => {
+                const receiptObj = {
+                    description: receipt.description,
+                    id: receipt.item_id,
+                    price: receipt.item.price,
+                    quantity: receipt.quantity,
+                    itemName: receipt.item.name,
+                }
+                this.itemList.push(receiptObj);
+            });
+            this.dataSource = new MatTableDataSource(this.itemList);
+            this.calculateSubTotal();
+        });
     }
 
     getEmployeeList() {
@@ -108,7 +114,6 @@ export class OrderCreateComponent implements OnInit {
 
     formInit() {
         this.orderCreateForm = this.formBuilder.group({
-
             client_id: ['', [Validators.required]],
             employee_id: ['', [Validators.required]],
             status: ['0', [Validators.required]],
@@ -192,6 +197,7 @@ export class OrderCreateComponent implements OnInit {
         this._orderService.orderCreatePostRequest(formData)
             .subscribe((resp: any) => {
                 console.log('Order Created Successfully');
+                this._router.navigateByUrl('/orders').then();
             });
     }
 
@@ -199,8 +205,12 @@ export class OrderCreateComponent implements OnInit {
         this._orderService.orderCreatePostRequest(formData)
             .subscribe((resp: any) => {
                 console.log('Order Updated Successfully');
+                this._router.navigateByUrl('/orders').then();
             });
     }
 
+    cancel() {
+        this._router.navigateByUrl('/orders').then();
+    }
 
 }

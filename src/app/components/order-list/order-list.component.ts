@@ -76,11 +76,14 @@ export class OrderListComponent implements OnInit {
 
     changeStatusOrder(index) {
         this._router.navigate([`orders/status/${this.itemList[index].id}`]).then();
+
     }
 
     editOrder(index) {
-        this._orderService.setOrderCreatePageEntryReason(this.itemList[index].id);
-        this._router.navigate(['orders/create']).then();
+        this._router.navigate(
+            ['orders/create'],
+            {queryParams: {orderId: this.itemList[index].id}}
+        ).then();
     }
 
     applyFilter(e: any): void {
