@@ -17,6 +17,7 @@ import {ClientCreateComponent} from './client-create/client-create.component';
 import {ProfileComponent} from './profile/profile.component';
 import {ItemComponent} from './item/item.component';
 import {OrderStatusComponent} from './order-status/order-status.component';
+import { SummaryComponent } from './summary/summary.component';
 
 @NgModule({
     declarations: [
@@ -32,6 +33,7 @@ import {OrderStatusComponent} from './order-status/order-status.component';
         ProfileComponent,
         ItemComponent,
         OrderStatusComponent,
+        SummaryComponent,
     ],
     imports: [
         CommonModule,

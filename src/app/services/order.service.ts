@@ -43,4 +43,8 @@ export class OrderService {
     getOrderListRequest() {
         return this.http.get(ApiConfig.baseUrl + ApiConfig.getOrderList);
     }
+
+    deleteOrderById(id: any) {
+        return this.http.delete(ApiConfig.baseUrl + ApiConfig.deleteOrder + "/" + id);
+    }
 }

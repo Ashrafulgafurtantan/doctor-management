@@ -14,6 +14,7 @@ import {ClientCreateComponent} from "./components/client-create/client-create.co
 import {ProfileComponent} from "./components/profile/profile.component";
 import {ItemComponent} from './components/item/item.component';
 import {OrderStatusComponent} from "./components/order-status/order-status.component";
+import {SummaryComponent} from "./components/summary/summary.component";
 
 const routes: Routes = [
     {path: "", redirectTo: "/login", pathMatch: "full"},
@@ -24,8 +25,9 @@ const routes: Routes = [
     {path: "employee-create", component: EmployeeCreateComponent, canActivate: [AuthGuard]},
     {path: "client-create", component: ClientCreateComponent, canActivate: [AuthGuard]},
     {path: "item-create", component: ItemComponent, canActivate: [AuthGuard]},
-    {path: "search", component: SearchComponent},
-    {path: "profile", component: ProfileComponent},
+    {path: "search", component: SearchComponent, canActivate: [AuthGuard]},
+    {path: "summary/:summaryType", component: SummaryComponent, canActivate: [AuthGuard]},
+    {path: "profile", component: ProfileComponent, canActivate: [AuthGuard]},
     {path: "orders", component: OrderListComponent, canActivate: [AuthGuard]},
     {path: "orders/create", component: OrderCreateComponent, canActivate: [AuthGuard]},
     {path: 'orders/status/:orderID', component: OrderStatusComponent, canActivate: [AuthGuard]},
