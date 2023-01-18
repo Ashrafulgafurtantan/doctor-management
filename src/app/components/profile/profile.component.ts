@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
     visibilityForPass: boolean = false;
     visibilityForNewPass: boolean = false;
     visibilityForConfirmedPass: boolean = false;
+    isDisabled: boolean = true;
 
     constructor(public formBuilder: FormBuilder,
                 private _storage: StorageService,

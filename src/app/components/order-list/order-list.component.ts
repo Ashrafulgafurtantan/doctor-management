@@ -41,6 +41,7 @@ export class OrderListComponent implements OnInit {
     dataSource: MatTableDataSource<OrderTableElement>;
     itemList: OrderTableElement[];
     apiConfig = ApiConfig;
+
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator | any;
     @ViewChild(MatSort, {static: true}) sort: MatSort | any;
 
