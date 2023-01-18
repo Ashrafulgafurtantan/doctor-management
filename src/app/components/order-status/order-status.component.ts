@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ItemService} from "../../services/item.service";
 import {OrderService} from "../../services/order.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {AlertMessageService} from "../../services/alert-message.service";
 
 @Component({
     selector: 'app-order-status',
@@ -38,7 +39,10 @@ export class OrderStatusComponent implements OnInit {
 
     ]
 
-    constructor(private _orderService: OrderService, private _activatedRoute: ActivatedRoute) {
+    constructor(private _orderService: OrderService,
+                private _router: Router,
+                private _alertMsg: AlertMessageService,
+                private _activatedRoute: ActivatedRoute) {
     }
 
     ngOnInit(): void {
@@ -72,7 +76,8 @@ export class OrderStatusComponent implements OnInit {
         console.log(putObj);
         this._orderService.changeOrderStatus(putObj)
             .subscribe((resp: any) => {
-                console.log("Status Change Successfully");
+                this._alertMsg.successfulSubmissionAlert('Order Status Changed Successfully');
+                this._router.navigateByUrl('/orders').then();
             });
     }
 

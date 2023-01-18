@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 // @ts-ignore
 import Swal from "sweetalert2/dist/sweetalert2.js";
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {StorageService} from "../services/storage.service";
+import {AlertMessageService} from "../services/alert-message.service";
 
 @Component({
     selector: 'app-dashboard',
@@ -9,37 +11,41 @@ import {Router} from '@angular/router';
     styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-    isLoginNeeded = false;
 
-    constructor(private _router: Router) {
-        // @ts-ignore
-        this.isLoginNeeded = this._router.getCurrentNavigation().extras.state?.needCredentials;
+    constructor(private _router: Router,
+                private _activateRoute: ActivatedRoute,
+                private _alertMsg: AlertMessageService) {
     }
 
     ngOnInit(): void {
-        if (this.isLoginNeeded) {
-            this.alertWithSuccess();
-        }
+        this.showLoginAlertOrNot();
     }
 
-
-    alertWithSuccess() {
-        Swal.fire('Good Job!', 'Successfully Logged In.', 'success')
+    showLoginAlertOrNot() {
+        this._activateRoute.queryParams
+            .subscribe(params => {
+                    if (params.login) {
+                        this._alertMsg.loginSuccessfulAlert();
+                    }
+                }
+            );
     }
 
     gotoOrderPage() {
         this._router.navigate(["/orders"]).then();
     }
+
     gotoEmployeePage() {
-            this._router.navigate(["/employees"]).then();
-        }
+        this._router.navigate(["/employees"]).then();
+    }
+
     gotoClientPage() {
         this._router.navigate(["/clients"]).then();
     }
+
     gotoItemPage() {
         this._router.navigate(["/items"]).then();
     }
-
 
 
 }

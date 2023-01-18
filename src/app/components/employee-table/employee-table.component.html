@@ -2,11 +2,11 @@
     <mat-card-content>
         <mat-grid-list cols="4" rowHeight="40px">
             <mat-grid-tile colspan="3">
-                <span class="title">Attendance</span>
+                <span class="title">Employee List</span>
             </mat-grid-tile>
             <mat-grid-tile colspan="1">
-                <button (click)="createAttendance()" class="create-attendance"
-                        color="info" mat-raised-button>Create Attendance
+                <button (click)="createEmployee()" class="create-attendance"
+                        color="info" mat-raised-button>Create Employee
                 </button>
             </mat-grid-tile>
         </mat-grid-list>
@@ -15,35 +15,34 @@
             <mat-label>Search</mat-label>
             <input (keyup)="applyFilter($event.target)" matInput>
         </mat-form-field>
+        <!--'id', 'name', 'phone', 'address'-->
         <div class="table-responsive">
             <table [dataSource]="dataSource" class="text-nowrap w-100" mat-table matSort>
-                <ng-container matColumnDef="date">
-                    <th *matHeaderCellDef mat-header-cell mat-sort-header> Attendance Date</th>
-                    <td *matCellDef="let element" mat-cell>
-                        <p class="mb-0 fw-medium">{{element['date']}}</p>
-                    </td>
-                </ng-container>
-                <ng-container matColumnDef="employee_id">
-                    <th *matHeaderCellDef mat-header-cell mat-sort-header> Employee Name</th>
-                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['employee_id']}} </td>
-                </ng-container>
                 <ng-container matColumnDef="id">
-                    <th *matHeaderCellDef mat-header-cell mat-sort-header>Employee ID</th>
-                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['id']}} </td>
-                </ng-container>
-                <ng-container matColumnDef="status">
-                    <th *matHeaderCellDef mat-header-cell mat-sort-header> Present Info</th>
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header> Employee ID</th>
                     <td *matCellDef="let element" mat-cell>
-                        <span class="badge {{element.badge}} rounded-pill">{{element['status']}}</span>
-
+                        <p class="mb-0 fw-medium">{{element['id']}}</p>
                     </td>
+                </ng-container>
+                <ng-container matColumnDef="name">
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header> Employee Name</th>
+                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['name']}} </td>
+                </ng-container>
+                <ng-container matColumnDef="phone">
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header>Phone</th>
+                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['phone']}} </td>
+                </ng-container>
+                <ng-container matColumnDef="address">
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header> Address</th>
+                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['address']}} </td>
+
                 </ng-container>
 
                 <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
                 <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
             </table>
             <mat-paginator
-                    [length]="attendanceList.length"
+                    [length]="employeeList.length"
                     [pageSizeOptions]="[3, 10, 25, 100]"
                     [pageSize]="3"
                     aria-label="Select page">

@@ -1,5 +1,6 @@
 export enum ApiConfig {
     baseUrl = 'http://127.0.0.1:8000/api/',
+    downloadPdfUrl = 'http://127.0.0.1:8000/download/report/',
     userLogin = 'users/login',
     getEmployeeList = 'employees/all',
     getClientList = 'clients/all',
@@ -9,6 +10,7 @@ export enum ApiConfig {
     postEmployeeCreate = 'employees',
     postOrderCreate = 'orders',
     putOrderUpdate = 'orders',
+    deleteOrder = 'orders',
     putOrderStatusUpdate = 'orders/change/status',
     postItemCreate = 'items',
     getOrderList = 'orders/all',

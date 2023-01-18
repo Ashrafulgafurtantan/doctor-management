@@ -4,9 +4,9 @@ import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {Router} from "@angular/router";
-import {AttendanceService} from "../../services/attendance.service";
-import {TableElement} from "../attendance-list/attendance-list.component";
 import {OrderService} from "../../services/order.service";
+import {ApiConfig} from "../../utility/apiConfig";
+import {AlertMessageService} from "../../services/alert-message.service";
 
 export interface OrderTableElement {
     id: number;
@@ -20,7 +20,7 @@ export interface OrderTableElement {
     status: number;
 }
 
-enum OrderStatus {
+export enum OrderStatus {
     0 = 'Received',
     1 = 'In-progress',
     2 = 'redo',
@@ -40,11 +40,13 @@ export class OrderListComponent implements OnInit {
         'patient_name', 'delivery_date', 'employee_id', 'total_amount', 'status', 'actions'];
     dataSource: MatTableDataSource<OrderTableElement>;
     itemList: OrderTableElement[];
-
+    apiConfig = ApiConfig;
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator | any;
     @ViewChild(MatSort, {static: true}) sort: MatSort | any;
 
-    constructor(private _router: Router, private _orderService: OrderService) {
+    constructor(private _router: Router,
+                private _alertMsg: AlertMessageService,
+                private _orderService: OrderService) {
         this.itemList = ELEMENT_DATA;
         this.dataSource = new MatTableDataSource(this.itemList);
     }
@@ -70,9 +72,18 @@ export class OrderListComponent implements OnInit {
         });
     }
 
-    deleteOrder() {
+    deleteOrder(index: any) {
+        this._alertMsg.deleteItemAlert().then((res: any) => {
+            if (res) {
+                this._orderService.deleteOrderById(index).subscribe((resp: any) => {
+                    this.getOrderList();
+                    this._alertMsg.successfulSubmissionAlert('Delete Order Successfully');
+                });
+            }
+        });
 
     }
+
 
     changeStatusOrder(index) {
         this._router.navigate([`orders/status/${this.itemList[index].id}`]).then();

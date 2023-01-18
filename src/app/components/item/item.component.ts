@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ItemService} from "../../services/item.service";
 import {Router} from "@angular/router";
+import {AlertMessageService} from "../../services/alert-message.service";
 
 @Component({
     selector: 'app-item',
@@ -11,7 +12,9 @@ import {Router} from "@angular/router";
 export class ItemComponent implements OnInit {
     itemFormGroup!: FormGroup;
 
-    constructor(public formBuilder: FormBuilder, private _router: Router, private _itemService: ItemService) {
+    constructor(public formBuilder: FormBuilder,
+                private _alertMsg: AlertMessageService,
+                private _router: Router, private _itemService: ItemService) {
     }
 
     ngOnInit(): void {
@@ -32,6 +35,7 @@ export class ItemComponent implements OnInit {
                 .subscribe((resp: any) => {
                     console.log(resp);
                     this._router.navigateByUrl('/home').then();
+                    this._alertMsg.successfulSubmissionAlert('Item Created Successfully');
                 });
         }
     }

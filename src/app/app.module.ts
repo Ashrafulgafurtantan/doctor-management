@@ -9,7 +9,7 @@ import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {DemoFlexyModule} from './demo-flexy-module'
-
+//import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 // Modules
 import {DashboardModule} from './dashboard/dashboard.module';
 import {ComponentsModule} from './components/components.module';
@@ -28,6 +28,7 @@ import {AuthInterceptorService} from "./services/auth-interceptor.service";
     ],
     imports: [
         BrowserModule,
+        //SweetAlert2Module.forRoot(),
         HttpClientModule,
         AppRoutingModule,
         BrowserAnimationsModule,

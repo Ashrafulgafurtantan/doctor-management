@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {OrderService} from "../../services/order.service";
 import {SHADE_LIST} from './shade-data';
 import {SHADE_GUID_LIST} from './shade-data';
+import {AlertMessageService} from "../../services/alert-message.service";
 
 @Component({
     selector: 'app-order-create',
@@ -34,6 +35,7 @@ export class OrderCreateComponent implements OnInit {
 
 
     constructor(public formBuilder: FormBuilder,
+                private _alertMsg: AlertMessageService,
                 private _activateRoute: ActivatedRoute,
                 private _router: Router, private _orderService: OrderService) {
         this.shadeList = SHADE_LIST;
@@ -64,6 +66,7 @@ export class OrderCreateComponent implements OnInit {
     fetchOrderData(id: any) {
         this._orderService.getOrderById(id).subscribe((item: any) => {
             this.clientAddress = item.client.address;
+            console.log(item);
             this.orderCreateForm.patchValue(item);
             this.orderCreateForm.patchValue({
                 order_date: new Date(item.order_date),
@@ -113,6 +116,7 @@ export class OrderCreateComponent implements OnInit {
 
 
     formInit() {
+
         this.orderCreateForm = this.formBuilder.group({
             client_id: ['', [Validators.required]],
             employee_id: ['', [Validators.required]],
@@ -126,10 +130,10 @@ export class OrderCreateComponent implements OnInit {
             shade: ['', [Validators.required]],
             notes: [''],
             items: ['', [Validators.required]],
-            discount: [''],
+            discount: ['0', [Validators.required]],
             additional_info: [''],
             additional_price: [''],
-            single_item: ['', [Validators.required]],
+            single_item: ['',],
         });
     }
 
@@ -182,7 +186,8 @@ export class OrderCreateComponent implements OnInit {
         formData['order_date'] = formData['order_date'].toLocaleDateString();
         formData['delivery_date'] = formData['delivery_date'].toLocaleDateString();
         if (this.orderCreateForm.valid) {
-            if (this.forEditing) {
+            if (this.updateOrderId) {
+                formData['id'] = this.updateOrderId;
                 console.log("updateOrder");
                 this.updateOrder(formData);
             } else {
@@ -196,15 +201,16 @@ export class OrderCreateComponent implements OnInit {
     createOrder(formData: FormData) {
         this._orderService.orderCreatePostRequest(formData)
             .subscribe((resp: any) => {
-                console.log('Order Created Successfully');
+                this._alertMsg.successfulSubmissionAlert('Order Created Successfully');
                 this._router.navigateByUrl('/orders').then();
             });
     }
 
     updateOrder(formData: FormData) {
-        this._orderService.orderCreatePostRequest(formData)
+        console.log(formData)
+        this._orderService.orderUpdatePutRequest(formData)
             .subscribe((resp: any) => {
-                console.log('Order Updated Successfully');
+                this._alertMsg.successfulSubmissionAlert('Order Updated Successfully');
                 this._router.navigateByUrl('/orders').then();
             });
     }

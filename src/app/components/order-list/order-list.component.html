@@ -57,10 +57,12 @@
                         <button (click)="editOrder(i)" color="primary" mat-icon-button>
                             <mat-icon aria-label="icon-button">edit_square</mat-icon>
                         </button>
-                        <button color="accent" mat-icon-button>
-                            <mat-icon aria-label="icon-button">print</mat-icon>
-                        </button>
-                        <button (click)="deleteOrder()" color="warn" mat-icon-button>
+                        <a [href]="apiConfig.downloadPdfUrl+'order/'+itemList[i].id" target="_blank">
+                            <button color="accent" mat-icon-button>
+                                <mat-icon aria-label="icon-button">print</mat-icon>
+                            </button>
+                        </a>
+                        <button (click)="deleteOrder(i)" color="warn" mat-icon-button>
                             <mat-icon aria-label="icon-button">cancel</mat-icon>
                         </button>
 
@@ -75,3 +77,4 @@
         </div>
     </mat-card-content>
 </mat-card>
+<app-search></app-search>

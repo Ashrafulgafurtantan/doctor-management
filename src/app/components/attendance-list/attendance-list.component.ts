@@ -50,8 +50,6 @@ export class AttendanceListComponent implements OnInit {
     @ViewChild(MatSort, {static: true}) sort: MatSort | any;
 
     constructor(private _router: Router, private _attendanceService: AttendanceService) {
-        this.attendanceList = ELEMENT_DATA;
-        this.dataSource = new MatTableDataSource(this.attendanceList);
     }
 
     ngOnInit(): void {
