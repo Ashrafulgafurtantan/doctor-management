@@ -17,10 +17,11 @@ import {ClientCreateComponent} from './client-create/client-create.component';
 import {ProfileComponent} from './profile/profile.component';
 import {ItemComponent} from './item/item.component';
 import {OrderStatusComponent} from './order-status/order-status.component';
-import { SummaryComponent } from './summary/summary.component';
-import { EmployeeTableComponent } from './employee-table/employee-table.component';
-import { ClientTableComponent } from './client-table/client-table.component';
-import { ItemTableComponent } from './item-table/item-table.component';
+import {SummaryComponent} from './summary/summary.component';
+import {EmployeeTableComponent} from './employee-table/employee-table.component';
+import {ClientTableComponent} from './client-table/client-table.component';
+import {ItemTableComponent} from './item-table/item-table.component';
+import {LandingPageComponent} from './landing-page/landing-page.component';
 
 @NgModule({
     declarations: [
@@ -40,6 +41,7 @@ import { ItemTableComponent } from './item-table/item-table.component';
         EmployeeTableComponent,
         ClientTableComponent,
         ItemTableComponent,
+        LandingPageComponent,
     ],
     imports: [
         CommonModule,
@@ -50,6 +52,7 @@ import { ItemTableComponent } from './item-table/item-table.component';
     ],
     exports: [
         AlertsComponent,
+        LandingPageComponent,
     ]
 })
 // @ts-ignore

@@ -18,10 +18,13 @@ import {SummaryComponent} from "./components/summary/summary.component";
 import {EmployeeTableComponent} from "./components/employee-table/employee-table.component";
 import {ClientTableComponent} from "./components/client-table/client-table.component";
 import {ItemTableComponent} from "./components/item-table/item-table.component";
+import {LandingPageComponent} from "./components/landing-page/landing-page.component";
 
 const routes: Routes = [
     {path: "", redirectTo: "/login", pathMatch: "full"},
     {path: "home", component: DashboardComponent, canActivate: [AuthGuard]},
+    {path: "login", component: LoginComponent, pathMatch: "full"},
+    {path: "welcome", component: LandingPageComponent, pathMatch: "full"},
     {path: "alerts", component: AlertsComponent},
     {path: "create", component: AttendanceCreateComponent, canActivate: [AuthGuard]},
     {path: "attendance-list", component: AttendanceListComponent, canActivate: [AuthGuard]},
@@ -37,7 +40,7 @@ const routes: Routes = [
     {path: "orders", component: OrderListComponent, canActivate: [AuthGuard]},
     {path: "orders/create", component: OrderCreateComponent, canActivate: [AuthGuard]},
     {path: 'orders/status/:orderID', component: OrderStatusComponent, canActivate: [AuthGuard]},
-    {path: "login", component: LoginComponent, pathMatch: "full"},
+
     {path: "", redirectTo: "/home", pathMatch: "full"},
     {path: "**", redirectTo: "/home", pathMatch: "full"},
 ];
