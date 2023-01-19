@@ -18,11 +18,12 @@ import {EmployeeTableComponent} from "./components/employee-table/employee-table
 import {ClientTableComponent} from "./components/client-table/client-table.component";
 import {ItemTableComponent} from "./components/item-table/item-table.component";
 import {LandingPageComponent} from "./components/landing-page/landing-page.component";
+import {LoginGuard} from "./gaurds/login.guard";
 
 const routes: Routes = [
     {path: "", redirectTo: "/welcome", pathMatch: "full"},
     {path: "home", component: DashboardComponent, canActivate: [AuthGuard]},
-    {path: "login", component: LoginComponent, pathMatch: "full"},
+    {path: "login", component: LoginComponent, pathMatch: "full", canActivate: [LoginGuard]},
     {path: "welcome", component: LandingPageComponent, pathMatch: "full"},
     {path: "create", component: AttendanceCreateComponent, canActivate: [AuthGuard]},
     {path: "attendance-list", component: AttendanceListComponent, canActivate: [AuthGuard]},

@@ -382,6 +382,14 @@ h1 {
   padding: 0;
 }
 
+.cta li {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 22px;
+  padding: 10px;
+}
+
 @media (max-width: 700px) {
   .cta h1 {
     font-size: 24px;
@@ -390,14 +398,7 @@ h1 {
 
 
 /* -----------FWhy Us---------- */
-.list {
 
-  font-size: 14px;
-  font-weight: 300;
-  color: #777;
-  line-height: 22px;
-  padding: 10px;
-}
 
 /* -----------Footer---------- */
 
@@ -422,4 +423,28 @@ h1 {
 
 .heart {
   color: #f44336;
+  fill: #f44336;
+}
+
+.contact-us-header {
+  display: flex;
+  justify-content: center;
+}
+
+.contact-us {
+  justify-content: center;
+  background: black;
+  color: white;
+}
+
+.contact-us-icon {
+  color: #51b984;
+  cursor: pointer;
+  padding: 5px 0;
+}
+
+.copyright {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20%;
 }

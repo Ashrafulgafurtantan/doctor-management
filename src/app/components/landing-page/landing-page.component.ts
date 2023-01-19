@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
+import {ApiConfig} from "../../utility/apiConfig";
 
 @Component({
     selector: 'app-landing-page',
@@ -6,13 +8,22 @@ import {Component, OnInit} from '@angular/core';
     styleUrls: ['./landing-page.component.scss']
 })
 export class LandingPageComponent implements OnInit {
+    apiConfig = ApiConfig;
 
-    constructor() {
+    constructor(private _router: Router) {
     }
 
-    icon = 'fal fa-home';
 
     ngOnInit(): void {
     }
+
+    scroll(el: HTMLElement) {
+        el.scrollIntoView();
+    }
+
+    navigateToSegment() {
+        this._router.navigate([], {fragment: "mapComponent"});
+    }
+
 
 }

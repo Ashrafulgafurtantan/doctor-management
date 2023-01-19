@@ -1,27 +1,25 @@
 <section class="header"
          style="background: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),url('../../../assets/images/banner-3.jpg')">
     <nav>
-        <a href="index.html"> <img src="../../../assets/images/logo.png"/></a>
+        <a href="index.html"> <img class="rounded-circle" style="height:100px; width:100px"
+                                   src="../../../assets/images/logo.jpg"/></a>
         <div class="nav-links" id="navLinks">
             <i class="fa fa-times" onclick="hideMenu()"></i>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="services.html">Course</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="http://localhost:4200/login">Login</a></li>
+                <li><a (click)="scroll(about)">About</a></li>
+                <li><a (click)="scroll(why)">Why Us</a></li>
+                <li><a (click)="scroll(contact)">Contact</a></li>
+                <li><a [href]="apiConfig.loginUrl">Login</a></li>
             </ul>
         </div>
         <i class="fa fa-bars" onclick="showMenu()"></i>
     </nav>
     <div class="text-box">
-        <h1>Learn to code</h1>
+        <h1>VIVADENT DENTAL LABORATORY</h1>
         <p>
-            See how experienced developers solve problems in real-time. Watching
-            scripted tutorials is great, <br/>but understanding how developers think is
-            invaluable.
+            A leading visionary in dental care.
         </p>
-        <a href="" class="hero-btn">Visit Us to Know More!</a>
+        <a (click)="scroll(target)" class="hero-btn">Find Us In Map!</a>
     </div>
 </section>
 
@@ -120,7 +118,7 @@
     </div>
 </section>
 <!-- About Us -->
-<section class="course">
+<section class="course" #about>
     <h1>About Us</h1>
     <div class="row">
         <div class="course-col">
@@ -176,7 +174,7 @@
 </section>
 
 <!-- ----------- Find Us On Google Map -------- -->
-<section class="testimonials">
+<section class="testimonials" #target>
     <h1>Find Us On Google Map</h1>
     <div class="row">
         <div class="mapouter">
@@ -196,43 +194,64 @@
 </section>
 
 <!-- ----------- Call To Action -------- -->
-<section class="cta"
-         style=" background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('../../../assets/images/banner2.jpg');">
-    <h1>Enrol For Our various Online Courses <br>Anywhere From The World</h1>
-    <a href="" class="hero-btn">CONTACT US</a>
-</section>
-
-<!-- ----------- Why Us -------- -->
-<section class="footer">
+<section #why class="cta"
+         style=" background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('../../../assets/images/why-us.jpg');">
     <h1>Why Us</h1>
-    <ul class="list">
+    <ul>
         <li>Our dental lab provide fast and hassle free service.</li>
         <li>We guarantee that you don’t spend much chair time adjusting the dentures.</li>
         <li>We make sure that your patient will be happy with the dentures from our lab.</li>
     </ul>
 </section>
 
+<!-- ----------- Why Us -------- -->
+<section class="footer">
+
+</section>
+
 
 <!-- ----------- Footer -------- -->
-<!--<section class="footer">
-    <h4>About Us</h4>
-    <p>
-        Suspendisse nunc libero, molestie sed fringilla eget,
-        auctor eu libero. Quisque vel tincidunt dui.<br>
-        Pellentesque venenatis mollis odio, a ullamcorper
-        diam condimentum quis
-    </p>
-    <div class="icons">
-        <i-feather name="facebook"></i-feather>
-        <i-feather name="twitter"></i-feather>
-        <i-feather name="instagram"></i-feather>
-        <i-feather name="linkedin"></i-feather>
+<section class="footer contact-us" #contact>
+    <div class="contact-us-header">
+        <div>
+            <img src="../../../assets/images/logo.jpg"
+                 style="height: 40px; width: 40px; border-radius: 50%; margin-right: 10px;">
+        </div>
+        <div>
+            <h4>VIVADENT DENTAL LABORATORY</h4>
+        </div>
     </div>
-    <p>Made with
-        <i-feather name="heart" class="heart"></i-feather>
-        Easy Tutorials
-    </p>
-</section>-->
+    <div>
+        <p>A complete Dental Laboratory, provides All in "One Lab" service (PFM, Zirconia, E-max, Implant Crown,
+            Flexible and CCP Dentures, Ortho Appliance).</p>
+
+        <div style="display: flex; justify-content: center">
+            <i-feather class="contact-us-icon" name="mail"></i-feather>
+            <p>vivadentsdnbhd@gmail.com</p>
+        </div>
+        <div style="display: flex; justify-content: center">
+            <i-feather class="contact-us-icon" name="phone"></i-feather>
+            <p>011 8888 6191 (Admin), 011 8888 1905 (Marketing Manager)</p>
+        </div>
+        <div style="display: flex; justify-content: center">
+            <i-feather class="contact-us-icon" name="map-pin"></i-feather>
+            <p>No.23A, Tingkat Atas, Jalan Malung 17/19. Seksyen 17, 40200 Shah Alam, Selangor</p>
+        </div>
+    </div>
+
+    <div class="copyright">
+        <div>
+            <p>© 2023 Copyright: <a href="#">Vivadent Dental Laboratory</a></p>
+        </div>
+        <div>
+            <p>Made with
+                <i-feather name="heart" class="heart"></i-feather>
+                jARC Software
+            </p>
+        </div>
+    </div>
+
+</section>
 
 <script>
     var navLinks = document.getElementById("navLinks");
