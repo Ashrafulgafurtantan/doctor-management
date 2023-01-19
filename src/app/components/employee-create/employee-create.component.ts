@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {EmployeeService} from "../../services/employee.service";
 import {Router} from "@angular/router";
 import {AlertMessageService} from "../../services/alert-message.service";
+import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
     selector: 'app-employee-create',
@@ -16,6 +17,7 @@ export class EmployeeCreateComponent implements OnInit {
 
     constructor(public formBuilder: FormBuilder,
                 private _alertMsg: AlertMessageService,
+                private _authService: AuthenticationService,
                 private _router: Router, private _employeeService: EmployeeService) {
     }
 
@@ -40,7 +42,7 @@ export class EmployeeCreateComponent implements OnInit {
                     console.log(resp);
                     this._router.navigateByUrl('/employee-list').then();
                     this._alertMsg.successfulSubmissionAlert('Employee Created Successfully');
-                });
+                }, (error: any) => this._authService.httpRequestErrorHandler(error));
         }
     }
 

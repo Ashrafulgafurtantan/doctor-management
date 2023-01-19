@@ -65,9 +65,7 @@ export class ProfileComponent implements OnInit {
                 .subscribe((resp: any) => {
                     this._alertMsg.successfulSubmissionAlert('Password Changed Successfully');
                     this._authService.logout();
-                }, (e) => {
-                    this._alertMsg.errorAlert();
-                });
+                }, (error: any) => this._authService.httpRequestErrorHandler(error));
         }
     }
 

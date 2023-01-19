@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {AlertsComponent} from './components/alerts/alerts.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {LoginComponent} from "./components/login/login.component";
 import {AuthGuard} from "./gaurds/auth.guard";
@@ -21,11 +20,10 @@ import {ItemTableComponent} from "./components/item-table/item-table.component";
 import {LandingPageComponent} from "./components/landing-page/landing-page.component";
 
 const routes: Routes = [
-    {path: "", redirectTo: "/login", pathMatch: "full"},
+    {path: "", redirectTo: "/welcome", pathMatch: "full"},
     {path: "home", component: DashboardComponent, canActivate: [AuthGuard]},
     {path: "login", component: LoginComponent, pathMatch: "full"},
     {path: "welcome", component: LandingPageComponent, pathMatch: "full"},
-    {path: "alerts", component: AlertsComponent},
     {path: "create", component: AttendanceCreateComponent, canActivate: [AuthGuard]},
     {path: "attendance-list", component: AttendanceListComponent, canActivate: [AuthGuard]},
     {path: "employee-list", component: EmployeeTableComponent, canActivate: [AuthGuard]},

@@ -4,6 +4,7 @@ import {EmployeeService} from "../../services/employee.service";
 import {ClientService} from "../../services/client.service";
 import {Router} from "@angular/router";
 import {AlertMessageService} from "../../services/alert-message.service";
+import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
     selector: 'app-client-create',
@@ -18,6 +19,7 @@ export class ClientCreateComponent implements OnInit {
 
     constructor(public formBuilder: FormBuilder,
                 private _alertMsg: AlertMessageService,
+                private _authService: AuthenticationService,
                 private _router: Router, private _clientService: ClientService) {
     }
 
@@ -43,7 +45,7 @@ export class ClientCreateComponent implements OnInit {
                     console.log(resp);
                     this._alertMsg.successfulSubmissionAlert('Client Created Successfully');
                     this._router.navigateByUrl('/client-list').then();
-                });
+                }, (error: any) => this._authService.httpRequestErrorHandler(error));
         }
     }
 

@@ -84,7 +84,7 @@ export class SearchComponent implements OnInit {
                     this.dataSource.sort = this.sort;
                     this.dataSource.paginator = this.paginator
                 });
-            });
+            }, (error: any) => this._authService.httpRequestErrorHandler(error));
         }
     }
 

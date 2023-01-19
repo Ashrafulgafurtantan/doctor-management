@@ -26,12 +26,28 @@ export class AlertMessageService {
         })
     }
 
-    errorAlert() {
+    submissionErrorAlert() {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'Something went wrong!\nPlease Try Again',
-        })
+        });
+    }
+
+    submittedCredentialErrorAlert() {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Given Credentials Incorrect!\nPlease Try Again With Valid Credentials',
+        });
+    }
+
+    unauthorizedRequestErrorAlert() {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Your Login session Expired\nPlease Login Again',
+        });
     }
 
     deleteItemAlert() {

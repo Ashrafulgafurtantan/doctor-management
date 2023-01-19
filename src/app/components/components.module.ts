@@ -1,7 +1,6 @@
 // @ts-nocheck
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {AlertsComponent} from './alerts/alerts.component';
 import {FeatherModule} from 'angular-feather';
 import {allIcons} from 'angular-feather/icons';
 import {DemoFlexyModule} from '../demo-flexy-module';
@@ -25,7 +24,6 @@ import {LandingPageComponent} from './landing-page/landing-page.component';
 
 @NgModule({
     declarations: [
-        AlertsComponent,
         LoginComponent,
         AttendanceCreateComponent,
         OrderListComponent,
@@ -51,7 +49,6 @@ import {LandingPageComponent} from './landing-page/landing-page.component';
         ReactiveFormsModule
     ],
     exports: [
-        AlertsComponent,
         LandingPageComponent,
     ]
 })
