@@ -88,19 +88,7 @@ export class AttendanceListComponent implements OnInit {
                 }
                 ELEMENT_DATA.push(real);
             });
-            /*for (let key in resp) {
-                const obj = resp[key];
-                obj.forEach((item: any) => {
-                    const real: TableElement = {
-                        badge: AttendanceStatus[item.status]['color'],
-                        id: item.employee['id'],
-                        employee_id: item.employee['name'],
-                        date: item.date.substring(0, 10),
-                        status: AttendanceStatus[item.status]['status'],
-                    }
-                    ELEMENT_DATA.push(real);
-                });
-            }*/
+           
             this.attendanceList = [];
             this.attendanceList = ELEMENT_DATA;
             this.dataSource = new MatTableDataSource(this.attendanceList);

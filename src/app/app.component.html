@@ -1,4 +1,6 @@
-<app-sidenav *ngIf="!isLoginPage" (onToggleSideNav)="onToggleSideNav($event)"></app-sidenav>
+<app-sidenav style="" style="position: fixed;width: 150px;overflow-y: scroll;top: 0;bottom: 0;background-color: #03c9d7"
+
+             *ngIf="!isLoginPage" (onToggleSideNav)="onToggleSideNav($event)"></app-sidenav>
 <app-body
         [collapsed]="isSideNavCollapsed"
         [screenWidth]="screenWidth"
