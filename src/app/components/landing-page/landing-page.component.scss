@@ -417,4 +417,28 @@ h1 {
 
 .heart {
   color: #f44336;
+  fill: #f44336;
+}
+
+.contact-us-header{
+  display: flex;
+  justify-content: center;
+}
+
+.contact-us{
+  justify-content: center;
+  background: black;
+  color: white;
+}
+
+.contact-us-icon{
+  color: #51b984;
+  cursor: pointer;
+  padding: 5px 0;
+}
+
+.copyright{
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20%;
 }
