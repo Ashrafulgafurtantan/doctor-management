@@ -237,15 +237,17 @@ h1 {
   top: 0;
   left: 0;
   transition: 0.5s;
-  i-feather{
+
+  i-feather {
     visibility: hidden;
   }
 }
 
 .layer:hover {
   background: rgba(0, 0, 0, 0.87) none repeat scroll 0 0;
-  i-feather{
-   visibility: visible;
+
+  i-feather {
+    visibility: visible;
   }
 }
 
@@ -371,6 +373,10 @@ h1 {
 }
 
 /* - ----------- Call To Action -------- */
+
+.cursor {
+  cursor: pointer;
+}
 
 .cta {
   margin: 100px auto;
