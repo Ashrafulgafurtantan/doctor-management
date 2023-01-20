@@ -11,6 +11,7 @@ import {AlertMessageService} from "./alert-message.service";
 })
 export class AuthenticationService {
     authState = new BehaviorSubject(false);
+    isShowingSideNavBar: boolean = false;
 
     constructor(
         private _router: Router,
@@ -19,6 +20,14 @@ export class AuthenticationService {
         private storageService: StorageService
     ) {
         this.ifLoggedIn();
+    }
+
+    setSideNavBarValue(val: any) {
+        this.isShowingSideNavBar = val;
+    }
+
+    getSideNavBarValue(): boolean {
+        return this.isShowingSideNavBar;
     }
 
     ifLoggedIn() {

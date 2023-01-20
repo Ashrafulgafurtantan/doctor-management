@@ -1,7 +1,10 @@
 export enum ApiConfig {
-    baseUrl = 'https://api.32vivadent.com/api/',
+    /* baseUrl = 'https://api.32vivadent.com/api/',
+     downloadPdfUrl = 'https://api.32vivadent.com/download/report/',
+     loginUrl = 'https://32vivadent.com/login',*/
+    baseUrl = 'http://127.0.0.1:8000/api/',
     downloadPdfUrl = 'https://api.32vivadent.com/download/report/',
-    loginUrl = 'https://32vivadent.com/login',
+    loginUrl = 'http://localhost:4200/login',
     userLogin = 'users/login',
     getEmployeeList = 'employees/all',
     getClientList = 'clients/all',

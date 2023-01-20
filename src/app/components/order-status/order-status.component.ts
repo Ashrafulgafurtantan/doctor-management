@@ -25,10 +25,10 @@ export class OrderStatusComponent implements OnInit {
             statusId: 1,
             statusName: 'In-progress',
         },
-        {
-            statusId: 2,
-            statusName: 'Redo',
-        },
+        /* {
+             statusId: 2,
+             statusName: 'Redo',
+         },*/
         {
             statusId: 3,
             statusName: 'Trial',
