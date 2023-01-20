@@ -207,10 +207,11 @@ h1 {
 }
 
 .campus {
-  width: 80%;
+  width: 100%;
   margin: auto;
   text-align: center;
   padding-top: 50px;
+  background-color: #e7f2fe;
 }
 
 .campus-col {
@@ -236,10 +237,16 @@ h1 {
   top: 0;
   left: 0;
   transition: 0.5s;
+  i-feather{
+    visibility: hidden;
+  }
 }
 
 .layer:hover {
-  background: rgba(226, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.87) none repeat scroll 0 0;
+  i-feather{
+   visibility: visible;
+  }
 }
 
 .layer h3 {
@@ -256,7 +263,7 @@ h1 {
 }
 
 .layer:hover h3 {
-  bottom: 49%;
+  bottom: 20%;
   opacity: 1;
 }
 

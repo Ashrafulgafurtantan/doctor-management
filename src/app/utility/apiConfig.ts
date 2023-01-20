@@ -1,5 +1,5 @@
 export enum ApiConfig {
-    baseUrl = 'http://127.0.0.1:8000/api/',
+    baseUrl = 'https://api.32vivadent.com/api/',
     downloadPdfUrl = 'http://127.0.0.1:8000/download/report/',
     loginUrl = 'http://localhost:4200/login',
     userLogin = 'users/login',
