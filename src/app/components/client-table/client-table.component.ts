@@ -13,7 +13,7 @@ import {OrderService} from "../../services/order.service";
 export class ClientTableComponent implements OnInit {
 
 
-    displayedColumns: string[] = ['id', 'name', 'phone', 'address'];
+    displayedColumns: string[] = ['id', 'name', 'phone', 'address', 'actions'];
     dataSource: MatTableDataSource<any>;
     clientList: any;
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator | any;
@@ -39,6 +39,13 @@ export class ClientTableComponent implements OnInit {
                 this.dataSource.paginator = this.paginator
             });
         });
+    }
+
+    editClient(index: any) {
+        this._router.navigate(
+            ['client-create'],
+            {queryParams: {clientId: this.clientList[index].id}}
+        ).then();
     }
 
     createClient() {

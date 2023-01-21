@@ -16,7 +16,7 @@
             <input (keyup)="applyFilter($event.target)" matInput>
         </mat-form-field>
         <div class="table-responsive">
-            <table [dataSource]="dataSource" class="text-nowrap w-100" mat-table matSort>
+            <table [dataSource]="dataSource" class="w-100" mat-table matSort>
                 <ng-container matColumnDef="id">
                     <th *matHeaderCellDef mat-header-cell mat-sort-header> Item ID</th>
                     <td *matCellDef="let element" mat-cell>

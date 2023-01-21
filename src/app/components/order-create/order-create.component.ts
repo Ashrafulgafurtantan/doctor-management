@@ -190,10 +190,8 @@ export class OrderCreateComponent implements OnInit {
         if (this.orderCreateForm.valid) {
             if (this.updateOrderId) {
                 formData['id'] = this.updateOrderId;
-                console.log("updateOrder");
                 this.updateOrder(formData);
             } else {
-                console.log("createOrder");
                 this.createOrder(formData);
             }
 

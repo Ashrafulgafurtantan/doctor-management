@@ -1,12 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {OrderService} from "../../services/order.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 
 export interface TableElement {
-    employee_id: string;
+    id: string;
+    nid: string;
     name: string;
     phone: string;
     address: string;
@@ -23,13 +24,14 @@ const ELEMENT_DATA: TableElement[] = [];
 export class EmployeeTableComponent implements OnInit {
 
 
-    displayedColumns: string[] = ['id', 'name', 'phone', 'address'];
+    displayedColumns: string[] = ['id', 'name', 'phone', 'address', 'actions'];
     dataSource: MatTableDataSource<TableElement>;
     employeeList: TableElement[];
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator | any;
     @ViewChild(MatSort, {static: true}) sort: MatSort | any;
 
-    constructor(private _router: Router, private _orderService: OrderService) {
+    constructor(private _router: Router,
+                private _orderService: OrderService) {
         this.employeeList = ELEMENT_DATA;
         this.dataSource = new MatTableDataSource(this.employeeList);
     }
@@ -40,9 +42,10 @@ export class EmployeeTableComponent implements OnInit {
 
     getEmployeeList() {
         this._orderService.getEmployeeList().subscribe((resp: any) => {
-            console.log(resp);
+
             this.employeeList = [];
             this.employeeList = resp;
+            console.log(this.employeeList);
             this.dataSource = new MatTableDataSource(this.employeeList);
             setTimeout(() => {
                 this.dataSource.sort = this.sort;
@@ -53,6 +56,13 @@ export class EmployeeTableComponent implements OnInit {
 
     createEmployee() {
         this._router.navigateByUrl('/employee-create').then(() => console.log(""));
+    }
+
+    editEmployee(index: any) {
+        this._router.navigate(
+            ['employee-create'],
+            {queryParams: {employeeId: this.employeeList[index].id}}
+        ).then();
     }
 
     applyFilter(e: any): void {

@@ -21,7 +21,10 @@
                        routerLink="{{ node.routerLink }}"
                        routerLinkActive="active"
                     >
-                        <mat-icon class="own-icon">{{node.icon}}</mat-icon>
+                        <mat-icon
+                                [matTooltip]="node.name"
+                                matTooltipPosition="after"
+                                class="own-icon">{{node.icon}}</mat-icon>
                         <span *ngIf="collapsed" class="own-text">{{node.name}}</span>
                     </a>
                 </mat-tree-node>
@@ -31,7 +34,10 @@
                            class="sidenav-nav-item" style="color: #f3f3f3;text-decoration: none;">
                 <a style="position: relative" [routerLinkActiveOptions]="{exact:true}" class="exc" matTreeNodeToggle
                    routerLinkActive="active">
-                    <mat-icon class="own-icon">{{node.icon}}</mat-icon>
+                    <mat-icon
+                            [matTooltip]="node.name"
+                            matTooltipPosition="after"
+                            class="own-icon">{{node.icon}}</mat-icon>
                     <mat-icon style="position: absolute; right: 1px;" *ngIf="collapsed" class="mat-icon-rtl-mirror">
                         {{treeControl.isExpanded(node) ? 'expand_less' : 'expand_more'}}
                     </mat-icon>

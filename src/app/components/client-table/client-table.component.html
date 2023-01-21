@@ -16,7 +16,7 @@
             <input (keyup)="applyFilter($event.target)" matInput>
         </mat-form-field>
         <div class="table-responsive">
-            <table [dataSource]="dataSource" class="text-nowrap w-100" mat-table matSort>
+            <table [dataSource]="dataSource" class="w-100" mat-table matSort>
                 <ng-container matColumnDef="id">
                     <th *matHeaderCellDef mat-header-cell mat-sort-header> Client ID</th>
                     <td *matCellDef="let element" mat-cell>
@@ -32,11 +32,19 @@
                     <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['phone']}} </td>
                 </ng-container>
                 <ng-container matColumnDef="address">
+
                     <th *matHeaderCellDef mat-header-cell mat-sort-header> Address</th>
                     <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['address']}} </td>
 
                 </ng-container>
-
+                <ng-container matColumnDef="actions">
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header> Actions</th>
+                    <td *matCellDef="let element; let i = index" class="fw-medium" mat-cell>
+                        <button (click)="editClient(i)" color="primary" mat-icon-button>
+                            <mat-icon aria-label="icon-button">edit_square</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
                 <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
                 <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
             </table>
