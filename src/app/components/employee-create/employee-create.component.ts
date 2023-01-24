@@ -58,7 +58,7 @@ export class EmployeeCreateComponent implements OnInit {
             name: ['', [Validators.required]],
             phone: ['', [Validators.required]],
             address: ['', [Validators.required]],
-            nid: ['', [Validators.required]],
+            nid: [''],
         });
     }
 
