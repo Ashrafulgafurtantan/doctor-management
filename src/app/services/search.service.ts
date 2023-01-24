@@ -7,7 +7,6 @@ import {ApiConfig} from "../utility/apiConfig";
     providedIn: 'root'
 })
 export class SearchService {
-//orders/clients/4/start/2022-12-30/end/2023-01-18
     constructor(private _router: Router,
                 private http: HttpClient,) {
     }
