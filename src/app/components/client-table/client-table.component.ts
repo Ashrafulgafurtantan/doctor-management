@@ -30,7 +30,6 @@ export class ClientTableComponent implements OnInit {
 
     getClientList() {
         this._orderService.getClientList().subscribe((resp: any) => {
-            console.log(resp);
             this.clientList = [];
             this.clientList = resp;
             this.dataSource = new MatTableDataSource(this.clientList);

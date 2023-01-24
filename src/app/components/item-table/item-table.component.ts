@@ -30,7 +30,6 @@ export class ItemTableComponent implements OnInit {
 
     getItemList() {
         this._orderService.getItemList().subscribe((resp: any) => {
-            console.log(resp);
             this.itemList = [];
             this.itemList = resp;
             this.dataSource = new MatTableDataSource(this.itemList);
