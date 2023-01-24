@@ -33,6 +33,7 @@ export class ClientCreateComponent implements OnInit {
     formInit() {
         this.clientFormGroup = this.formBuilder.group({
             name: ['', [Validators.required]],
+            doctor_name: ['', [Validators.required]],
             phone: ['', [Validators.required]],
             address: ['', [Validators.required]],
             // photo: ['',],
@@ -56,6 +57,7 @@ export class ClientCreateComponent implements OnInit {
             console.log(employee);
             this.clientFormGroup.patchValue({
                 name: employee.name,
+                doctor_name: employee.doctor_name,
                 phone: employee.phone,
                 address: employee.address,
             });
@@ -98,6 +100,7 @@ export class ClientCreateComponent implements OnInit {
     createPostRequestFormData(): FormData {
         const formData = new FormData();
         formData.append('name', this.clientFormGroup.value.name);
+        formData.append('doctor_name', this.clientFormGroup.value.doctor_name);
         formData.append('phone', this.clientFormGroup.value.phone);
         formData.append('address', this.clientFormGroup.value.address);
         return formData;
