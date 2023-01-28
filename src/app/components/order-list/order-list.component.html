@@ -1,7 +1,7 @@
 <!--@ts-nocheck-->
 <mat-card class="w-100">
     <mat-card-content>
-        <h4 class="mb-32">Orders List</h4>
+        <h4 class="mb-32 title">Orders List</h4>
         <mat-form-field appearance="fill">
             <mat-label>Search</mat-label>
             <input (keyup)="applyFilter($event.target)" matInput>
@@ -57,10 +57,12 @@
                         <button (click)="editOrder(i)" color="primary" mat-icon-button>
                             <mat-icon aria-label="icon-button">edit_square</mat-icon>
                         </button>
-                        <button color="accent" mat-icon-button>
-                            <mat-icon aria-label="icon-button">print</mat-icon>
-                        </button>
-                        <button (click)="deleteOrder()" color="warn" mat-icon-button>
+                        <a [href]="apiConfig.downloadPdfUrl+'order/'+itemList[i].id" target="_blank">
+                            <button color="accent" mat-icon-button>
+                                <mat-icon aria-label="icon-button">print</mat-icon>
+                            </button>
+                        </a>
+                        <button (click)="deleteOrder(itemList[i].id)" color="warn" mat-icon-button>
                             <mat-icon aria-label="icon-button">cancel</mat-icon>
                         </button>
 
@@ -69,7 +71,8 @@
                 <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
                 <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
             </table>
-            <mat-paginator length="itemList.length" [pageSizeOptions]="[3, 10, 25, 100]" [pageSize]="3"
+            <mat-paginator length="itemList.length"
+                           [pageSizeOptions]="[10, 30, 60, 100]" [pageSize]="10"
                            aria-label="Select page">
             </mat-paginator>
         </div>

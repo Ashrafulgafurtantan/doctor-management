@@ -4,19 +4,30 @@ import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {StorageService} from "./storage.service";
 import {ApiConfig} from "../utility/apiConfig";
+import {AlertMessageService} from "./alert-message.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthenticationService {
     authState = new BehaviorSubject(false);
+    isShowingSideNavBar: boolean = false;
 
     constructor(
         private _router: Router,
         private http: HttpClient,
+        private _alertMsg: AlertMessageService,
         private storageService: StorageService
     ) {
         this.ifLoggedIn();
+    }
+
+    setSideNavBarValue(val: any) {
+        this.isShowingSideNavBar = val;
+    }
+
+    getSideNavBarValue(): boolean {
+        return this.isShowingSideNavBar;
     }
 
     ifLoggedIn() {
@@ -50,6 +61,16 @@ export class AuthenticationService {
         });
         this.storageService.setStorage('user_info', value);
         this.authState.next(true);
+    }
+
+    httpRequestErrorHandler(error: any) {
+        if (error.status == 403) {
+            this._alertMsg.unauthorizedRequestErrorAlert();
+            this.logout();
+        } else if (error.status == 401) {
+            this._alertMsg.submittedCredentialErrorAlert();
+        }
+
     }
 
 

@@ -42,8 +42,25 @@ const ELEMENT_DATA: TableElement[] = [];
     styleUrls: ['./attendance-list.component.scss']
 })
 export class AttendanceListComponent implements OnInit {
-
-    displayedColumns: string[] = ['date', 'employee_id', 'id', 'status'];
+    /* {
+            "id": 12,
+            "employee_id": 1,
+            "date": "2023-03-01 00:00:00",
+            "status": 4,
+            "created_at": "2023-01-18T14:38:46.000000Z",
+            "updated_at": "2023-01-18T14:38:46.000000Z",
+            "employee": {
+                "id": 1,
+                "employee_no": "000001",
+                "name": "Purba",
+                "phone": "01782222786",
+                "nid": "HK5L31674052538_nid.png",
+                "address": "Jigatola",
+                "created_at": "2023-01-18T14:35:38.000000Z",
+                "updated_at": "2023-01-18T14:35:38.000000Z"
+            }
+        }*/
+    displayedColumns: string[] = ['date', 'name', 'id', 'status'];
     dataSource: MatTableDataSource<TableElement>;
     attendanceList: TableElement[];
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator | any;
@@ -61,19 +78,17 @@ export class AttendanceListComponent implements OnInit {
     getAttendanceList() {
         this._attendanceService.getAttendanceList().subscribe((resp: any) => {
             console.log(resp);
-            for (let key in resp) {
-                const obj = resp[key];
-                obj.forEach((item: any) => {
-                    const real: TableElement = {
-                        badge: AttendanceStatus[item.status]['color'],
-                        id: item.employee['id'],
-                        employee_id: item.employee['name'],
-                        date: item.date.substring(0, 10),
-                        status: AttendanceStatus[item.status]['status'],
-                    }
-                    ELEMENT_DATA.push(real);
-                });
-            }
+            resp.forEach((item) => {
+                const real: TableElement = {
+                    badge: AttendanceStatus[item.status]['color'],
+                    id: item.employee['id'],
+                    name: item.employee['name'],
+                    date: item.date.substring(0, 10),
+                    status: AttendanceStatus[item.status]['status'],
+                }
+                ELEMENT_DATA.push(real);
+            });
+           
             this.attendanceList = [];
             this.attendanceList = ELEMENT_DATA;
             this.dataSource = new MatTableDataSource(this.attendanceList);

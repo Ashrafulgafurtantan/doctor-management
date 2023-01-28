@@ -1,11 +1,12 @@
 <div class="card">
     <div class="card-body">
-        <h4 class="mb-32">Employee Create</h4>
+        <h4 class="card-title">Employee Create</h4>
+        <hr/>
         <form [formGroup]="employeeFormGroup" (ngSubmit)="onSubmit()" #empForm="ngForm">
             <div class="container">
                 <img alt="" class="rounded-circle" [src]="url" style="width: 100px;height: 100px" *ngIf="url">
             </div>
-            <div class="container" style="margin: 10px">
+            <div *ngIf="updateEmployeeId == null" class="container" style="margin: 10px">
                 <input type="file" class="file-input"
                        (change)="onFileSelected($event)" #fileUpload>
             </div>

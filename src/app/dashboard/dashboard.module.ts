@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {DemoFlexyModule} from '../demo-flexy-module'
 import {DashboardComponent} from './dashboard.component';
 import {FormsModule} from '@angular/forms';
-import {NgApexchartsModule} from 'ng-apexcharts';
 
 @NgModule({
     declarations: [
@@ -13,7 +12,6 @@ import {NgApexchartsModule} from 'ng-apexcharts';
         CommonModule,
         DemoFlexyModule,
         FormsModule,
-        NgApexchartsModule
     ],
     exports: [
         DashboardComponent,

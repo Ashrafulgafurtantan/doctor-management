@@ -14,5 +14,15 @@ export class EmployeeService {
 
     employeeCreatePostRequest(formData: any) {
         return this.http.post(ApiConfig.baseUrl + ApiConfig.postEmployeeCreate, formData);
+
     }
+
+    getEmployeeById(id: any) {
+        return this.http.get(ApiConfig.baseUrl + ApiConfig.getEmployeeById + id);
+    }
+
+    updateEmployeeRequest(formObj: any) {
+        return this.http.put(ApiConfig.baseUrl + ApiConfig.putEmployeeUpdateRequest, formObj);
+    }
+
 }

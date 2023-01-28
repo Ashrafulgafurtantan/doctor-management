@@ -21,7 +21,10 @@
                        routerLink="{{ node.routerLink }}"
                        routerLinkActive="active"
                     >
-                        <mat-icon class="own-icon">{{node.icon}}</mat-icon>
+                        <mat-icon
+                                [matTooltip]="node.name"
+                                matTooltipPosition="after"
+                                class="own-icon">{{node.icon}}</mat-icon>
                         <span *ngIf="collapsed" class="own-text">{{node.name}}</span>
                     </a>
                 </mat-tree-node>
@@ -31,7 +34,10 @@
                            class="sidenav-nav-item" style="color: #f3f3f3;text-decoration: none;">
                 <a style="position: relative" [routerLinkActiveOptions]="{exact:true}" class="exc" matTreeNodeToggle
                    routerLinkActive="active">
-                    <mat-icon class="own-icon">{{node.icon}}</mat-icon>
+                    <mat-icon
+                            [matTooltip]="node.name"
+                            matTooltipPosition="after"
+                            class="own-icon">{{node.icon}}</mat-icon>
                     <mat-icon style="position: absolute; right: 1px;" *ngIf="collapsed" class="mat-icon-rtl-mirror">
                         {{treeControl.isExpanded(node) ? 'expand_less' : 'expand_more'}}
                     </mat-icon>
@@ -46,7 +52,7 @@
             <button [matMenuTriggerFor]="menu" class="fs-16 pt-4 pb-4 ps-8 pe-8 text-light-muted" mat-button>
                 <img alt="" class="rounded-circle" src="assets/images/logo.jpg" style="width: 50px;height: 50px">
                 <span class="fw-light ms-8 text-secondary">Hi,</span>
-                <span class="fw-bold ms-8">Jahid</span>
+                <span class="fw-bold ms-8">{{currentUser['name']}}</span>
                 <i-feather class="feather-base mt-n2" name="chevron-down"></i-feather>
             </button>
             <mat-menu #menu="matMenu" class="profile-dropdown">

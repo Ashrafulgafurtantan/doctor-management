@@ -4,6 +4,7 @@ import {ItemService} from "../../services/item.service";
 import {OrderService} from "../../services/order.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AlertMessageService} from "../../services/alert-message.service";
+import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
     selector: 'app-order-status',
@@ -24,10 +25,10 @@ export class OrderStatusComponent implements OnInit {
             statusId: 1,
             statusName: 'In-progress',
         },
-        {
-            statusId: 2,
-            statusName: 'Redo',
-        },
+        /* {
+             statusId: 2,
+             statusName: 'Redo',
+         },*/
         {
             statusId: 3,
             statusName: 'Trial',
@@ -42,6 +43,7 @@ export class OrderStatusComponent implements OnInit {
     constructor(private _orderService: OrderService,
                 private _router: Router,
                 private _alertMsg: AlertMessageService,
+                private _authService: AuthenticationService,
                 private _activatedRoute: ActivatedRoute) {
     }
 
@@ -78,7 +80,7 @@ export class OrderStatusComponent implements OnInit {
             .subscribe((resp: any) => {
                 this._alertMsg.successfulSubmissionAlert('Order Status Changed Successfully');
                 this._router.navigateByUrl('/orders').then();
-            });
+            }, (error: any) => this._authService.httpRequestErrorHandler(error));
     }
 
 }

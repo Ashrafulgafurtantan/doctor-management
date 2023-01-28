@@ -1,10 +1,81 @@
 <div class="card">
     <div class="card-body">
-        <h4 class="mb-32">Dashboard</h4>
+        <h4 class="border-bottom page-header">Dashboard</h4>
+        <hr/>
         <div class="container">
             <img alt="" src="assets/images/logo.jpg"
-                 style="width: 60%;height: 60%;">
+                 style="width: 200px;height: 200px; border-radius: 50%; margin: 20px">
         </div>
+        <div>
+            <div class="container top">
+                Some Important Links
+            </div>
+            <div>
+                <div class="d-flex">
+                    <div class="dash_card">
+                        <div class="card">
+                            <div class="card-head" style="background-color: #f79678;">Order Page</div>
+                            <div class="card-body">
+                                <span class="span-text">  You can visit the "Order Page" from here! <br/></span>
+                                <button style="margin-top: 10px" (click)="gotoOrderPage()" mat-raised-button
+                                        color="accent">
+                                    Go
+                                    <mat-icon aria-label="icon-button">arrow_forward</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="w-50">
+                        <div class="card">
+                            <div class="card-head" style="background-color: #45cad7;">Employee Page</div>
+                            <div class="card-body">
+                                <span class="span-text">
+                                  You can visit the "Employee Page" from here! </span><br/>
+                                <button style="margin-top: 10px" (click)="gotoEmployeePage()" mat-raised-button
+                                        color="primary">
+                                    Go
+                                    <mat-icon aria-label="icon-button">arrow_forward</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="d-flex">
+                    <div class="dash_card">
+                        <div class="card">
+                            <div class="card-head" style="background-color: #e46a76;">Client Page</div>
+                            <div class="card-body">
+                              <span class="span-text">
+                                You can visit the "Client Page" from here! <br/></span>
+                                <button style="margin-top: 10px" (click)="gotoClientPage()" mat-raised-button
+                                        color="warn">
+                                    Go
+                                    <mat-icon aria-label="icon-button">arrow_forward</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-50">
+                        <div class="card">
+                            <div class="card-head" style="background-color: #2ca473;">Item Page</div>
+                            <div class="card-body">
+                                <span class="span-text"> You can visit the "Item Page" from here! <br/></span>
+                                <button (click)="gotoItemPage()" mat-raised-button
+                                        style="background-color: #2ca473; color: white;margin-top: 10px">
+                                    Go
+                                    <mat-icon aria-label="icon-button">arrow_forward</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>

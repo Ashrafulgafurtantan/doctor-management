@@ -1,6 +1,7 @@
 <div class="card">
     <div class="card-body">
         <h4 class="mb-32">Order Search</h4>
+
         <div>
             <form [formGroup]="searchFormGroup" (ngSubmit)="onSubmit()">
                 <div class="container">
@@ -25,7 +26,7 @@
                         <mat-form-field appearance="outline">
                             <input (focus)="picker.open()" [matDatepicker]="picker"
                                    formControlName="startDate"
-                                   matInput placeholder="Attendance Date">
+                                   matInput placeholder="Start Date">
                             <mat-icon matSuffix>today</mat-icon>
                             <mat-hint>DD/MM/YYYY</mat-hint>
                         </mat-form-field>
@@ -34,7 +35,7 @@
                     <div>
                         <mat-form-field appearance="outline">
                             <input (focus)="picker2.open()" [matDatepicker]="picker2" matInput
-                                   placeholder="Attendance Date"
+                                   placeholder="End Date"
                                    formControlName="endDate">
                             <mat-icon matSuffix>today</mat-icon>
                             <mat-hint>DD/MM/YYYY</mat-hint>
@@ -49,87 +50,87 @@
                 </div>
             </form>
         </div>
-        <div *ngIf="itemList.length != 0">
-            <mat-form-field appearance="fill">
-                <mat-label>Search</mat-label>
-                <input (keyup)="applyFilter($event.target)" matInput>
-            </mat-form-field>
-            <div class="table-responsive">
-                <table [dataSource]="dataSource" class="text-nowrap w-100" mat-table matSort>
-                    <ng-container matColumnDef="id">
-                        <th *matHeaderCellDef mat-header-cell mat-sort-header>ID</th>
-                        <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['id']}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="order_no">
-                        <th *matHeaderCellDef mat-header-cell mat-sort-header> Order No</th>
-                        <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['order_no']}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="client_id">
-                        <th *matHeaderCellDef mat-header-cell mat-sort-header> Client Name</th>
-                        <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['client']['name']}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="order_date">
-                        <th *matHeaderCellDef mat-header-cell mat-sort-header> Order Date</th>
-                        <td *matCellDef="let element" mat-cell>
-                            <p class="mb-0 fw-medium">{{element['order_date'].substring(0, 10)}}</p>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="patient_name">
-                        <th *matHeaderCellDef mat-header-cell mat-sort-header> Patient Name</th>
-                        <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['patient_name']}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="delivery_date">
-                        <th *matHeaderCellDef mat-header-cell mat-sort-header> Delivery Date</th>
-                        <td *matCellDef="let element" class="fw-medium"
-                            mat-cell> {{element['delivery_date'].substring(0, 10)}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="employee_id">
-                        <th *matHeaderCellDef mat-header-cell mat-sort-header> Made By</th>
-                        <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['employee']['name']}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="total_amount">
-                        <th *matHeaderCellDef mat-header-cell mat-sort-header> Amount</th>
-                        <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['total_amount']}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="status">
-                        <th *matHeaderCellDef mat-header-cell mat-sort-header> Status</th>
-                        <td *matCellDef="let element; let i = index" class="fw-medium" mat-cell> {{element['status'] }}
-                            <br>
-                            <button (click)="changeStatusOrder(i)" mat-icon-button style="color: #00C292FF">
-                                <mat-icon aria-label="icon-button">edit_square</mat-icon>
-                            </button>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="actions">
-                        <th *matHeaderCellDef mat-header-cell mat-sort-header> Actions</th>
-                        <td *matCellDef="let element; let i = index" class="fw-medium" mat-cell>
-                            <button (click)="editOrder(i)" color="primary" mat-icon-button>
-                                <mat-icon aria-label="icon-button">edit_square</mat-icon>
-                            </button>
-                            <button color="accent" mat-icon-button>
-                                <mat-icon aria-label="icon-button">print</mat-icon>
-                            </button>
-                            <button (click)="deleteOrder()" color="warn" mat-icon-button>
-                                <mat-icon aria-label="icon-button">cancel</mat-icon>
-                            </button>
 
-                        </td>
-                    </ng-container>
-                    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-                    <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
-                </table>
-                <mat-paginator length="itemList.length" [pageSizeOptions]="[3, 10, 25, 100]" [pageSize]="3"
-                               aria-label="Select page">
-                </mat-paginator>
-            </div>
-        </div>
+        <mat-card class="w-100" *ngIf="itemList.length != 0">
+            <mat-card-content>
+                <h4 class="mb-32">Orders List</h4>
+                <mat-form-field appearance="fill">
+                    <mat-label>Search</mat-label>
+                    <input (keyup)="applyFilter($event.target)" matInput>
+                </mat-form-field>
+                <div class="table-responsive">
+                    <table [dataSource]="dataSource" class="text-nowrap w-100" mat-table matSort>
+                        <ng-container matColumnDef="id">
+                            <th *matHeaderCellDef mat-header-cell mat-sort-header>ID</th>
+                            <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['id']}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="order_no">
+                            <th *matHeaderCellDef mat-header-cell mat-sort-header> Order No</th>
+                            <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['order_no']}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="client_id">
+                            <th *matHeaderCellDef mat-header-cell mat-sort-header> Client Name</th>
+                            <td *matCellDef="let element" class="fw-medium"
+                                mat-cell> {{element['client']['name']}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="order_date">
+                            <th *matHeaderCellDef mat-header-cell mat-sort-header> Order Date</th>
+                            <td *matCellDef="let element" mat-cell>
+                                <p class="mb-0 fw-medium">{{element['order_date'].substring(0, 10)}}</p>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="patient_name">
+                            <th *matHeaderCellDef mat-header-cell mat-sort-header> Patient Name</th>
+                            <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['patient_name']}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="delivery_date">
+                            <th *matHeaderCellDef mat-header-cell mat-sort-header> Delivery Date</th>
+                            <td *matCellDef="let element" class="fw-medium"
+                                mat-cell> {{element['delivery_date'].substring(0, 10)}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="employee_id">
+                            <th *matHeaderCellDef mat-header-cell mat-sort-header> Made By</th>
+                            <td *matCellDef="let element" class="fw-medium"
+                                mat-cell> {{element['employee']['name']}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="total_amount">
+                            <th *matHeaderCellDef mat-header-cell mat-sort-header> Amount</th>
+                            <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['total_amount']}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="status">
+                            <th *matHeaderCellDef mat-header-cell mat-sort-header> Status</th>
+                            <td *matCellDef="let element; let i = index" class="fw-medium"
+                                mat-cell> {{element['status'] }}
+                                <br>
+                                <button (click)="changeStatusOrder(i)" mat-icon-button style="color: #00C292FF">
+                                    <mat-icon aria-label="icon-button">edit_square</mat-icon>
+                                </button>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="actions">
+                            <th *matHeaderCellDef mat-header-cell mat-sort-header> Actions</th>
+                            <td *matCellDef="let element; let i = index" class="fw-medium" mat-cell>
+                                <button (click)="editOrder(i)" color="primary" mat-icon-button>
+                                    <mat-icon aria-label="icon-button">edit_square</mat-icon>
+                                </button>
+                                <button color="accent" mat-icon-button>
+                                    <mat-icon aria-label="icon-button">print</mat-icon>
+                                </button>
+                                <button (click)="deleteOrder()" color="warn" mat-icon-button>
+                                    <mat-icon aria-label="icon-button">cancel</mat-icon>
+                                </button>
+
+                            </td>
+                        </ng-container>
+                        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+                        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+                    </table>
+                    <mat-paginator length="itemList.length" [pageSizeOptions]="[3, 10, 25, 100]" [pageSize]="3"
+                                   aria-label="Select page">
+                    </mat-paginator>
+                </div>
+            </mat-card-content>
+        </mat-card>
     </div>
 </div>
-<!--
-<mat-form-field appearance="fill">
-    <mat-label>Choose a date</mat-label>
-    <input matInput [matDatepicker]="picker">
-    <mat-hint>MM/DD/YYYY</mat-hint>
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>-->
+

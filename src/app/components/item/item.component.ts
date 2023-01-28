@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ItemService} from "../../services/item.service";
 import {Router} from "@angular/router";
 import {AlertMessageService} from "../../services/alert-message.service";
+import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
     selector: 'app-item',
@@ -14,6 +15,7 @@ export class ItemComponent implements OnInit {
 
     constructor(public formBuilder: FormBuilder,
                 private _alertMsg: AlertMessageService,
+                private _authService: AuthenticationService,
                 private _router: Router, private _itemService: ItemService) {
     }
 
@@ -34,9 +36,9 @@ export class ItemComponent implements OnInit {
             this._itemService.itemCreatePostRequest(this.itemFormGroup.value)
                 .subscribe((resp: any) => {
                     console.log(resp);
-                    this._router.navigateByUrl('/home').then();
+                    this._router.navigateByUrl('/item-list').then();
                     this._alertMsg.successfulSubmissionAlert('Item Created Successfully');
-                });
+                }, (error: any) => this._authService.httpRequestErrorHandler(error));
         }
     }
 

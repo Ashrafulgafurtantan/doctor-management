@@ -7,6 +7,7 @@ import {OrderService} from "../../services/order.service";
 import {SHADE_LIST} from './shade-data';
 import {SHADE_GUID_LIST} from './shade-data';
 import {AlertMessageService} from "../../services/alert-message.service";
+import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
     selector: 'app-order-create',
@@ -36,6 +37,7 @@ export class OrderCreateComponent implements OnInit {
 
     constructor(public formBuilder: FormBuilder,
                 private _alertMsg: AlertMessageService,
+                private _authService: AuthenticationService,
                 private _activateRoute: ActivatedRoute,
                 private _router: Router, private _orderService: OrderService) {
         this.shadeList = SHADE_LIST;
@@ -188,10 +190,8 @@ export class OrderCreateComponent implements OnInit {
         if (this.orderCreateForm.valid) {
             if (this.updateOrderId) {
                 formData['id'] = this.updateOrderId;
-                console.log("updateOrder");
                 this.updateOrder(formData);
             } else {
-                console.log("createOrder");
                 this.createOrder(formData);
             }
 
@@ -203,7 +203,7 @@ export class OrderCreateComponent implements OnInit {
             .subscribe((resp: any) => {
                 this._alertMsg.successfulSubmissionAlert('Order Created Successfully');
                 this._router.navigateByUrl('/orders').then();
-            });
+            }, (error: any) => this._authService.httpRequestErrorHandler(error));
     }
 
     updateOrder(formData: FormData) {
@@ -212,7 +212,7 @@ export class OrderCreateComponent implements OnInit {
             .subscribe((resp: any) => {
                 this._alertMsg.successfulSubmissionAlert('Order Updated Successfully');
                 this._router.navigateByUrl('/orders').then();
-            });
+            }, (error: any) => this._authService.httpRequestErrorHandler(error));
     }
 
     cancel() {

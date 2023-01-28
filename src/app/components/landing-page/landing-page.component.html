@@ -1,0 +1,264 @@
+<section class="header"
+         style="background: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),url('../../../assets/images/banner.png')">
+    <nav>
+        <a href="index.html"> <img class="rounded-circle" style="height:100px; width:100px"
+                                   src="../../../assets/images/logo.jpg"/></a>
+        <div class="nav-links" id="navLinks">
+            <i class="fa fa-times" onclick="hideMenu()"></i>
+            <ul>
+                <li><a (click)="scroll(about)" class="cursor">About</a></li>
+                <li><a (click)="scroll(why)" class="cursor">Why Us</a></li>
+                <li><a (click)="scroll(contact)" class="cursor">Contact</a></li>
+                <li><a [href]="apiConfig.loginUrl">Login</a></li>
+            </ul>
+        </div>
+        <i class="fa fa-bars" onclick="showMenu()"></i>
+    </nav>
+    <div class="text-box">
+        <h1>VIVADENT DENTAL LABORATORY</h1>
+        <h3 style="margin-bottom: 20px">
+            Urgency Is Our Priority
+        </h3>
+        <a (click)="scroll(target)" class="hero-btn">Find Us In Map!</a>
+    </div>
+</section>
+
+<!-- ---------- Facilities-------- -->
+<section class="facilities">
+    <h1>Our Facilities</h1>
+    <div class="row">
+        <div class="facilities-col">
+            <img src="../../../assets/images/Zirconia.png">
+            <h3>Zirconia Crown</h3>
+            <p>Over 40 years, zirconia has already been broadly used for equally commercial and industrial purposes. It
+                is vastly biocompatible and remarkably robust in longevity. Applications for dentistry are found in
+                zirconia crowns, bridges and dental implants.
+                Here are some features of our Zirconia Crown
+                 High Strength
+                 Excellent Aesthetics view.
+                 Smart transparent color blend with other teeth.
+                 Retain more of the existing tooth.</p>
+        </div>
+
+
+        <div class="facilities-col">
+            <img src="../../../assets/images/Dentures.png">
+            <h3>Dentures</h3>
+            <p>Dentures are prosthetic devices constructed to replace missing teeth, and are supported by the
+                surrounding soft and hard tissues of the oral cavity.
+                Conventional dentures are removable. However, there are many denture designs,
+                some which rely on bonding or clasping onto teeth or dental implants.</p>
+        </div>
+
+
+        <div class="facilities-col">
+            <img src="../../../assets/images/PFM.png">
+            <h3>PFM Crown</h3>
+            <p>PFM is the traditional choice for simple to advanced combination cases.
+                Using different metals such as base metal alloys(cobalt, nickel, chromium), titanium alloys, and gold
+                alloys PFM restorations can be made.
+                Here are some features of our PFM Crown and Bridge
+                 Reliable metal-ceramic bond
+                 Low hardness
+                 Metal Framework designed by CAD/CAM.
+                 High degree of intraoral comfort for patients due to high thermal stability
+                 Biocompatible and corrosion-resistant</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="facilities-col">
+            <img src="../../../assets/images/Implant.png">
+            <h3>Implant Crown</h3>
+            <p>A crown is a cap that looks like a tooth and is placed over an existing tooth. It can be used to repair a
+                broken tooth.
+                A dental implant is a surgical implant that replaces a missing tooth and has a crown placed on top to
+                look
+                and function like a normal tooth.</p>
+        </div>
+
+
+        <div class="facilities-col">
+            <img src="../../../assets/images/E-max.png">
+            <h3>E-max Crown</h3>
+            <p>Emax is an all-ceramic system that is based on Lithium disilicate glass, and consists of quartz, lithium
+                dioxide,
+                phosphoroxide, alumina, potassium oxide and trace elements. Emax based all-ceramic prostheses are
+                rapidly
+                gaining widespread popularity in cosmetic dentistry due to their excellent esthetics, durability, and
+                strength.</p>
+        </div>
+
+
+        <div class="facilities-col">
+            <img src="../../../assets/images/Flexible.png">
+            <h3>Flexible Dentures</h3>
+            <p>Flexible dentures are the recent improvement of traditional dentures to replace missing teeth with soft
+                and transparent base. Flexible dentures are easy and comfortable to use and non-brittle, unlikely to
+                shatter if dropped.
+                They don’t have any metallic clips or attachments and adhesives are unneeded.
+                Flexible dentures are non-allergic and most patients find chewing and speaking easier with it.</p>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- Campus Sir -->
+<!--<section class="campus">
+    <h1>Our Doctors</h1>
+    <div class="d-flex" style="justify-content: center">
+        <div class="campus-col">
+            <img src="../../../assets/images/sir.png">
+            <div class="layer">
+                <h3>Dr.Mohd Faizal Hafez <br>(Periodontist)</h3>
+
+            </div>
+        </div>
+    </div>
+</section>-->
+<!-- About Us -->
+<section class="course" #about>
+    <h1>About Us</h1>
+    <div class="row">
+        <div class="course-col">
+            <p>Our dental lab is highly focused in
+                providing services unlike other dental
+                lab. We meet your expectation for high
+                quality products so that you don't need
+                to worry about adjusting the work and
+                spend your valuable time on your
+                patient.
+            </p>
+        </div>
+        <div class="course-col">
+            <p>Time is essence, we take your cases with
+                urgency so that your can provide your
+                patient with high quality product in
+                minimum time.
+            </p>
+        </div>
+        <div class="course-col">
+            <p>Our goal is to provide exceptional dental
+                laboratory products with less fuss.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Campus Madam-->
+<section class="campus">
+    <h1>Our Management</h1>
+    <div class="d-flex" style="justify-content: center">
+        <div class="campus-col">
+            <img src="../../../assets/images/madam.jpeg">
+            <div class="layer">
+                <h3>
+                    Noorfaezah<br>Dalimi <br/>
+                    CEO and Director
+                    <br/>
+                    <a href="https://www.facebook.com/noorfaezah.dalimi" target="_blank">
+                        <i-feather name="facebook"></i-feather>
+                    </a>
+                    <a href="https://api.whatsapp.com/send?phone=60166661905" target="_blank">
+                        <i-feather name="phone"></i-feather>
+                    </a>
+                </h3>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ----------- Find Us On Google Map -------- -->
+<section class="testimonials" #target>
+    <h1>Find Us On Google Map</h1>
+    <div class="row">
+        <div class="mapouter">
+            <div class="mapouter">
+                <div class="gmap_canvas">
+                    <iframe width="100%" height="500" id="gmap_canvas"
+                            src="https://maps.google.com/maps?q=Vivadent%20Dental%20Laboratory%20Selangor,%20Malaysia&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                            frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                    <a href="https://123movies-to.org"></a><br>
+                    <a href="https://www.embedgooglemap.net">embedgooglemap.net</a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+<!-- ----------- Call To Action -------- -->
+<section #why class="cta"
+         style=" background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('../../../assets/images/why-us.jpg');">
+    <h1>Why Us</h1>
+    <ul>
+        <li>Our dental lab provide fast and hassle free service.</li>
+        <li>We guarantee that you don’t spend much chair time adjusting the dentures.</li>
+        <li>We make sure that your patient will be happy with the dentures from our lab.</li>
+    </ul>
+</section>
+
+<!-- ----------- Why Us -------- -->
+<section class="footer">
+
+</section>
+
+
+<!-- ----------- Footer -------- -->
+<section class="footer contact-us" #contact>
+    <div class="contact-us-header">
+        <div style="margin: auto 0">
+            <img src="../../../assets/images/logo.jpg"
+                 style="height: 40px; width: 40px; border-radius: 50%; margin-right: 10px;">
+        </div>
+        <div>
+            <h4>VIVADENT DENTAL LABORATORY</h4>
+        </div>
+    </div>
+    <div>
+        <p>A complete Dental Laboratory, provides All in "One Lab" service (PFM, Zirconia, E-max, Implant Crown,
+            Flexible and CCP Dentures, Ortho Appliance).</p>
+
+        <div style="display: flex; justify-content: center">
+            <i-feather class="contact-us-icon" name="mail"></i-feather>
+            <p>vivadentsdnbhd@gmail.com</p>
+        </div>
+        <div style="display: flex; justify-content: center">
+            <i-feather class="contact-us-icon" name="phone"></i-feather>
+            <p>011 8888 6191 (Admin), 011 8888 1905 (Marketing Manager)</p>
+        </div>
+        <div style="display: flex; justify-content: center">
+            <i-feather class="contact-us-icon" name="map-pin"></i-feather>
+            <p>No.23A, Tingkat Atas, Jalan Malung 17/19. Seksyen 17, 40200 Shah Alam, Selangor</p>
+        </div>
+    </div>
+
+    <div class="copyright">
+        <div>
+            <p>© 2023 Copyright: <a href="#" style="color: #51b984">Vivadent SDN BHD</a></p>
+        </div>
+        <div>
+            <p>Made with
+                <i-feather name="heart" class="heart"></i-feather>
+                jARC Software
+            </p>
+        </div>
+    </div>
+
+</section>
+
+<script>
+    var navLinks = document.getElementById("navLinks");
+
+    function showMenu() {
+        navLinks.style.right = "0";
+    }
+
+    function hideMenu() {
+        navLinks.style.right = "-200px";
+    }
+</script>
+

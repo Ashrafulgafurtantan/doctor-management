@@ -1,19 +1,5 @@
 <mat-card class="w-100">
     <mat-card-content>
-        <!--      <mat-grid-list cols="4" rowHeight="40px">
-                  <mat-grid-tile colspan="3">
-                      <span class="title">Attendance</span>
-                  </mat-grid-tile>
-                  <mat-grid-tile colspan="1">
-                      <button (click)="createAttendance()" class="create-attendance"
-                              color="info" mat-raised-button>Create Attendance
-                      </button>
-                  </mat-grid-tile>
-              </mat-grid-list>
-              <mat-form-field appearance="fill">
-                  <mat-label>Search</mat-label>
-                  <input (keyup)="applyFilter($event.target)" matInput>
-              </mat-form-field>-->
         <mat-grid-list cols="4" rowHeight="40px">
             <mat-grid-tile colspan="3">
                 <span class="title">Attendance</span>
@@ -37,9 +23,9 @@
                         <p class="mb-0 fw-medium">{{element['date']}}</p>
                     </td>
                 </ng-container>
-                <ng-container matColumnDef="employee_id">
+                <ng-container matColumnDef="name">
                     <th *matHeaderCellDef mat-header-cell mat-sort-header> Employee Name</th>
-                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['employee_id']}} </td>
+                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['name']}} </td>
                 </ng-container>
                 <ng-container matColumnDef="id">
                     <th *matHeaderCellDef mat-header-cell mat-sort-header>Employee ID</th>
@@ -58,8 +44,8 @@
             </table>
             <mat-paginator
                     [length]="attendanceList.length"
-                    [pageSizeOptions]="[3, 10, 25, 100]"
-                    [pageSize]="3"
+                    [pageSizeOptions]="[10, 30, 60, 100]"
+                    [pageSize]="10"
                     aria-label="Select page">
             </mat-paginator>
         </div>

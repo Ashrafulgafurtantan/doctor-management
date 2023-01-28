@@ -8,3 +8,31 @@
   display: flex;
   justify-content: center;
 }
+
+.top {
+  font-size: 1.6rem;
+  color: white;
+  padding: 15px;
+  text-decoration: underline;
+  border-radius: 5px;
+  background-color: #258ab9;
+}
+
+.span-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: #777;
+  margin-bottom: 5px;
+}
+
+.dash_card {
+  width: 50%;
+  margin-right: 15px;
+}
+
+.page-header {
+  margin: 10px auto 10px;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: grey;
+}

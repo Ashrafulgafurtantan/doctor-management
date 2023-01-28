@@ -1,18 +1,22 @@
-.container{
+.container {
   display: flex;
   justify-content: center;
 }
+
 mat-form-field {
   margin-right: 12px;
 }
-.container div{
+
+.container div {
   margin: 5px 10px;
   width: 33%;
 }
-.mat-form-field {
-  width:100%;
+
+form .mat-form-field {
+  width: 100%;
 }
-.search{
+
+.search {
   display: block;
   border: none;
   width: 100%;
@@ -29,4 +33,5 @@ mat-form-field {
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease 0s;
   outline: none;
+  margin-bottom: 20px;
 }

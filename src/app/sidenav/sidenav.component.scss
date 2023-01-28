@@ -55,6 +55,7 @@
 .sidenav-collapsed {
   width: 16.5625rem;
 }
+
 .sidenav-nav {
   list-style: none;
   padding: 0.938rem;
@@ -83,7 +84,7 @@
         min-width: 2rem;
         margin: 0 0.5rem;
         text-align: center;
-        color: #f3f3f3 ;
+        color: #f3f3f3;
       }
 
       .sidenav-link-text { //done
@@ -92,19 +93,21 @@
     }
   }
 }
-.own-icon{
+
+.own-icon {
   font-size: 22px;
   width: 2rem;
   min-width: 2rem;
   margin: 0 0.5rem;
   text-align: center;
-  color: #f3f3f3 ;
-}
-.own-text{
-  font-size: 18px;
+  color: #f3f3f3;
 }
 
-.exc{
+.own-text {
+  font-size: 16px;
+}
+
+.exc {
   display: flex;
   align-items: center;
   height: 3rem;
@@ -112,14 +115,14 @@
   border-radius: 0.625rem;
   transition: all .3s ease;
   width: 100%;
-  margin-bottom: 0.625rem;
 }
 
 .exc:hover {
   background-color: #fff;
   color: #000;
-  .own-icon{
-    color: #000 ;
+
+  .own-icon {
+    color: #000;
   }
 
 }

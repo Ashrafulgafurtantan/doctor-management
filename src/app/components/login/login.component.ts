@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserModel} from "../../models/user.model";
 import {AuthenticationService} from "../../services/authentication.service";
+import {AlertMessageService} from "../../services/alert-message.service";
 
 @Component({
     selector: 'app-login',
@@ -14,7 +15,9 @@ export class LoginComponent implements OnInit {
     user: UserModel = new UserModel();
     visibilityForPass: boolean = false;
 
-    constructor(private _router: Router, private _authService: AuthenticationService) {
+    constructor(private _router: Router,
+                private _alertMsg: AlertMessageService,
+                private _authService: AuthenticationService) {
         this.initializeForm();
     }
 
@@ -45,7 +48,6 @@ export class LoginComponent implements OnInit {
                 .loginServiceMethod(this.loginForm.value)
                 .subscribe(
                     (resp: any) => {
-                        console.log(resp);
                         if (!resp.message) {
                             window.location.assign('home' + '?login=true',);
                             // this._router.navigate(['home'], {state: {needCredentials: true}});
@@ -53,13 +55,7 @@ export class LoginComponent implements OnInit {
                             // this._messageService.showToastMessage(msg, false);
                         }
                     },
-                    (err: any) => {
-                        let msg = err.message;
-                        // this._messageService.showToastMessage(msg, false);
-                    }
-                );
-        } else {
-            // this._messageService.showToastMessage(msg, false);
+                    (error: any) => this._authService.httpRequestErrorHandler(error));
         }
     }
 }
