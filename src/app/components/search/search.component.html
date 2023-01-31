@@ -125,7 +125,9 @@
                         <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
                         <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
                     </table>
-                    <mat-paginator length="itemList.length" [pageSizeOptions]="[3, 10, 25, 100]" [pageSize]="3"
+                    <mat-paginator length="itemList.length"
+                                   [pageSizeOptions]="[10, 30, 60, 100]"
+                                   [pageSize]="10"
                                    aria-label="Select page">
                     </mat-paginator>
                 </div>

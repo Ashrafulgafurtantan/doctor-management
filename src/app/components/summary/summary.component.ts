@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AlertMessageService} from "../../services/alert-message.service";
 import {SearchService} from "../../services/search.service";
@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {OrderService} from "../../services/order.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {ApiConfig} from "../../utility/apiConfig";
+import {DateTimeService} from "../../services/date-time.service";
 
 @Component({
     selector: 'app-summary',
@@ -32,7 +33,10 @@ export class SummaryComponent implements OnInit {
                 private _activatedRoute: ActivatedRoute,
                 private _alertMsg: AlertMessageService,
                 private _searchService: SearchService,
+                private cdr: ChangeDetectorRef,
+                private _dateTimeService: DateTimeService,
                 private _router: Router, private _orderService: OrderService) {
+        this.cdr.detectChanges();
     }
 
     ngOnInit(): void {
@@ -84,13 +88,15 @@ export class SummaryComponent implements OnInit {
     }
 
     onStartDateChange() {
-        this.startDateString = this.convertDateString(this.summaryFormGroup.value.startDate.toLocaleDateString());
+        // this.startDateString = this.convertDateString(this.summaryFormGroup.value.startDate.toLocaleDateString());
+        this.startDateString = this._dateTimeService.getYearMonthDayFormat(this.summaryFormGroup.value.startDate);
         console.log(this.startDateString);
         this.formatHref();
     }
 
     onEndDateChange() {
-        this.endDateString = this.convertDateString(this.summaryFormGroup.value.endDate.toLocaleDateString());
+        // this.endDateString = this.convertDateString(this.summaryFormGroup.value.endDate.toLocaleDateString());
+        this.endDateString = this._dateTimeService.getYearMonthDayFormat(this.summaryFormGroup.value.endDate);
         console.log(this.endDateString);
         this.formatHref();
     }

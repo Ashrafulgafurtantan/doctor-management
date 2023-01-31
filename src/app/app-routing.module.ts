@@ -39,7 +39,6 @@ const routes: Routes = [
     {path: "orders", component: OrderListComponent, canActivate: [AuthGuard]},
     {path: "orders/create", component: OrderCreateComponent, canActivate: [AuthGuard]},
     {path: 'orders/status/:orderID', component: OrderStatusComponent, canActivate: [AuthGuard]},
-
     {path: "", redirectTo: "/home", pathMatch: "full"},
     {path: "**", redirectTo: "/home", pathMatch: "full"},
 ];

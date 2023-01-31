@@ -45,6 +45,7 @@ export class EmployeeTableComponent implements OnInit {
 
             this.employeeList = [];
             this.employeeList = resp;
+            console.log(this.employeeList);
             this.dataSource = new MatTableDataSource(this.employeeList);
             setTimeout(() => {
                 this.dataSource.sort = this.sort;

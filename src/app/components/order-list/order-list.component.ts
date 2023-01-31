@@ -59,7 +59,7 @@ export class OrderListComponent implements OnInit {
 
     getOrderList() {
         this._orderService.getOrderListRequest().subscribe((resp: any) => {
-            console.log(resp);
+            this.itemList = [];
             this.itemList = resp;
             this.itemList.forEach((item: OrderTableElement) => {
                 item.status = OrderStatus[item.status];

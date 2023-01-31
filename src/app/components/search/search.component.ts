@@ -1,5 +1,5 @@
 // @ts-nocheck
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AlertMessageService} from "../../services/alert-message.service";
 import {Router} from "@angular/router";
@@ -9,7 +9,8 @@ import {SearchService} from "../../services/search.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
-import {OrderStatus} from "../order-list/order-list.component";
+import {OrderStatus, OrderTableElement} from "../order-list/order-list.component";
+import {DateTimeService} from "../../services/date-time.service";
 
 const ELEMENT_DATA: OrderTableElement[] = [];
 
@@ -34,8 +35,11 @@ export class SearchComponent implements OnInit {
 
     constructor(public formBuilder: FormBuilder,
                 private _alertMsg: AlertMessageService,
+                private cdr: ChangeDetectorRef,
+                private _dateTimeService: DateTimeService,
                 private _searchService: SearchService,
                 private _router: Router, private _orderService: OrderService) {
+        this.cdr.detectChanges();
         this.itemList = ELEMENT_DATA;
         this.dataSource = new MatTableDataSource(this.itemList);
     }
@@ -65,26 +69,34 @@ export class SearchComponent implements OnInit {
         this.address = selected[0]['address'];
     }
 
+    /*    onSubmit() {
+            let data = this.searchFormGroup.value;
+            console.log(this._dateTimeService.getYearMonthDayFormat(data['startDate']));
+            console.log(this._dateTimeService.getYearMonthDayFormat(data['endDate']));
+        }*/
 
     onSubmit() {
         if (this.searchFormGroup.valid) {
             let data = this.searchFormGroup.value;
-            data['startDate'] = this.convertDateString(data['startDate'].toLocaleDateString());
-            data['endDate'] = this.convertDateString(data['endDate'].toLocaleDateString());
+            data['startDate'] = this._dateTimeService.getYearMonthDayFormat(data['startDate'])
+            data['endDate'] = this._dateTimeService.getYearMonthDayFormat(data['endDate'])
+            // data['startDate'] = this.convertDateString(data['startDate'].toLocaleDateString());
+            // data['endDate'] = this.convertDateString(data['endDate'].toLocaleDateString());
             console.log(data);
-            this._searchService.getClientOrderList(data).subscribe((item: any) => {
-                console.log(item);
-                this.itemList = item;
-                this.itemList.forEach((item: OrderTableElement) => {
-                    item.status = OrderStatus[item.status];
-                });
-                console.log(this.itemList);
-                this.dataSource = new MatTableDataSource(this.itemList);
-                setTimeout(() => {
-                    this.dataSource.sort = this.sort;
-                    this.dataSource.paginator = this.paginator
-                });
-            }, (error: any) => this._authService.httpRequestErrorHandler(error));
+            /*  this._searchService.getClientOrderList(data).subscribe((item: any) => {
+                  this.itemList = [];
+                  this.itemList = item;
+                  this.itemList.forEach((item: OrderTableElement) => {
+                      item.status = OrderStatus[item.status];
+                  });
+                  console.log(this.itemList);
+
+                  setTimeout(() => {
+                      this.dataSource.sort = this.sort;
+                      this.dataSource.paginator = this.paginator;
+                      this.dataSource = new MatTableDataSource(this.itemList);
+                  });
+              }, (error: any) => this._authService.httpRequestErrorHandler(error));*/
         }
     }
 
