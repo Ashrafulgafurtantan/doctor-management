@@ -74,15 +74,14 @@ export class OrderListComponent implements OnInit {
     }
 
     deleteOrder(orderId: any) {
-        console.log(orderId);
-        // this._alertMsg.deleteItemAlert().then((res: any) => {
-        //     if (res) {
-        //         this._orderService.deleteOrderById(orderId).subscribe((resp: any) => {
-        //             this.getOrderList();
-        //             this._alertMsg.successfulSubmissionAlert('Delete Order Successfully');
-        //         });
-        //     }
-        // });
+        this._alertMsg.deleteItemAlert().then((res: any) => {
+            if (res) {
+                this._orderService.deleteOrderById(orderId).subscribe((resp: any) => {
+                    this.getOrderList();
+                    this._alertMsg.successfulSubmissionAlert('Delete Order Successfully');
+                });
+            }
+        });
     }
 
 

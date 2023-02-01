@@ -57,7 +57,7 @@
                         <button (click)="editOrder(element['id'])" color="primary" mat-icon-button>
                             <mat-icon aria-label="icon-button">edit_square</mat-icon>
                         </button>
-                        <a [href]="apiConfig.downloadPdfUrl+'order/'+itemList[i].id" target="_blank">
+                        <a [href]="apiConfig.downloadPdfUrl+'order/'+element['id']" target="_blank">
                             <button color="accent" mat-icon-button>
                                 <mat-icon aria-label="icon-button">print</mat-icon>
                             </button>
