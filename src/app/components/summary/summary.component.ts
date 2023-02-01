@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AlertMessageService} from "../../services/alert-message.service";
 import {SearchService} from "../../services/search.service";
@@ -33,10 +33,8 @@ export class SummaryComponent implements OnInit {
                 private _activatedRoute: ActivatedRoute,
                 private _alertMsg: AlertMessageService,
                 private _searchService: SearchService,
-                private cdr: ChangeDetectorRef,
                 private _dateTimeService: DateTimeService,
                 private _router: Router, private _orderService: OrderService) {
-        this.cdr.detectChanges();
     }
 
     ngOnInit(): void {

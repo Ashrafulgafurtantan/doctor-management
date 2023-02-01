@@ -58,10 +58,10 @@ export class EmployeeTableComponent implements OnInit {
         this._router.navigateByUrl('/employee-create').then(() => console.log(""));
     }
 
-    editEmployee(index: any) {
+    editEmployee(employeeId: any) {
         this._router.navigate(
             ['employee-create'],
-            {queryParams: {employeeId: this.employeeList[index].id}}
+            {queryParams: {employeeId: employeeId}}
         ).then();
     }
 

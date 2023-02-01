@@ -1,5 +1,5 @@
 // @ts-nocheck
-import {Component, OnInit, ChangeDetectorRef, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AlertMessageService} from "../../services/alert-message.service";
 import {Router} from "@angular/router";
@@ -35,11 +35,9 @@ export class SearchComponent implements OnInit {
 
     constructor(public formBuilder: FormBuilder,
                 private _alertMsg: AlertMessageService,
-                private cdr: ChangeDetectorRef,
                 private _dateTimeService: DateTimeService,
                 private _searchService: SearchService,
                 private _router: Router, private _orderService: OrderService) {
-        this.cdr.detectChanges();
         this.itemList = ELEMENT_DATA;
         this.dataSource = new MatTableDataSource(this.itemList);
     }

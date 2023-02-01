@@ -46,7 +46,7 @@
                 <ng-container matColumnDef="status">
                     <th *matHeaderCellDef mat-header-cell mat-sort-header> Status</th>
                     <td *matCellDef="let element; let i = index" class="fw-medium" mat-cell> {{element['status'] }} <br>
-                        <button (click)="changeStatusOrder(i)" mat-icon-button style="color: #00C292FF">
+                        <button (click)="changeStatusOrder(element['id'])" mat-icon-button style="color: #00C292FF">
                             <mat-icon aria-label="icon-button">edit_square</mat-icon>
                         </button>
                     </td>
@@ -54,7 +54,7 @@
                 <ng-container matColumnDef="actions">
                     <th *matHeaderCellDef mat-header-cell mat-sort-header> Actions</th>
                     <td *matCellDef="let element; let i = index" class="fw-medium" mat-cell>
-                        <button (click)="editOrder(i)" color="primary" mat-icon-button>
+                        <button (click)="editOrder(element['id'])" color="primary" mat-icon-button>
                             <mat-icon aria-label="icon-button">edit_square</mat-icon>
                         </button>
                         <a [href]="apiConfig.downloadPdfUrl+'order/'+itemList[i].id" target="_blank">
@@ -62,7 +62,7 @@
                                 <mat-icon aria-label="icon-button">print</mat-icon>
                             </button>
                         </a>
-                        <button (click)="deleteOrder(itemList[i].id)" color="warn" mat-icon-button>
+                        <button (click)="deleteOrder(element['id'])" color="warn" mat-icon-button>
                             <mat-icon aria-label="icon-button">cancel</mat-icon>
                         </button>
 

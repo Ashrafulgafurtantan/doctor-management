@@ -41,10 +41,11 @@ export class ClientTableComponent implements OnInit {
         });
     }
 
-    editClient(index: any) {
+    editClient(clientId: any) {
+        console.log(clientId);
         this._router.navigate(
             ['client-create'],
-            {queryParams: {clientId: this.clientList[index].id}}
+            {queryParams: {clientId: clientId}}
         ).then();
     }
 

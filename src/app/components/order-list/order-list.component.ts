@@ -73,28 +73,28 @@ export class OrderListComponent implements OnInit {
         });
     }
 
-    deleteOrder(index: any) {
-        this._alertMsg.deleteItemAlert().then((res: any) => {
-            if (res) {
-                this._orderService.deleteOrderById(index).subscribe((resp: any) => {
-                    this.getOrderList();
-                    this._alertMsg.successfulSubmissionAlert('Delete Order Successfully');
-                });
-            }
-        });
-
+    deleteOrder(orderId: any) {
+        console.log(orderId);
+        // this._alertMsg.deleteItemAlert().then((res: any) => {
+        //     if (res) {
+        //         this._orderService.deleteOrderById(orderId).subscribe((resp: any) => {
+        //             this.getOrderList();
+        //             this._alertMsg.successfulSubmissionAlert('Delete Order Successfully');
+        //         });
+        //     }
+        // });
     }
 
 
-    changeStatusOrder(index) {
-        this._router.navigate([`orders/status/${this.itemList[index].id}`]).then();
+    changeStatusOrder(orderId) {
+        this._router.navigate([`orders/status/${orderId}`]).then();
 
     }
 
-    editOrder(index) {
+    editOrder(orderId) {
         this._router.navigate(
             ['orders/create'],
-            {queryParams: {orderId: this.itemList[index].id}}
+            {queryParams: {orderId: orderId}}
         ).then();
     }
 
