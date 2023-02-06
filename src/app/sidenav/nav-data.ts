@@ -52,6 +52,12 @@ export const TREE_DATA: SideNavNode[] = [
             {name: 'Work Status Summary', icon: 'equalizer', routerLink: '/summary/work-status',},
             {name: 'Work Summary', routerLink: '/summary/work', icon: 'pie_chart'},
             {name: 'All Work Status Summary', routerLink: '/summary/all-work-status', icon: 'table_chart'},
+            {
+                name: 'All Delivered Work Status Summary',
+                routerLink: '/summary/all-delivered-work-status',
+                icon: 'incomplete_circle'
+            },
+
         ],
     },
 ];

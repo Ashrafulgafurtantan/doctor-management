@@ -10,7 +10,8 @@
                             <mat-label>Choose an option</mat-label>
                             <mat-select formControlName="id" (selectionChange)="onChangeClientOption($event.value)">
                                 <mat-option *ngFor="let item of clientList"
-                                            [value]="item['id']">{{item['name']}}</mat-option>
+                                            [value]="item['id']">{{item['name']}}&nbsp;&nbsp;({{item['doctor_name']}})
+                                </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -110,13 +111,15 @@
                         <ng-container matColumnDef="actions">
                             <th *matHeaderCellDef mat-header-cell mat-sort-header> Actions</th>
                             <td *matCellDef="let element; let i = index" class="fw-medium" mat-cell>
-                                <button (click)="editOrder(i)" color="primary" mat-icon-button>
+                                <button (click)="editOrder(element['id'])" color="primary" mat-icon-button>
                                     <mat-icon aria-label="icon-button">edit_square</mat-icon>
                                 </button>
-                                <button color="accent" mat-icon-button>
-                                    <mat-icon aria-label="icon-button">print</mat-icon>
-                                </button>
-                                <button (click)="deleteOrder()" color="warn" mat-icon-button>
+                                <a [href]="apiConfig.downloadPdfUrl+'order/'+element['id']" target="_blank">
+                                    <button color="accent" mat-icon-button>
+                                        <mat-icon aria-label="icon-button">print</mat-icon>
+                                    </button>
+                                </a>
+                                <button (click)="deleteOrder(element['id'])" color="warn" mat-icon-button>
                                     <mat-icon aria-label="icon-button">cancel</mat-icon>
                                 </button>
 

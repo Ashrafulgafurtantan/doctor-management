@@ -101,6 +101,7 @@ export class OrderCreateComponent implements OnInit {
         this._orderService.getClientList().subscribe((resp: any) => {
             this.clientList = [];
             this.clientList = resp;
+            console.log(this.clientList)
         });
     }
 
