@@ -45,6 +45,14 @@ export const TREE_DATA: SideNavNode[] = [
         }],
     },
     {
+        name: 'Today Order',
+        icon: 'today',
+        routerLink: '/',
+        children: [{name: 'Order Received', icon: 'local_mall', routerLink: '/today/received',},
+            {name: 'Order Delivered', icon: 'local_shipping', routerLink: '/today/delivered',}
+        ],
+    },
+    {
         name: 'Summary',
         icon: 'assignment',
         routerLink: '/',

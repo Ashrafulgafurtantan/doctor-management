@@ -15,4 +15,13 @@ export class ItemService {
     itemCreatePostRequest(formData: any) {
         return this.http.post(ApiConfig.baseUrl + ApiConfig.postItemCreate, formData);
     }
+
+    itemUpdatePutRequest(formObj: any) {
+        return this.http.put(ApiConfig.baseUrl + ApiConfig.putItemUpdate, formObj);
+
+    }
+
+    fetchItemsById(id: any) {
+        return this.http.get(ApiConfig.baseUrl + ApiConfig.getItemByItemId + id);
+    }
 }

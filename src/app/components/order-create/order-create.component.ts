@@ -58,7 +58,6 @@ export class OrderCreateComponent implements OnInit {
             .subscribe(params => {
                     this.updateOrderId = null;
                     this.updateOrderId = params.orderId;
-                    console.log(this.updateOrderId);
                     if (this.updateOrderId)
                         this.fetchOrderData(this.updateOrderId);
                 }
@@ -68,7 +67,6 @@ export class OrderCreateComponent implements OnInit {
     fetchOrderData(id: any) {
         this._orderService.getOrderById(id).subscribe((item: any) => {
             this.clientAddress = item.client.address;
-            console.log(item);
             this.orderCreateForm.patchValue(item);
             this.orderCreateForm.patchValue({
                 order_date: new Date(item.order_date),
@@ -101,7 +99,6 @@ export class OrderCreateComponent implements OnInit {
         this._orderService.getClientList().subscribe((resp: any) => {
             this.clientList = [];
             this.clientList = resp;
-            console.log(this.clientList)
         });
     }
 
@@ -208,7 +205,6 @@ export class OrderCreateComponent implements OnInit {
     }
 
     updateOrder(formData: FormData) {
-        console.log(formData)
         this._orderService.orderUpdatePutRequest(formData)
             .subscribe((resp: any) => {
                 this._alertMsg.successfulSubmissionAlert('Order Updated Successfully');

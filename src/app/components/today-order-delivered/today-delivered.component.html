@@ -46,18 +46,18 @@
                 <ng-container matColumnDef="status">
                     <th *matHeaderCellDef mat-header-cell mat-sort-header> Status</th>
                     <td *matCellDef="let element; let i = index" class="fw-medium" mat-cell> {{element['status'] }} <br>
-                        <button (click)="changeStatusOrder(element['id'])" mat-icon-button style="color: #00C292FF">
-                            <mat-icon aria-label="icon-button">edit_square</mat-icon>
-                        </button>
+                        <!--  <button (click)="changeStatusOrder(element['id'])" mat-icon-button style="color: #00C292FF">
+                              <mat-icon aria-label="icon-button">edit_square</mat-icon>
+                          </button>-->
                     </td>
                 </ng-container>
-                <ng-container matColumnDef="actions">
+                <!--<ng-container matColumnDef="actions">
                     <th *matHeaderCellDef mat-header-cell mat-sort-header> Actions</th>
                     <td *matCellDef="let element; let i = index" class="fw-medium" mat-cell>
                         <button (click)="editOrder(element['id'])" color="primary" mat-icon-button>
                             <mat-icon aria-label="icon-button">edit_square</mat-icon>
                         </button>
-                        <a [href]="apiConfig.downloadPdfUrl+'order/'+element['id']">
+                        <a [href]="apiConfig.downloadPdfUrl+'order/'+element['id']" target="_blank">
                             <button color="accent" mat-icon-button>
                                 <mat-icon aria-label="icon-button">print</mat-icon>
                             </button>
@@ -66,7 +66,7 @@
                             <mat-icon aria-label="icon-button">cancel</mat-icon>
                         </button>
                     </td>
-                </ng-container>
+                </ng-container>-->
                 <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
                 <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
             </table>
@@ -77,4 +77,3 @@
         </div>
     </mat-card-content>
 </mat-card>
-<app-search></app-search>

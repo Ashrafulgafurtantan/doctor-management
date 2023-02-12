@@ -13,7 +13,7 @@ import {OrderService} from "../../services/order.service";
 export class ItemTableComponent implements OnInit {
 
 
-    displayedColumns: string[] = ['id', 'name', 'price'];
+    displayedColumns: string[] = ['id', 'name', 'price', 'actions'];
     dataSource: MatTableDataSource<any>;
     itemList: any;
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator | any;
@@ -42,6 +42,13 @@ export class ItemTableComponent implements OnInit {
 
     createItem() {
         this._router.navigateByUrl('/item-create').then(() => console.log(""));
+    }
+
+    editItem(itemId: any) {
+        this._router.navigate(
+            ['item-create'],
+            {queryParams: {itemId: itemId}}
+        ).then();
     }
 
     applyFilter(e: any): void {

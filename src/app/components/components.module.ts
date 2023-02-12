@@ -21,6 +21,8 @@ import {EmployeeTableComponent} from './employee-table/employee-table.component'
 import {ClientTableComponent} from './client-table/client-table.component';
 import {ItemTableComponent} from './item-table/item-table.component';
 import {LandingPageComponent} from './landing-page/landing-page.component';
+import {TodayDeliveredComponent} from './today-order-delivered/today-delivered.component';
+import {TodayReceivedComponent} from './today-received/today-received.component';
 
 @NgModule({
     declarations: [
@@ -40,6 +42,8 @@ import {LandingPageComponent} from './landing-page/landing-page.component';
         ClientTableComponent,
         ItemTableComponent,
         LandingPageComponent,
+        TodayDeliveredComponent,
+        TodayReceivedComponent,
     ],
     imports: [
         CommonModule,
