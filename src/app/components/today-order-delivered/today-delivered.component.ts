@@ -7,26 +7,8 @@ import {Router} from "@angular/router";
 import {ApiConfig} from "../../utility/apiConfig";
 import {AlertMessageService} from "../../services/alert-message.service";
 import {TodayService} from "../../services/today.service";
-
-export interface OrderTableElement {
-    id: number;
-    order_no: string;
-    client_id: string;
-    order_date: string;
-    patient_name: string;
-    delivery_date: string;
-    employee_id: string;
-    total_amount: number;
-    status: number;
-}
-
-export enum OrderStatus {
-    0 = 'Received',
-    1 = 'In-progress',
-    2 = 'redo',
-    3 = 'trial',
-    4 = 'delivered',
-}
+import {OrderTableElement} from "../order-list/order-list.component";
+import {OrderStatus} from "../order-list/order-list.component";
 
 const ELEMENT_DATA: OrderTableElement[] = [];
 
@@ -65,7 +47,6 @@ export class TodayDeliveredComponent implements OnInit {
             this.itemList = resp;
             this.itemList.forEach((item: OrderTableElement) => {
                 item.status = OrderStatus[item.status];
-
             });
             this.dataSource = new MatTableDataSource(this.itemList);
             setTimeout(() => {
