@@ -37,13 +37,17 @@ export class SummaryComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.formInit();
+
         this.getClientList();
         this.summaryType();
     }
 
     summaryType() {
         this._activatedRoute.paramMap.subscribe((params) => {
+            this.formInit();
+            this.address = '';
+            this.startDateString = '';
+            this.endDateString = '';
             this.params = params.get('summaryType');
             if (this.params == 'work-status') {
                 this.title = "Report - Work Status Wise Summary";
