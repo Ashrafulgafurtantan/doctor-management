@@ -25,6 +25,7 @@ import {TodayDeliveredComponent} from './today-order-delivered/today-delivered.c
 import {TodayReceivedComponent} from './today-received/today-received.component';
 import { AssetCreateComponent } from './asset-create/asset-create.component';
 import { AssetListComponent } from './asset-list/asset-list.component';
+import { DemonstrationComponent } from './demonstration/demonstration.component';
 
 @NgModule({
     declarations: [
@@ -48,6 +49,7 @@ import { AssetListComponent } from './asset-list/asset-list.component';
         TodayReceivedComponent,
         AssetCreateComponent,
         AssetListComponent,
+        DemonstrationComponent,
     ],
     imports: [
         CommonModule,

@@ -23,6 +23,7 @@ import {LoginGuard} from "./gaurds/login.guard";
 import {TodayReceivedComponent} from "./components/today-received/today-received.component";
 import {AssetCreateComponent} from "./components/asset-create/asset-create.component";
 import {AssetListComponent} from "./components/asset-list/asset-list.component";
+import {DemonstrationComponent} from "./components/demonstration/demonstration.component";
 
 const routes: Routes = [
     {path: "", redirectTo: "/welcome", pathMatch: "full"},
@@ -33,6 +34,7 @@ const routes: Routes = [
     {path: "attendance-list", component: AttendanceListComponent, canActivate: [AuthGuard]},
     {path: "employee-list", component: EmployeeTableComponent, canActivate: [AuthGuard]},
     {path: "item-list", component: ItemTableComponent, canActivate: [AuthGuard]},
+    {path: "demo", component: DemonstrationComponent, canActivate: [AuthGuard]},
     {path: "client-list", component: ClientTableComponent, canActivate: [AuthGuard]},
     {path: "employee-create", component: EmployeeCreateComponent, canActivate: [AuthGuard]},
     {path: "client-create", component: ClientCreateComponent, canActivate: [AuthGuard]},
