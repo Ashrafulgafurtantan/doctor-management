@@ -6,6 +6,7 @@ import {AlertMessageService} from "../../services/alert-message.service";
 import {AuthenticationService} from "../../services/authentication.service";
 import {OrderService} from "../../services/order.service";
 import {AssetService} from "../../services/asset.service";
+import {MatTableDataSource} from "@angular/material/table";
 
 @Component({
     selector: 'app-asset-create',
@@ -27,8 +28,30 @@ export class AssetCreateComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.updatePart();
         this.formInit();
         this.getEmployeeList();
+    }
+
+    updatePart() {
+        this._activateRoute.queryParams
+            .subscribe(params => {
+                    this.updateAssetId = null;
+                    this.updateAssetId = params.assetId;
+                    if (this.updateAssetId)
+                        this.fetchAssetData(this.updateAssetId);
+                }
+            );
+    }
+
+    fetchAssetData(id: any) {
+        this._assetService.getAssetById(id).subscribe((item: any) => {
+            this.assetCreateForm.patchValue(item);
+            this.assetCreateForm.patchValue({
+                buying_time: new Date(item.buying_time),
+            });
+            this.dataSource = new MatTableDataSource(this.itemList);
+        });
     }
 
     formInit() {

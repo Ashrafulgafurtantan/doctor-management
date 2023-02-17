@@ -84,7 +84,6 @@ export class OrderListComponent implements OnInit {
         });
     }
 
-
     changeStatusOrder(orderId) {
         this._router.navigate([`orders/status/${orderId}`]).then();
 
