@@ -36,12 +36,12 @@ export class OrderService {
         return this.http.put(ApiConfig.baseUrl + ApiConfig.putOrderUpdate, formData);
     }
 
-    changeOrderStatus(formObj: any) {
-        return this.http.put(ApiConfig.baseUrl + ApiConfig.putOrderStatusUpdate, formObj);
-    }
-
     getOrderListRequest() {
         return this.http.get(ApiConfig.baseUrl + ApiConfig.getOrderList);
+    }
+
+    changeOrderStatus(formObj: any) {
+        return this.http.put(ApiConfig.baseUrl + ApiConfig.putOrderStatusUpdate, formObj);
     }
 
     deleteOrderById(id: any) {

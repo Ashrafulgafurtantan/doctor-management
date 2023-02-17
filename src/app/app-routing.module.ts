@@ -21,6 +21,8 @@ import {TodayDeliveredComponent} from "./components/today-order-delivered/today-
 import {LandingPageComponent} from "./components/landing-page/landing-page.component";
 import {LoginGuard} from "./gaurds/login.guard";
 import {TodayReceivedComponent} from "./components/today-received/today-received.component";
+import {AssetCreateComponent} from "./components/asset-create/asset-create.component";
+import {AssetListComponent} from "./components/asset-list/asset-list.component";
 
 const routes: Routes = [
     {path: "", redirectTo: "/welcome", pathMatch: "full"},
@@ -40,6 +42,8 @@ const routes: Routes = [
     {path: "profile", component: ProfileComponent, canActivate: [AuthGuard]},
     {path: "orders", component: OrderListComponent, canActivate: [AuthGuard]},
     {path: "orders/create", component: OrderCreateComponent, canActivate: [AuthGuard]},
+    {path: "asset/create", component: AssetCreateComponent, canActivate: [AuthGuard]},
+    {path: "asset-list", component: AssetListComponent, canActivate: [AuthGuard]},
     {path: 'orders/status/:orderID', component: OrderStatusComponent, canActivate: [AuthGuard]},
     {path: "today/received", component: TodayReceivedComponent, canActivate: [AuthGuard]},
     {path: "today/delivered", component: TodayDeliveredComponent, canActivate: [AuthGuard]},

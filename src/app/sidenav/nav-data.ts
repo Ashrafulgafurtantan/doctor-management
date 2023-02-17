@@ -35,6 +35,22 @@ export const TREE_DATA: SideNavNode[] = [
         ],
     },
     {
+        name: 'Summary',
+        icon: 'assignment',
+        routerLink: '/',
+        children: [
+            {name: 'Work Status Summary', icon: 'equalizer', routerLink: '/summary/work-status',},
+            {name: 'Work Summary', routerLink: '/summary/work', icon: 'pie_chart'},
+            {name: 'All Work Status Summary', routerLink: '/summary/all-work-status', icon: 'table_chart'},
+            {
+                name: 'All Delivered Work Status Summary',
+                routerLink: '/summary/all-delivered-work-status',
+                icon: 'incomplete_circle'
+            },
+
+        ],
+    },
+    {
         name: 'Order',
         icon: 'shopping_cart',
         routerLink: '/',
@@ -53,19 +69,13 @@ export const TREE_DATA: SideNavNode[] = [
         ],
     },
     {
-        name: 'Summary',
-        icon: 'assignment',
+        name: 'Accounts',
+        icon: 'paid',
         routerLink: '/',
         children: [
-            {name: 'Work Status Summary', icon: 'equalizer', routerLink: '/summary/work-status',},
-            {name: 'Work Summary', routerLink: '/summary/work', icon: 'pie_chart'},
-            {name: 'All Work Status Summary', routerLink: '/summary/all-work-status', icon: 'table_chart'},
-            {
-                name: 'All Delivered Work Status Summary',
-                routerLink: '/summary/all-delivered-work-status',
-                icon: 'incomplete_circle'
-            },
-
+            {name: 'Asset Create', icon: 'store', routerLink: '/asset/create'},
+            {name: 'Asset List', icon: 'format_list_numbered', routerLink: '/asset-list'}
         ],
     },
+
 ];
