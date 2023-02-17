@@ -2,10 +2,16 @@
 <mat-card class="w-100">
     <mat-card-content>
         <h4 class="mb-32 title">Today Orders Delivery List</h4>
-        <mat-form-field appearance="fill">
-            <mat-label>Search</mat-label>
-            <input (keyup)="applyFilter($event.target)" matInput>
-        </mat-form-field>
+        <div style="display: flex; justify-content: space-between">
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Search</mat-label>
+                    <input (keyup)="applyFilter($event.target)" matInput>
+                </mat-form-field>
+            </div>
+            <h4 style="text-size:1.2rem; text-weight:600; color:grey;padding:15px 40px 15px 0px;">Total
+                Amount: {{totalAmount}}</h4>
+        </div>
         <div class="table-responsive">
             <table [dataSource]="dataSource" class="text-nowrap w-100" mat-table matSort>
                 <ng-container matColumnDef="id">

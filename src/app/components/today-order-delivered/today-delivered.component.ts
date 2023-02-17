@@ -23,6 +23,7 @@ export class TodayDeliveredComponent implements OnInit {
         'patient_name', 'delivery_date', 'employee_id', 'total_amount', 'status'];
     dataSource: MatTableDataSource<OrderTableElement>;
     itemList: OrderTableElement[];
+    totalAmount: number = 0;
     apiConfig = ApiConfig;
 
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator | any;
@@ -45,6 +46,10 @@ export class TodayDeliveredComponent implements OnInit {
             console.log(resp);
             this.itemList = [];
             this.itemList = resp;
+            this.totalAmount = this.itemList.reduce(
+                (accumulator, currentValue) => accumulator + currentValue.total_amount,
+                0
+            );
             this.itemList.forEach((item: OrderTableElement) => {
                 item.status = OrderStatus[item.status];
             });
