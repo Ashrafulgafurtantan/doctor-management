@@ -23,9 +23,9 @@ import {ItemTableComponent} from './item-table/item-table.component';
 import {LandingPageComponent} from './landing-page/landing-page.component';
 import {TodayDeliveredComponent} from './today-order-delivered/today-delivered.component';
 import {TodayReceivedComponent} from './today-received/today-received.component';
-import { AssetCreateComponent } from './asset-create/asset-create.component';
-import { AssetListComponent } from './asset-list/asset-list.component';
-import { DemonstrationComponent } from './demonstration/demonstration.component';
+import {AssetCreateComponent} from './asset-create/asset-create.component';
+import {AssetListComponent} from './asset-list/asset-list.component';
+import {PaginationComponent} from './pagination/pagination.component';
 
 @NgModule({
     declarations: [
@@ -49,7 +49,7 @@ import { DemonstrationComponent } from './demonstration/demonstration.component'
         TodayReceivedComponent,
         AssetCreateComponent,
         AssetListComponent,
-        DemonstrationComponent,
+        PaginationComponent,
     ],
     imports: [
         CommonModule,

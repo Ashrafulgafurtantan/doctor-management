@@ -7,9 +7,14 @@
   box-sizing: inherit;
 }
 
+button {
+  border: none;
+  background-color: transparent;
+}
+
 html {
   box-sizing: border-box;
-  font-size: 62.5%; // 1rem = 10px    100% = 16px
+  font-size: 50.5%; // 1rem = 10px    100% = 16px
   overflow-y: scroll;
   font-family: "Poppins", sans-serif;
   letter-spacing: 0.6px;
@@ -20,13 +25,10 @@ html {
 }
 
 .container {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #cbe0dd;
-  color: #2d4848;
 }
 
 ul {
@@ -84,9 +86,9 @@ ul {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 5rem;
+  height: 4rem;
   width: 80%;
-  margin: 1rem;
+  margin: 0.7rem;
   border-radius: 0.6rem;
   background: #ffffff;
   box-shadow: 0 0.8rem 2rem rgba(#5a6181, 0.05);
@@ -98,7 +100,7 @@ ul {
     justify-content: center;
     align-items: center;
     margin: 0.8rem;
-    font-size: 1.4rem;
+    font-size: 1rem;
     cursor: pointer;
   }
 

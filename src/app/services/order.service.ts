@@ -37,7 +37,8 @@ export class OrderService {
     }
 
     getOrderListRequest() {
-        return this.http.get(ApiConfig.baseUrl + ApiConfig.getOrderList);
+        //return this.http.get(ApiConfig.baseUrl + ApiConfig.getOrderList);
+        return this.http.get(ApiConfig.baseUrl + ApiConfig.getOrderListPagewise);
     }
 
     changeOrderStatus(formObj: any) {
@@ -46,5 +47,18 @@ export class OrderService {
 
     deleteOrderById(id: any) {
         return this.http.delete(ApiConfig.baseUrl + ApiConfig.deleteOrder + "/" + id);
+    }
+
+    navigateToNextPage(url: any) {
+        return this.http.get(url);
+    }
+
+    navigateToPreviousPage(url: any) {
+        return this.http.get(url);
+    }
+
+    navigateToNumberPage(number: any) {
+// "https://api.32vivadent.com/api/orders?page=2"
+        return this.http.get(ApiConfig.baseUrl + ApiConfig.page + number);
     }
 }

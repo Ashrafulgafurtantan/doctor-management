@@ -30,6 +30,8 @@ export enum ApiConfig {
     putItemUpdate = 'items',
     getItemByItemId = 'items/',
     getOrderList = 'orders/all',
+    getOrderListPagewise = 'orders',
+    page = "orders?page=",
     getItemList = 'items/all',
     putPasswordChange = 'users/password',
 }

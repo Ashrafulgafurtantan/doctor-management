@@ -1,7 +1,5 @@
 // @ts-nocheck
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatSort} from "@angular/material/sort";
-import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {Router} from "@angular/router";
 import {OrderService} from "../../services/order.service";
@@ -42,8 +40,11 @@ export class OrderListComponent implements OnInit {
     itemList: OrderTableElement[];
     apiConfig = ApiConfig;
 
-    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator | any;
-    @ViewChild(MatSort, {static: true}) sort: MatSort | any;
+    first = 1;
+    last = null;
+    current = null;
+    nextPageUrl = null;
+    prevPageUrl = null;
 
     constructor(private _router: Router,
                 private _alertMsg: AlertMessageService,
@@ -59,18 +60,45 @@ export class OrderListComponent implements OnInit {
 
     getOrderList() {
         this._orderService.getOrderListRequest().subscribe((resp: any) => {
-            this.itemList = [];
-            this.itemList = resp;
-            this.itemList.forEach((item: OrderTableElement) => {
-                item.status = OrderStatus[item.status];
-
-            });
-            this.dataSource = new MatTableDataSource(this.itemList);
-            setTimeout(() => {
-                this.dataSource.sort = this.sort;
-                this.dataSource.paginator = this.paginator
-            });
+            this.getDataSyncWithLocalVariable(resp);
         });
+    }
+
+    getDataSyncWithLocalVariable(resp: any) {
+        this.itemList = [];
+        this.itemList = resp.data;
+        this.current = resp.current_page;
+        this.last = resp.last_page;
+        this.nextPageUrl = resp.next_page_url;
+        this.prevPageUrl = resp.prev_page_url;
+        this.itemList.forEach((item: OrderTableElement) => {
+            item.status = OrderStatus[item.status];
+
+        });
+        this.dataSource = new MatTableDataSource(this.itemList);
+        /* setTimeout(() => {
+             this.dataSource.sort = this.sort;
+             this.dataSource.paginator = this.paginator
+         });*/
+    }
+
+    nextBtnClick() {
+        if (this.nextPageUrl) {
+            this.current = null;
+            this._orderService.navigateToNextPage(this.nextPageUrl).subscribe(resp => this.getDataSyncWithLocalVariable(resp));
+        }
+    }
+
+    prevBtnClick() {
+        if (this.prevPageUrl) {
+            this.current = null;
+            this._orderService.navigateToPreviousPage(this.prevPageUrl).subscribe(resp => this.getDataSyncWithLocalVariable(resp));
+        }
+    }
+
+    numberBtnClick(e) {
+        this.current = null;
+        this._orderService.navigateToNumberPage(e).subscribe(resp => this.getDataSyncWithLocalVariable(resp));
     }
 
     deleteOrder(orderId: any) {
@@ -94,11 +122,6 @@ export class OrderListComponent implements OnInit {
             ['orders/create'],
             {queryParams: {orderId: orderId}}
         ).then();
-    }
-
-    applyFilter(e: any): void {
-        const filterValue = e.value;
-        this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 
 }
