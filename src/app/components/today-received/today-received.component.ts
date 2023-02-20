@@ -9,6 +9,7 @@ import {AlertMessageService} from "../../services/alert-message.service";
 import {TodayService} from "../../services/today.service";
 import {OrderTableElement} from "../order-list/order-list.component";
 import {OrderStatus} from "../order-list/order-list.component";
+import {MatDatepickerInputEvent} from "@angular/material/datepicker";
 
 const ELEMENT_DATA: OrderTableElement[] = [];
 
@@ -25,6 +26,7 @@ export class TodayReceivedComponent implements OnInit {
     itemList: OrderTableElement[];
     totalAmount: number = 0;
     apiConfig = ApiConfig;
+    dateTimeString: any;
 
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator | any;
     @ViewChild(MatSort, {static: true}) sort: MatSort | any;
@@ -41,30 +43,40 @@ export class TodayReceivedComponent implements OnInit {
         this.getTodayOrderReceivedList();
     }
 
-    getTodayOrderReceivedList() {
-        this._todayReceived.getTodayOrderReceivedList().subscribe((resp: any) => {
-            console.log(resp);
-            this.itemList = [];
-            this.itemList = resp;
-            this.totalAmount = this.itemList.reduce(
-                (accumulator, currentValue) => accumulator + currentValue.total_amount,
-                0
-            );
-            this.itemList.forEach((item: OrderTableElement) => {
-                item.status = OrderStatus[item.status];
-            });
-            this.dataSource = new MatTableDataSource(this.itemList);
-            setTimeout(() => {
-                this.dataSource.sort = this.sort;
-                this.dataSource.paginator = this.paginator
-            });
+    addEvent(event: MatDatepickerInputEvent<Date>) {
+        this.dateTimeString = event.value?.toLocaleDateString();
+        const list = this.dateTimeString.split('/');
+        this._todayReceived.getDateWiseTodayOrderReceivedList(`${list[2]}-${list[0]}-${list[1]}`)
+            .subscribe(resp => this.getDataSyncWithLocalVariable(resp));
+    }
+
+    getDataSyncWithLocalVariable(resp: any) {
+        this.itemList = [];
+        this.itemList = resp;
+        this.totalAmount = 0;
+        this.totalAmount = this.itemList.reduce(
+            (accumulator, currentValue) => accumulator + currentValue.total_amount,
+            0
+        );
+        this.itemList.forEach((item: OrderTableElement) => {
+            item.status = OrderStatus[item.status];
         });
+        this.dataSource = new MatTableDataSource(this.itemList);
+        setTimeout(() => {
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator
+        });
+    }
+
+    getTodayOrderReceivedList() {
+        this._todayReceived.getTodayOrderReceivedList(new Date().toISOString().substring(0, 10))
+            .subscribe((resp: any) => {
+                this.getDataSyncWithLocalVariable(resp);
+            });
     }
 
     applyFilter(e: any): void {
         const filterValue = e.value;
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
-
-
 }

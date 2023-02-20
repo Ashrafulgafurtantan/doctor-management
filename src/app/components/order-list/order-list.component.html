@@ -4,7 +4,7 @@
         <h4 class="mb-32 title">Orders List</h4>
         <mat-form-field appearance="fill">
             <mat-label>Search</mat-label>
-            <input matInput>
+            <input matInput (keyup)="onKeyUp($event)">
         </mat-form-field>
         <div class="table-responsive">
             <table [dataSource]="dataSource" class="text-nowrap w-100" mat-table matSort>

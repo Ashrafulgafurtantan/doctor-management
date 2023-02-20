@@ -58,7 +58,10 @@ export class OrderService {
     }
 
     navigateToNumberPage(number: any) {
-// "https://api.32vivadent.com/api/orders?page=2"
         return this.http.get(ApiConfig.baseUrl + ApiConfig.page + number);
+    }
+
+    searchQueryForOrder(queryWord: any) {
+        return this.http.get(ApiConfig.baseUrl + ApiConfig.searchOrder + queryWord);
     }
 }

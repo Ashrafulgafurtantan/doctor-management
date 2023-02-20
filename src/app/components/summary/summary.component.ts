@@ -27,6 +27,8 @@ export class SummaryComponent implements OnInit {
     workHref = "";
     allWorkStatusHref = "";
     allDeliveredWorkStatusHref = "";
+    allClinicStatusHref = "";
+
 
     constructor(public formBuilder: FormBuilder,
                 private _activatedRoute: ActivatedRoute,
@@ -57,6 +59,8 @@ export class SummaryComponent implements OnInit {
                 this.title = "Report - All Work Status Summary";
             } else if (this.params == 'all-delivered-work-status') {
                 this.title = "Report - All Delivered Work Status Summary";
+            } else if (this.params == 'all-clinic-work-status') {
+                this.title = "Report - All Clinic Work Status Summary";
             }
         });
     }
@@ -66,6 +70,7 @@ export class SummaryComponent implements OnInit {
         this.workHref = `${this.apiConfig.downloadPdfUrl}summary/clients/${this.clientId}/start/${this.startDateString}/end/${this.endDateString}`;
         this.allWorkStatusHref = `${this.apiConfig.downloadPdfUrl}summary/all/start/${this.startDateString}/end/${this.endDateString}`;
         this.allDeliveredWorkStatusHref = `${this.apiConfig.downloadPdfUrl}summary/all/delivered/start/${this.startDateString}/end/${this.endDateString}`;
+        this.allClinicStatusHref = `${this.apiConfig.downloadPdfUrl}clinic/all/start/${this.startDateString}/end/${this.endDateString}`;
     }
 
     formInit() {

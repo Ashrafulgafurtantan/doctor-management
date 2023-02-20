@@ -13,12 +13,21 @@ export class TodayService {
                 private http: HttpClient,) {
     }
 
-    getTodayOrderReceivedList() {
-        return this.http.get(ApiConfig.baseUrl + ApiConfig.getOrderTodayReceived);
+    getTodayOrderReceivedList(todayDate: any) {
+        return this.http.get(ApiConfig.baseUrl + ApiConfig.getOrderTodayReceived + "/" + todayDate);
     }
 
-    getTodayOrderDeliveredList() {
-        return this.http.get(ApiConfig.baseUrl + ApiConfig.getOrderTodayDelivered);
+    getDateWiseTodayOrderReceivedList(date: any) {
+        return this.http.get(ApiConfig.baseUrl + ApiConfig.getOrderTodayReceived + '/' + date);
     }
+
+    getTodayOrderDeliveredList(todayDate: any) {
+        return this.http.get(ApiConfig.baseUrl + ApiConfig.getOrderTodayDelivered + "/" + todayDate);
+    }
+
+    getDateWiseTodayOrderDeliveredList(date: any) {
+        return this.http.get(ApiConfig.baseUrl + ApiConfig.getOrderTodayDelivered + '/' + date);
+    }
+
 
 }

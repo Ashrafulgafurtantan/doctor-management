@@ -5,6 +5,8 @@ import {Router} from "@angular/router";
 import {OrderService} from "../../services/order.service";
 import {ApiConfig} from "../../utility/apiConfig";
 import {AlertMessageService} from "../../services/alert-message.service";
+import {debounceTime} from 'rxjs/operators';
+import {fromEvent} from 'rxjs';
 
 export interface OrderTableElement {
     id: number;
@@ -45,6 +47,7 @@ export class OrderListComponent implements OnInit {
     current = null;
     nextPageUrl = null;
     prevPageUrl = null;
+    searchKey = "";
 
     constructor(private _router: Router,
                 private _alertMsg: AlertMessageService,
@@ -64,6 +67,21 @@ export class OrderListComponent implements OnInit {
         });
     }
 
+
+    onKeyUp(event: any) {
+        fromEvent(event.target, 'keyup')
+            .pipe(debounceTime(1000))
+            .subscribe(() => {
+                if (event.target.value.length != 0) {
+                    this.current = null;
+                    this._orderService.searchQueryForOrder(event.target.value).subscribe(resp => this.getDataSyncWithLocalVariable(resp));
+                } else {
+                    this.current = null;
+                    this.getOrderList();
+                }
+            });
+    }
+
     getDataSyncWithLocalVariable(resp: any) {
         this.itemList = [];
         this.itemList = resp.data;
@@ -76,10 +94,6 @@ export class OrderListComponent implements OnInit {
 
         });
         this.dataSource = new MatTableDataSource(this.itemList);
-        /* setTimeout(() => {
-             this.dataSource.sort = this.sort;
-             this.dataSource.paginator = this.paginator
-         });*/
     }
 
     nextBtnClick() {

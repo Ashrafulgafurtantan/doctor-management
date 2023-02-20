@@ -47,7 +47,7 @@
                 <div class="container">
                     <div>
                         <a mat-raised-butto class="submit"
-                           [href]="params == 'work-status'?workStatusHref:params == 'work'?workHref:params == 'all-work-status'? allWorkStatusHref:allDeliveredWorkStatusHref"
+                           [href]="params == 'work-status'?workStatusHref:params == 'work'?workHref:params == 'all-work-status'? allWorkStatusHref:params == 'all-delivered-work-status'?allDeliveredWorkStatusHref:allClinicStatusHref"
                         >
                             Submit
                         </a>

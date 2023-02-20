@@ -9,6 +9,7 @@ import {AlertMessageService} from "../../services/alert-message.service";
 import {TodayService} from "../../services/today.service";
 import {OrderTableElement} from "../order-list/order-list.component";
 import {OrderStatus} from "../order-list/order-list.component";
+import {MatDatepickerInputEvent} from "@angular/material/datepicker";
 
 const ELEMENT_DATA: OrderTableElement[] = [];
 
@@ -25,6 +26,7 @@ export class TodayDeliveredComponent implements OnInit {
     itemList: OrderTableElement[];
     totalAmount: number = 0;
     apiConfig = ApiConfig;
+    dateTimeString: any;
 
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator | any;
     @ViewChild(MatSort, {static: true}) sort: MatSort | any;
@@ -41,23 +43,36 @@ export class TodayDeliveredComponent implements OnInit {
         this.getTodayOrderDeliveredList();
     }
 
+    addEvent(event: MatDatepickerInputEvent<Date>) {
+        this.dateTimeString = event.value?.toLocaleDateString();
+        const list = this.dateTimeString.split('/');
+        this._todayDelivered.getDateWiseTodayOrderDeliveredList(`${list[2]}-${list[0]}-${list[1]}`)
+            .subscribe(resp => this.dataSyncWithLocalVariable(resp));
+    }
+
     getTodayOrderDeliveredList() {
-        this._todayDelivered.getTodayOrderDeliveredList().subscribe((resp: any) => {
-            console.log(resp);
-            this.itemList = [];
-            this.itemList = resp;
-            this.totalAmount = this.itemList.reduce(
-                (accumulator, currentValue) => accumulator + currentValue.total_amount,
-                0
-            );
-            this.itemList.forEach((item: OrderTableElement) => {
-                item.status = OrderStatus[item.status];
+        //new Date().toISOString().substring(0, 10)
+        this._todayDelivered.getTodayOrderDeliveredList(new Date().toISOString().substring(0, 10))
+            .subscribe((resp: any) => {
+                this.dataSyncWithLocalVariable(resp);
             });
-            this.dataSource = new MatTableDataSource(this.itemList);
-            setTimeout(() => {
-                this.dataSource.sort = this.sort;
-                this.dataSource.paginator = this.paginator
-            });
+    }
+
+    dataSyncWithLocalVariable(resp: any) {
+        console.log(resp);
+        this.itemList = [];
+        this.itemList = resp;
+        this.totalAmount = 0;
+        this.itemList.forEach((item: OrderTableElement) => {
+            item.status = OrderStatus[item.status];
+            if (item.status === "delivered") {
+                this.totalAmount += item.total_amount;
+            }
+        });
+        this.dataSource = new MatTableDataSource(this.itemList);
+        setTimeout(() => {
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator
         });
     }
 

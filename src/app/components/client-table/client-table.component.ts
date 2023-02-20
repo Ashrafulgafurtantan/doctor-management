@@ -32,7 +32,6 @@ export class ClientTableComponent implements OnInit {
         this._orderService.getClientList().subscribe((resp: any) => {
             this.clientList = [];
             this.clientList = resp;
-            console.log(this.clientList);
             this.dataSource = new MatTableDataSource(this.clientList);
             setTimeout(() => {
                 this.dataSource.sort = this.sort;
@@ -42,7 +41,6 @@ export class ClientTableComponent implements OnInit {
     }
 
     editClient(clientId: any) {
-        console.log(clientId);
         this._router.navigate(
             ['client-create'],
             {queryParams: {clientId: clientId}}
