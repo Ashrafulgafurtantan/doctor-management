@@ -24,6 +24,8 @@ import {TodayReceivedComponent} from "./components/today-received/today-received
 import {AssetCreateComponent} from "./components/asset-create/asset-create.component";
 import {AssetListComponent} from "./components/asset-list/asset-list.component";
 import {PaginationComponent} from "./components/pagination/pagination.component";
+import {IncomeCreateComponent} from "./components/income-create/income-create.component";
+import {IncomeListComponent} from "./components/income-list/income-list.component";
 
 const routes: Routes = [
     {path: "", redirectTo: "/welcome", pathMatch: "full"},
@@ -44,6 +46,8 @@ const routes: Routes = [
     {path: "profile", component: ProfileComponent, canActivate: [AuthGuard]},
     {path: "orders", component: OrderListComponent, canActivate: [AuthGuard]},
     {path: "orders/create", component: OrderCreateComponent, canActivate: [AuthGuard]},
+    {path: "income/create", component: IncomeCreateComponent, canActivate: [AuthGuard]},
+    {path: "income/list", component: IncomeListComponent, canActivate: [AuthGuard]},
     {path: "asset/create", component: AssetCreateComponent, canActivate: [AuthGuard]},
     {path: "asset-list", component: AssetListComponent, canActivate: [AuthGuard]},
     {path: 'orders/status/:orderID', component: OrderStatusComponent, canActivate: [AuthGuard]},

@@ -10,6 +10,7 @@ import {TodayService} from "../../services/today.service";
 import {OrderTableElement} from "../order-list/order-list.component";
 import {OrderStatus} from "../order-list/order-list.component";
 import {MatDatepickerInputEvent} from "@angular/material/datepicker";
+import {DateTimeService} from "../../services/date-time.service";
 
 const ELEMENT_DATA: OrderTableElement[] = [];
 
@@ -33,6 +34,7 @@ export class TodayDeliveredComponent implements OnInit {
 
     constructor(private _router: Router,
                 private _alertMsg: AlertMessageService,
+                private _dateTimeService: DateTimeService,
                 private _todayDelivered: TodayService) {
         this.itemList = ELEMENT_DATA;
         this.dataSource = new MatTableDataSource(this.itemList);
@@ -44,14 +46,13 @@ export class TodayDeliveredComponent implements OnInit {
     }
 
     addEvent(event: MatDatepickerInputEvent<Date>) {
-        this.dateTimeString = event.value?.toLocaleDateString();
-        const list = this.dateTimeString.split('/');
-        this._todayDelivered.getDateWiseTodayOrderDeliveredList(`${list[2]}-${list[0]}-${list[1]}`)
+        this.dateTimeString = this._dateTimeService.getYearMonthDayFormat(event.value);
+        console.log(this.dateTimeString);
+        this._todayDelivered.getDateWiseTodayOrderDeliveredList(this.dateTimeString)
             .subscribe(resp => this.dataSyncWithLocalVariable(resp));
     }
 
     getTodayOrderDeliveredList() {
-        //new Date().toISOString().substring(0, 10)
         this._todayDelivered.getTodayOrderDeliveredList(new Date().toISOString().substring(0, 10))
             .subscribe((resp: any) => {
                 this.dataSyncWithLocalVariable(resp);

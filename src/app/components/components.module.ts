@@ -26,6 +26,8 @@ import {TodayReceivedComponent} from './today-received/today-received.component'
 import {AssetCreateComponent} from './asset-create/asset-create.component';
 import {AssetListComponent} from './asset-list/asset-list.component';
 import {PaginationComponent} from './pagination/pagination.component';
+import { IncomeCreateComponent } from './income-create/income-create.component';
+import { IncomeListComponent } from './income-list/income-list.component';
 
 @NgModule({
     declarations: [
@@ -50,6 +52,8 @@ import {PaginationComponent} from './pagination/pagination.component';
         AssetCreateComponent,
         AssetListComponent,
         PaginationComponent,
+        IncomeCreateComponent,
+        IncomeListComponent,
     ],
     imports: [
         CommonModule,

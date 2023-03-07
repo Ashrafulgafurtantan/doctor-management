@@ -6,6 +6,7 @@ import {Subscription} from "rxjs";
 import {MatDatepickerInputEvent} from "@angular/material/datepicker";
 import {AlertMessageService} from "../../services/alert-message.service";
 import {AuthenticationService} from "../../services/authentication.service";
+import {DateTimeService} from "../../services/date-time.service";
 
 @Component({
     selector: 'app-attendance-create',
@@ -16,13 +17,14 @@ export class AttendanceCreateComponent implements OnInit {
 
     attendanceList: AttendanceModel[] = [];
     employeeListSubscription: Subscription | undefined;
-    dateTimeString: string | undefined;
+    dateTimeString: any;
     dateError: boolean = false;
     employeeList: any = [];
 
     constructor(private _router: Router,
                 private _alertMsg: AlertMessageService,
                 private _authService: AuthenticationService,
+                private _dateTimeService: DateTimeService,
                 private _attendanceService: AttendanceService) {
     }
 
@@ -31,7 +33,7 @@ export class AttendanceCreateComponent implements OnInit {
     }
 
     addEvent(event: MatDatepickerInputEvent<Date>) {
-        this.dateTimeString = event.value?.toLocaleDateString();
+        this.dateTimeString = this._dateTimeService.getYearMonthDayFormat(event.value);
     }
 
     getEmployeeList() {

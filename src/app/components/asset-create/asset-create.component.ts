@@ -7,6 +7,7 @@ import {AuthenticationService} from "../../services/authentication.service";
 import {OrderService} from "../../services/order.service";
 import {AssetService} from "../../services/asset.service";
 import {MatTableDataSource} from "@angular/material/table";
+import {DateTimeService} from "../../services/date-time.service";
 
 @Component({
     selector: 'app-asset-create',
@@ -24,6 +25,7 @@ export class AssetCreateComponent implements OnInit {
                 private _authService: AuthenticationService,
                 private _activateRoute: ActivatedRoute,
                 private _orderService: OrderService,
+                private _dateTimeService: DateTimeService,
                 private _router: Router, private _assetService: AssetService) {
     }
 
@@ -73,7 +75,8 @@ export class AssetCreateComponent implements OnInit {
 
     submit() {
         let formData = this.assetCreateForm.value;
-        formData['buying_time'] = formData['buying_time'].toLocaleDateString();
+        // formData['buying_time'] = formData['buying_time'].toLocaleDateString();
+        formData['buying_time'] = this._dateTimeService.getYearMonthDayFormat(this.assetCreateForm.value.buying_time);
         if (this.assetCreateForm.valid) {
             if (this.updateAssetId) {
                 formData['id'] = this.updateAssetId;

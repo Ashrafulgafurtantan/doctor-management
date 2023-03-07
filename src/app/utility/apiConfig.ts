@@ -2,9 +2,9 @@ export enum ApiConfig {
     baseUrl = 'https://api.32vivadent.com/api/',
     downloadPdfUrl = 'https://api.32vivadent.com/download/report/',
     loginUrl = 'https://32vivadent.com/login',
-    /* baseUrl = 'http://127.0.0.1:8000/api/',
-     downloadPdfUrl = 'http://127.0.0.1:8000/download/report/',
-     loginUrl = 'http://localhost:4200/login',*/
+    /*   baseUrl = 'http://127.0.0.1:8000/api/',
+       downloadPdfUrl = 'http://127.0.0.1:8000/download/report/',
+       loginUrl = 'http://localhost:4200/login',*/
     userLogin = 'users/login',
     getEmployeeList = 'employees/all',
     getClientList = 'clients/all',
@@ -20,6 +20,10 @@ export enum ApiConfig {
     putAssetUpdate = 'assets',
     getAssetList = 'assets/all',
     getAssetByAssetId = 'assets/',
+    postIncomeCreate = 'incomes',
+    putIncomeUpdate = 'incomes',
+    getIncomeList = 'incomes/all',
+    getIncomeByIncomeId = 'incomes/',
     postOrderCreate = 'orders',
     getOrderTodayDelivered = 'orders/today/delivered',
     getOrderTodayReceived = 'orders/today/received',
