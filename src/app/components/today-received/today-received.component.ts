@@ -56,7 +56,8 @@ export class TodayReceivedComponent implements OnInit {
         this.itemList = resp;
         this.totalAmount = 0;
         this.totalAmount = this.itemList.reduce(
-            (accumulator, currentValue) => accumulator + currentValue.total_amount,
+            (accumulator, currentValue)
+                => accumulator + Number(currentValue.total_amount),
             0
         );
         this.itemList.forEach((item: OrderTableElement) => {

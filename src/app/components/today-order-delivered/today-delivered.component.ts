@@ -60,14 +60,13 @@ export class TodayDeliveredComponent implements OnInit {
     }
 
     dataSyncWithLocalVariable(resp: any) {
-        console.log(resp);
         this.itemList = [];
         this.itemList = resp;
         this.totalAmount = 0;
         this.itemList.forEach((item: OrderTableElement) => {
             item.status = OrderStatus[item.status];
             if (item.status === "delivered") {
-                this.totalAmount += item.total_amount;
+                this.totalAmount += Number(item.total_amount);
             }
         });
         this.dataSource = new MatTableDataSource(this.itemList);
