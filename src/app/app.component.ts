@@ -28,7 +28,6 @@ export class AppComponent implements OnInit {
         let url: string = window.location.href;
         const array = url.split("/");
         const lastElement = array.pop();
-        console.log(lastElement);
         if (lastElement == 'welcome' || lastElement == '')
             this.isLandingPage = true;
         if (lastElement == 'login')

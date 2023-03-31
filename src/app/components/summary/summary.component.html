@@ -3,13 +3,14 @@
         <h4 class="mb-32 title">{{title}}</h4>
         <div>
             <form [formGroup]="summaryFormGroup">
-                <div class="container" *ngIf="params !== 'all-work-status'">
+                <div class="container" *ngIf="params == 'work-status' || params == 'work'">
                     <div>
                         <mat-form-field appearance="outline">
                             <mat-label>Choose an option</mat-label>
                             <mat-select formControlName="id" (selectionChange)="onChangeClientOption($event.value)">
                                 <mat-option *ngFor="let item of clientList"
-                                            [value]="item['id']">{{item['name']}}</mat-option>
+                                            [value]="item['id']">{{item['name']}}&nbsp;&nbsp;({{item['doctor_name']}})
+                                </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -45,11 +46,10 @@
 
                 <div class="container">
                     <div>
-                        <a mat-raised-butto class="search"
-                           target="_blank"
-                           [href]="params == 'work-status'?workStatusHref:params == 'work'?workHref: allWorkStatusHref"
+                        <a mat-raised-butto class="submit"
+                           [href]="params == 'work-status'?workStatusHref:params == 'work'?workHref:params == 'all-work-status'? allWorkStatusHref:params == 'all-delivered-work-status'?allDeliveredWorkStatusHref:allClinicStatusHref"
                         >
-                            Search
+                            Submit
                         </a>
 
                     </div>

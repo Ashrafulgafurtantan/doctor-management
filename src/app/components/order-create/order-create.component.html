@@ -1,7 +1,8 @@
 <!--@ts-nocheck-->
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">Order Create</h4> <hr/>
+        <h4 class="card-title">Order Create</h4>
+        <hr/>
         <form [formGroup]="orderCreateForm" #ordForm="ngForm">
             <div class="container">
                 <div>
@@ -39,7 +40,8 @@
                         <mat-label>Bill To</mat-label>
                         <mat-select formControlName="client_id" (selectionChange)="onChangeClientOption($event.value)">
                             <mat-option *ngFor="let item of clientList"
-                                        [value]="item['id']">{{item['name']}}</mat-option>
+                                        [value]="item['id']">{{item['name']}}&nbsp;&nbsp;({{item['doctor_name']}})
+                            </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>

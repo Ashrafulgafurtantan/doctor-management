@@ -1,6 +1,7 @@
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">Item Create</h4> <hr/>
+        <h4 class="card-title">Item {{updateItemId == null ? 'Create' : 'Update' }} </h4>
+        <hr/>
         <form [formGroup]="itemFormGroup" (ngSubmit)="onSubmit()">
             <div class="container">
                 <div>
@@ -20,7 +21,8 @@
             </div>
             <mat-grid-list cols="4" rowHeight="40px">
                 <mat-grid-tile colspan="3">
-                    <button class="block-btn-global submit-btn-global" color="primary" mat-raised-button>Create</button>
+                    <button class="block-btn-global submit-btn-global" color="primary"
+                            mat-raised-button>{{updateItemId == null ? 'Create' : 'Update'}}</button>
                 </mat-grid-tile>
                 <mat-grid-tile colspan="1">
                     <button (click)="cancel()" class="block-btn-global cancel-btn-global" color="danger"

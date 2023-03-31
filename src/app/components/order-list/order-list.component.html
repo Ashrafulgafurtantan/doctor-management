@@ -4,7 +4,7 @@
         <h4 class="mb-32 title">Orders List</h4>
         <mat-form-field appearance="fill">
             <mat-label>Search</mat-label>
-            <input (keyup)="applyFilter($event.target)" matInput>
+            <input matInput (keyup)="onKeyUp($event)">
         </mat-form-field>
         <div class="table-responsive">
             <table [dataSource]="dataSource" class="text-nowrap w-100" mat-table matSort>
@@ -46,7 +46,7 @@
                 <ng-container matColumnDef="status">
                     <th *matHeaderCellDef mat-header-cell mat-sort-header> Status</th>
                     <td *matCellDef="let element; let i = index" class="fw-medium" mat-cell> {{element['status'] }} <br>
-                        <button (click)="changeStatusOrder(i)" mat-icon-button style="color: #00C292FF">
+                        <button (click)="changeStatusOrder(element['id'])" mat-icon-button style="color: #00C292FF">
                             <mat-icon aria-label="icon-button">edit_square</mat-icon>
                         </button>
                     </td>
@@ -54,28 +54,29 @@
                 <ng-container matColumnDef="actions">
                     <th *matHeaderCellDef mat-header-cell mat-sort-header> Actions</th>
                     <td *matCellDef="let element; let i = index" class="fw-medium" mat-cell>
-                        <button (click)="editOrder(i)" color="primary" mat-icon-button>
+                        <button (click)="editOrder(element['id'])" color="primary" mat-icon-button>
                             <mat-icon aria-label="icon-button">edit_square</mat-icon>
                         </button>
-                        <a [href]="apiConfig.downloadPdfUrl+'order/'+itemList[i].id" target="_blank">
+                        <a [href]="apiConfig.downloadPdfUrl+'order/'+element['id']">
                             <button color="accent" mat-icon-button>
                                 <mat-icon aria-label="icon-button">print</mat-icon>
                             </button>
                         </a>
-                        <button (click)="deleteOrder(itemList[i].id)" color="warn" mat-icon-button>
+                        <button (click)="deleteOrder(element['id'])" color="warn" mat-icon-button>
                             <mat-icon aria-label="icon-button">cancel</mat-icon>
                         </button>
-
                     </td>
                 </ng-container>
                 <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
                 <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
             </table>
-            <mat-paginator length="itemList.length"
-                           [pageSizeOptions]="[10, 30, 60, 100]" [pageSize]="10"
-                           aria-label="Select page">
-            </mat-paginator>
         </div>
     </mat-card-content>
 </mat-card>
+<app-pagination *ngIf="current!= null" [first]="first" [last]="last" [current]="current"
+                (nextBtn)="nextBtnClick()"
+                (prevBtn)="prevBtnClick()"
+                (numberBtn)="numberBtnClick($event)"
+
+></app-pagination>
 <app-search></app-search>

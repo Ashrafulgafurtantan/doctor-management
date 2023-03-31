@@ -1,12 +1,12 @@
 // @ts-nocheck
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatSort} from "@angular/material/sort";
-import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {Router} from "@angular/router";
 import {OrderService} from "../../services/order.service";
 import {ApiConfig} from "../../utility/apiConfig";
 import {AlertMessageService} from "../../services/alert-message.service";
+import {debounceTime} from 'rxjs/operators';
+import {fromEvent} from 'rxjs';
 
 export interface OrderTableElement {
     id: number;
@@ -42,8 +42,12 @@ export class OrderListComponent implements OnInit {
     itemList: OrderTableElement[];
     apiConfig = ApiConfig;
 
-    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator | any;
-    @ViewChild(MatSort, {static: true}) sort: MatSort | any;
+    first = 1;
+    last = null;
+    current = null;
+    nextPageUrl = null;
+    prevPageUrl = null;
+    searchKey = "";
 
     constructor(private _router: Router,
                 private _alertMsg: AlertMessageService,
@@ -59,48 +63,79 @@ export class OrderListComponent implements OnInit {
 
     getOrderList() {
         this._orderService.getOrderListRequest().subscribe((resp: any) => {
-            console.log(resp);
-            this.itemList = resp;
-            this.itemList.forEach((item: OrderTableElement) => {
-                item.status = OrderStatus[item.status];
-
-            });
-            this.dataSource = new MatTableDataSource(this.itemList);
-            setTimeout(() => {
-                this.dataSource.sort = this.sort;
-                this.dataSource.paginator = this.paginator
-            });
+            this.getDataSyncWithLocalVariable(resp);
         });
     }
 
-    deleteOrder(index: any) {
+
+    onKeyUp(event: any) {
+        fromEvent(event.target, 'keyup')
+            .pipe(debounceTime(1000))
+            .subscribe(() => {
+                if (event.target.value.length != 0) {
+                    this.current = null;
+                    this._orderService.searchQueryForOrder(event.target.value).subscribe(resp => this.getDataSyncWithLocalVariable(resp));
+                } else {
+                    this.current = null;
+                    this.getOrderList();
+                }
+            });
+    }
+
+    getDataSyncWithLocalVariable(resp: any) {
+        this.itemList = [];
+        this.itemList = resp.data;
+        this.current = resp.current_page;
+        this.last = resp.last_page;
+        this.nextPageUrl = resp.next_page_url;
+        this.prevPageUrl = resp.prev_page_url;
+        this.itemList.forEach((item: OrderTableElement) => {
+            item.status = OrderStatus[item.status];
+
+        });
+        this.dataSource = new MatTableDataSource(this.itemList);
+    }
+
+    nextBtnClick() {
+        if (this.nextPageUrl) {
+            this.current = null;
+            this._orderService.navigateToNextPage(this.nextPageUrl).subscribe(resp => this.getDataSyncWithLocalVariable(resp));
+        }
+    }
+
+    prevBtnClick() {
+        if (this.prevPageUrl) {
+            this.current = null;
+            this._orderService.navigateToPreviousPage(this.prevPageUrl).subscribe(resp => this.getDataSyncWithLocalVariable(resp));
+        }
+    }
+
+    numberBtnClick(e) {
+        this.current = null;
+        this._orderService.navigateToNumberPage(e).subscribe(resp => this.getDataSyncWithLocalVariable(resp));
+    }
+
+    deleteOrder(orderId: any) {
         this._alertMsg.deleteItemAlert().then((res: any) => {
             if (res) {
-                this._orderService.deleteOrderById(index).subscribe((resp: any) => {
+                this._orderService.deleteOrderById(orderId).subscribe((resp: any) => {
                     this.getOrderList();
                     this._alertMsg.successfulSubmissionAlert('Delete Order Successfully');
                 });
             }
         });
+    }
+
+    changeStatusOrder(orderId) {
+        this._router.navigate([`orders/status/${orderId}`]).then();
 
     }
 
-
-    changeStatusOrder(index) {
-        this._router.navigate([`orders/status/${this.itemList[index].id}`]).then();
-
-    }
-
-    editOrder(index) {
+    editOrder(orderId) {
         this._router.navigate(
             ['orders/create'],
-            {queryParams: {orderId: this.itemList[index].id}}
+            {queryParams: {orderId: orderId}}
         ).then();
-    }
-
-    applyFilter(e: any): void {
-        const filterValue = e.value;
-        this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 
 }

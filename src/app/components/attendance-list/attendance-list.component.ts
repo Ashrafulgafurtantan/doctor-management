@@ -34,7 +34,7 @@ enum AttendanceStatus {
     },
 }
 
-const ELEMENT_DATA: TableElement[] = [];
+let ELEMENT_DATA: TableElement[] = [];
 
 @Component({
     selector: 'app-attendance-list',
@@ -42,24 +42,6 @@ const ELEMENT_DATA: TableElement[] = [];
     styleUrls: ['./attendance-list.component.scss']
 })
 export class AttendanceListComponent implements OnInit {
-    /* {
-            "id": 12,
-            "employee_id": 1,
-            "date": "2023-03-01 00:00:00",
-            "status": 4,
-            "created_at": "2023-01-18T14:38:46.000000Z",
-            "updated_at": "2023-01-18T14:38:46.000000Z",
-            "employee": {
-                "id": 1,
-                "employee_no": "000001",
-                "name": "Purba",
-                "phone": "01782222786",
-                "nid": "HK5L31674052538_nid.png",
-                "address": "Jigatola",
-                "created_at": "2023-01-18T14:35:38.000000Z",
-                "updated_at": "2023-01-18T14:35:38.000000Z"
-            }
-        }*/
     displayedColumns: string[] = ['date', 'name', 'id', 'status'];
     dataSource: MatTableDataSource<TableElement>;
     attendanceList: TableElement[];
@@ -78,6 +60,7 @@ export class AttendanceListComponent implements OnInit {
     getAttendanceList() {
         this._attendanceService.getAttendanceList().subscribe((resp: any) => {
             console.log(resp);
+            ELEMENT_DATA = [];
             resp.forEach((item) => {
                 const real: TableElement = {
                     badge: AttendanceStatus[item.status]['color'],
@@ -88,7 +71,7 @@ export class AttendanceListComponent implements OnInit {
                 }
                 ELEMENT_DATA.push(real);
             });
-           
+
             this.attendanceList = [];
             this.attendanceList = ELEMENT_DATA;
             this.dataSource = new MatTableDataSource(this.attendanceList);

@@ -17,8 +17,19 @@ import {SummaryComponent} from "./components/summary/summary.component";
 import {EmployeeTableComponent} from "./components/employee-table/employee-table.component";
 import {ClientTableComponent} from "./components/client-table/client-table.component";
 import {ItemTableComponent} from "./components/item-table/item-table.component";
+import {TodayDeliveredComponent} from "./components/today-order-delivered/today-delivered.component";
 import {LandingPageComponent} from "./components/landing-page/landing-page.component";
 import {LoginGuard} from "./gaurds/login.guard";
+import {TodayReceivedComponent} from "./components/today-received/today-received.component";
+import {AssetCreateComponent} from "./components/asset-create/asset-create.component";
+import {AssetListComponent} from "./components/asset-list/asset-list.component";
+import {PaginationComponent} from "./components/pagination/pagination.component";
+import {IncomeCreateComponent} from "./components/income-create/income-create.component";
+import {IncomeListComponent} from "./components/income-list/income-list.component";
+import {PurchaseCreateComponent} from "./components/purchase-create/purchase-create.component";
+import {PurchaseListComponent} from "./components/purchase-list/purchase-list.component";
+import {ExpenseCreateComponent} from "./components/expense-create/expense-create.component";
+import {ExpenseListComponent} from "./components/expense-list/expense-list.component";
 
 const routes: Routes = [
     {path: "", redirectTo: "/welcome", pathMatch: "full"},
@@ -26,6 +37,7 @@ const routes: Routes = [
     {path: "login", component: LoginComponent, pathMatch: "full", canActivate: [LoginGuard]},
     {path: "welcome", component: LandingPageComponent, pathMatch: "full"},
     {path: "create", component: AttendanceCreateComponent, canActivate: [AuthGuard]},
+    {path: "page", component: PaginationComponent, canActivate: [AuthGuard]},
     {path: "attendance-list", component: AttendanceListComponent, canActivate: [AuthGuard]},
     {path: "employee-list", component: EmployeeTableComponent, canActivate: [AuthGuard]},
     {path: "item-list", component: ItemTableComponent, canActivate: [AuthGuard]},
@@ -38,8 +50,17 @@ const routes: Routes = [
     {path: "profile", component: ProfileComponent, canActivate: [AuthGuard]},
     {path: "orders", component: OrderListComponent, canActivate: [AuthGuard]},
     {path: "orders/create", component: OrderCreateComponent, canActivate: [AuthGuard]},
+    {path: "income/create", component: IncomeCreateComponent, canActivate: [AuthGuard]},
+    {path: "income/list", component: IncomeListComponent, canActivate: [AuthGuard]},
+    {path: "purchase/create", component: PurchaseCreateComponent, canActivate: [AuthGuard]},
+    {path: "purchase/list", component: PurchaseListComponent, canActivate: [AuthGuard]},
+    {path: "expense/create", component: ExpenseCreateComponent, canActivate: [AuthGuard]},
+    {path: "expense/list", component: ExpenseListComponent, canActivate: [AuthGuard]},
+    {path: "asset/create", component: AssetCreateComponent, canActivate: [AuthGuard]},
+    {path: "asset-list", component: AssetListComponent, canActivate: [AuthGuard]},
     {path: 'orders/status/:orderID', component: OrderStatusComponent, canActivate: [AuthGuard]},
-
+    {path: "today/received", component: TodayReceivedComponent, canActivate: [AuthGuard]},
+    {path: "today/delivered", component: TodayDeliveredComponent, canActivate: [AuthGuard]},
     {path: "", redirectTo: "/home", pathMatch: "full"},
     {path: "**", redirectTo: "/home", pathMatch: "full"},
 ];

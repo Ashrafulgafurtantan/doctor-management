@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {OrderService} from "../../services/order.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {ApiConfig} from "../../utility/apiConfig";
+import {DateTimeService} from "../../services/date-time.service";
 
 @Component({
     selector: 'app-summary',
@@ -25,24 +26,30 @@ export class SummaryComponent implements OnInit {
     workStatusHref = "";
     workHref = "";
     allWorkStatusHref = "";
+    allDeliveredWorkStatusHref = "";
+    allClinicStatusHref = "";
 
-    //all-work-status
 
     constructor(public formBuilder: FormBuilder,
                 private _activatedRoute: ActivatedRoute,
                 private _alertMsg: AlertMessageService,
                 private _searchService: SearchService,
+                private _dateTimeService: DateTimeService,
                 private _router: Router, private _orderService: OrderService) {
     }
 
     ngOnInit(): void {
-        this.formInit();
+
         this.getClientList();
         this.summaryType();
     }
 
     summaryType() {
         this._activatedRoute.paramMap.subscribe((params) => {
+            this.formInit();
+            this.address = '';
+            this.startDateString = '';
+            this.endDateString = '';
             this.params = params.get('summaryType');
             if (this.params == 'work-status') {
                 this.title = "Report - Work Status Wise Summary";
@@ -50,15 +57,20 @@ export class SummaryComponent implements OnInit {
                 this.title = "Report - Work Summary";
             } else if (this.params == 'all-work-status') {
                 this.title = "Report - All Work Status Summary";
+            } else if (this.params == 'all-delivered-work-status') {
+                this.title = "Report - All Delivered Work Status Summary";
+            } else if (this.params == 'all-clinic-work-status') {
+                this.title = "Report - All Clinic Work Status Summary";
             }
         });
     }
 
     formatHref() {
-        //summary/all/start/{start_date}/end/{end_date}
         this.workStatusHref = `${this.apiConfig.downloadPdfUrl}clients/${this.clientId}/start/${this.startDateString}/end/${this.endDateString}`;
         this.workHref = `${this.apiConfig.downloadPdfUrl}summary/clients/${this.clientId}/start/${this.startDateString}/end/${this.endDateString}`;
         this.allWorkStatusHref = `${this.apiConfig.downloadPdfUrl}summary/all/start/${this.startDateString}/end/${this.endDateString}`;
+        this.allDeliveredWorkStatusHref = `${this.apiConfig.downloadPdfUrl}summary/all/delivered/start/${this.startDateString}/end/${this.endDateString}`;
+        this.allClinicStatusHref = `${this.apiConfig.downloadPdfUrl}clinic/all/start/${this.startDateString}/end/${this.endDateString}`;
     }
 
     formInit() {
@@ -84,14 +96,12 @@ export class SummaryComponent implements OnInit {
     }
 
     onStartDateChange() {
-        this.startDateString = this.convertDateString(this.summaryFormGroup.value.startDate.toLocaleDateString());
-        console.log(this.startDateString);
+        this.startDateString = this._dateTimeService.getYearMonthDayFormat(this.summaryFormGroup.value.startDate);
         this.formatHref();
     }
 
     onEndDateChange() {
-        this.endDateString = this.convertDateString(this.summaryFormGroup.value.endDate.toLocaleDateString());
-        console.log(this.endDateString);
+        this.endDateString = this._dateTimeService.getYearMonthDayFormat(this.summaryFormGroup.value.endDate);
         this.formatHref();
     }
 
@@ -100,9 +110,8 @@ export class SummaryComponent implements OnInit {
         return list[2] + "-" + list[0] + '-' + list[1];
     }
 
-
-    onSubmit() {
-        console.log(this.apiConfig.downloadPdfUrl + `clients/${this.clientId}/start/${this.startDateString}/end/${this.endDateString}`);
-    }
+    /* onSubmit() {
+         console.log(this.apiConfig.downloadPdfUrl + `clients/${this.clientId}/start/${this.startDateString}/end/${this.endDateString}`);
+     }*/
 
 }

@@ -8,6 +8,7 @@ import {SHADE_LIST} from './shade-data';
 import {SHADE_GUID_LIST} from './shade-data';
 import {AlertMessageService} from "../../services/alert-message.service";
 import {AuthenticationService} from "../../services/authentication.service";
+import {DateTimeService} from "../../services/date-time.service";
 
 @Component({
     selector: 'app-order-create',
@@ -38,6 +39,7 @@ export class OrderCreateComponent implements OnInit {
     constructor(public formBuilder: FormBuilder,
                 private _alertMsg: AlertMessageService,
                 private _authService: AuthenticationService,
+                private _dateTimeService: DateTimeService,
                 private _activateRoute: ActivatedRoute,
                 private _router: Router, private _orderService: OrderService) {
         this.shadeList = SHADE_LIST;
@@ -58,7 +60,6 @@ export class OrderCreateComponent implements OnInit {
             .subscribe(params => {
                     this.updateOrderId = null;
                     this.updateOrderId = params.orderId;
-                    console.log(this.updateOrderId);
                     if (this.updateOrderId)
                         this.fetchOrderData(this.updateOrderId);
                 }
@@ -68,7 +69,6 @@ export class OrderCreateComponent implements OnInit {
     fetchOrderData(id: any) {
         this._orderService.getOrderById(id).subscribe((item: any) => {
             this.clientAddress = item.client.address;
-            console.log(item);
             this.orderCreateForm.patchValue(item);
             this.orderCreateForm.patchValue({
                 order_date: new Date(item.order_date),
@@ -185,8 +185,10 @@ export class OrderCreateComponent implements OnInit {
         });
 
         let formData = this.orderCreateForm.value;
-        formData['order_date'] = formData['order_date'].toLocaleDateString();
-        formData['delivery_date'] = formData['delivery_date'].toLocaleDateString();
+        formData['order_date'] = this._dateTimeService.getYearMonthDayFormat(this.orderCreateForm.value.order_date);
+        formData['delivery_date'] = this._dateTimeService.getYearMonthDayFormat(this.orderCreateForm.value.delivery_date);
+        /*        formData['order_date'] = formData['order_date'].toLocaleDateString();
+                formData['delivery_date'] = formData['delivery_date'].toLocaleDateString();*/
         if (this.orderCreateForm.valid) {
             if (this.updateOrderId) {
                 formData['id'] = this.updateOrderId;
@@ -207,7 +209,6 @@ export class OrderCreateComponent implements OnInit {
     }
 
     updateOrder(formData: FormData) {
-        console.log(formData)
         this._orderService.orderUpdatePutRequest(formData)
             .subscribe((resp: any) => {
                 this._alertMsg.successfulSubmissionAlert('Order Updated Successfully');

@@ -36,15 +36,32 @@ export class OrderService {
         return this.http.put(ApiConfig.baseUrl + ApiConfig.putOrderUpdate, formData);
     }
 
+    getOrderListRequest() {
+        //return this.http.get(ApiConfig.baseUrl + ApiConfig.getOrderList);
+        return this.http.get(ApiConfig.baseUrl + ApiConfig.getOrderListPagewise);
+    }
+
     changeOrderStatus(formObj: any) {
         return this.http.put(ApiConfig.baseUrl + ApiConfig.putOrderStatusUpdate, formObj);
     }
 
-    getOrderListRequest() {
-        return this.http.get(ApiConfig.baseUrl + ApiConfig.getOrderList);
-    }
-
     deleteOrderById(id: any) {
         return this.http.delete(ApiConfig.baseUrl + ApiConfig.deleteOrder + "/" + id);
+    }
+
+    navigateToNextPage(url: any) {
+        return this.http.get(url);
+    }
+
+    navigateToPreviousPage(url: any) {
+        return this.http.get(url);
+    }
+
+    navigateToNumberPage(number: any) {
+        return this.http.get(ApiConfig.baseUrl + ApiConfig.page + number);
+    }
+
+    searchQueryForOrder(queryWord: any) {
+        return this.http.get(ApiConfig.baseUrl + ApiConfig.searchOrder + queryWord);
     }
 }

@@ -21,6 +21,17 @@ import {EmployeeTableComponent} from './employee-table/employee-table.component'
 import {ClientTableComponent} from './client-table/client-table.component';
 import {ItemTableComponent} from './item-table/item-table.component';
 import {LandingPageComponent} from './landing-page/landing-page.component';
+import {TodayDeliveredComponent} from './today-order-delivered/today-delivered.component';
+import {TodayReceivedComponent} from './today-received/today-received.component';
+import {AssetCreateComponent} from './asset-create/asset-create.component';
+import {AssetListComponent} from './asset-list/asset-list.component';
+import {PaginationComponent} from './pagination/pagination.component';
+import { IncomeCreateComponent } from './income-create/income-create.component';
+import { IncomeListComponent } from './income-list/income-list.component';
+import { PurchaseCreateComponent } from './purchase-create/purchase-create.component';
+import { PurchaseListComponent } from './purchase-list/purchase-list.component';
+import { ExpenseCreateComponent } from './expense-create/expense-create.component';
+import { ExpenseListComponent } from './expense-list/expense-list.component';
 
 @NgModule({
     declarations: [
@@ -40,6 +51,17 @@ import {LandingPageComponent} from './landing-page/landing-page.component';
         ClientTableComponent,
         ItemTableComponent,
         LandingPageComponent,
+        TodayDeliveredComponent,
+        TodayReceivedComponent,
+        AssetCreateComponent,
+        AssetListComponent,
+        PaginationComponent,
+        IncomeCreateComponent,
+        IncomeListComponent,
+        PurchaseCreateComponent,
+        PurchaseListComponent,
+        ExpenseCreateComponent,
+        ExpenseListComponent,
     ],
     imports: [
         CommonModule,
