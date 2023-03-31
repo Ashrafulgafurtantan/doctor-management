@@ -33,6 +33,7 @@ export enum ApiConfig {
     putExpenseUpdate = 'expenses',
     getExpenseList = 'expenses/all',
     getExpenseByExpenseId = 'expenses/',
+    deleteExpenseByExpenseId = 'expenses/',
     postOrderCreate = 'orders',
     getOrderTodayDelivered = 'orders/today/delivered',
     getOrderTodayReceived = 'orders/today/received',

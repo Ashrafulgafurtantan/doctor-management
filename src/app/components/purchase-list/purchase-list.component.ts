@@ -4,7 +4,6 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {Router} from "@angular/router";
 import {AlertMessageService} from "../../services/alert-message.service";
-import {IncomeService} from "../../services/income.service";
 import {PurchaseService} from "../../services/purchase.service";
 
 export interface PurchaseTableElement {
@@ -57,7 +56,7 @@ export class PurchaseListComponent implements OnInit {
         });
     }
 
-    editIncome(purchaseId: any) {
+    editPurchase(purchaseId: any) {
         this._router.navigate(
             ['purchase/create'],
             {queryParams: {purchaseId: purchaseId}}
