@@ -26,6 +26,10 @@ import {AssetListComponent} from "./components/asset-list/asset-list.component";
 import {PaginationComponent} from "./components/pagination/pagination.component";
 import {IncomeCreateComponent} from "./components/income-create/income-create.component";
 import {IncomeListComponent} from "./components/income-list/income-list.component";
+import {PurchaseCreateComponent} from "./components/purchase-create/purchase-create.component";
+import {PurchaseListComponent} from "./components/purchase-list/purchase-list.component";
+import {ExpenseCreateComponent} from "./components/expense-create/expense-create.component";
+import {ExpenseListComponent} from "./components/expense-list/expense-list.component";
 
 const routes: Routes = [
     {path: "", redirectTo: "/welcome", pathMatch: "full"},
@@ -48,6 +52,10 @@ const routes: Routes = [
     {path: "orders/create", component: OrderCreateComponent, canActivate: [AuthGuard]},
     {path: "income/create", component: IncomeCreateComponent, canActivate: [AuthGuard]},
     {path: "income/list", component: IncomeListComponent, canActivate: [AuthGuard]},
+    {path: "purchase/create", component: PurchaseCreateComponent, canActivate: [AuthGuard]},
+    {path: "purchase/list", component: PurchaseListComponent, canActivate: [AuthGuard]},
+    {path: "expense/create", component: ExpenseCreateComponent, canActivate: [AuthGuard]},
+    {path: "expense/list", component: ExpenseListComponent, canActivate: [AuthGuard]},
     {path: "asset/create", component: AssetCreateComponent, canActivate: [AuthGuard]},
     {path: "asset-list", component: AssetListComponent, canActivate: [AuthGuard]},
     {path: 'orders/status/:orderID', component: OrderStatusComponent, canActivate: [AuthGuard]},

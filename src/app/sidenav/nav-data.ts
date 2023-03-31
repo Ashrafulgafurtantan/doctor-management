@@ -40,7 +40,9 @@ export const TREE_DATA: SideNavNode[] = [
         routerLink: '/',
         children: [
             {name: 'Asset List', icon: 'format_list_numbered', routerLink: '/asset-list'},
-            {name: 'Income List', icon: 'sort', routerLink: '/income/list'}
+            {name: 'Income List', icon: 'sort', routerLink: '/income/list'},
+            {name: 'Purchase List', icon: 'shopping_bag', routerLink: '/purchase/list'},
+            {name: 'Expense List', icon: 'local_atm', routerLink: '/expense/list'},
         ],
     },
     {

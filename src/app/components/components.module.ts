@@ -28,6 +28,10 @@ import {AssetListComponent} from './asset-list/asset-list.component';
 import {PaginationComponent} from './pagination/pagination.component';
 import { IncomeCreateComponent } from './income-create/income-create.component';
 import { IncomeListComponent } from './income-list/income-list.component';
+import { PurchaseCreateComponent } from './purchase-create/purchase-create.component';
+import { PurchaseListComponent } from './purchase-list/purchase-list.component';
+import { ExpenseCreateComponent } from './expense-create/expense-create.component';
+import { ExpenseListComponent } from './expense-list/expense-list.component';
 
 @NgModule({
     declarations: [
@@ -54,6 +58,10 @@ import { IncomeListComponent } from './income-list/income-list.component';
         PaginationComponent,
         IncomeCreateComponent,
         IncomeListComponent,
+        PurchaseCreateComponent,
+        PurchaseListComponent,
+        ExpenseCreateComponent,
+        ExpenseListComponent,
     ],
     imports: [
         CommonModule,
