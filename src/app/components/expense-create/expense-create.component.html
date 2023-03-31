@@ -26,7 +26,6 @@
                         <mat-label>Type</mat-label>
                         <mat-select formControlName="type">
                             <mat-option *ngFor="let item of expenseTypeList"
-
                                         [value]="item['value']">{{item['name']}}</mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -43,7 +42,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Expense Date</mat-label>
                         <input matInput formControlName="expense_date"
-                               (focus)="picker.open()" [matDatepicker]="picker" placeholder="Payment Date">
+                               (focus)="picker.open()" [matDatepicker]="picker" placeholder="Expense Date">
                         <mat-icon matSuffix>today</mat-icon>
                         <mat-hint>DD/MM/YYYY</mat-hint>
                     </mat-form-field>
