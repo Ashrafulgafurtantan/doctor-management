@@ -25,3 +25,8 @@ th {
   font-weight: 600;
   color: grey;
 }
+
+::ng-deep .mat-icon-button {
+  height: 3px;
+  width: 3px;
+}

@@ -78,6 +78,22 @@ export class ExpenseListComponent implements OnInit {
         });
     }
 
+    onChangeExpenseType(e) {
+        if (e == 99) {
+            this.getAllExpensesList();
+            return;
+        }
+        this._expenseService.getExpenseListByFilteringExpenseType(e).subscribe((resp) => {
+            this.itemList = [];
+            this.itemList = resp;
+            this.dataSource = new MatTableDataSource(this.itemList);
+            setTimeout(() => {
+                this.dataSource.sort = this.sort;
+                this.dataSource.paginator = this.paginator
+            });
+        });
+    }
+
     editExpense(expenseId: any) {
         this._router.navigate(
             ['expense/create'],
