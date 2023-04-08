@@ -26,13 +26,3 @@ th {
   color: grey;
 }
 
-::ng-deep .mat-icon-button {
-  height: 3px;
-  width: 3px;
-}
-
-.button-container {
-  display: inline-flex;
-  gap: 8px;
-  margin-right: 16px; /* Adjust this value to add more or less space between the buttons */
-}
