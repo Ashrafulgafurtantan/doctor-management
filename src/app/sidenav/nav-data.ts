@@ -43,6 +43,7 @@ export const TREE_DATA: SideNavNode[] = [
             {name: 'Income List', icon: 'sort', routerLink: '/income/list'},
             {name: 'Purchase List', icon: 'shopping_bag', routerLink: '/purchase/list'},
             {name: 'Expense List', icon: 'local_atm', routerLink: '/expense/list'},
+            {name: 'Peticash List', icon: 'receipt', routerLink: '/peticash/list'},
         ],
     },
     {

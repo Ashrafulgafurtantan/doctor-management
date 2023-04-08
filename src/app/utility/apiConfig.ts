@@ -35,6 +35,16 @@ export enum ApiConfig {
     getExpenseByExpenseId = 'expenses/',
     deleteExpenseByExpenseId = 'expenses/',
     getExpenseListByType = 'expenses/type/',
+
+
+    postPeticashCreate = 'peticashes',
+    putPeticashUpdate = 'peticashes',
+    getPeticashList = 'peticashes/all',
+    getPeticashByPeticashId = 'peticashes/',
+    deletePeticashByPeticashId = 'peticashes/',
+    getPeticashListByStatus = 'peticashes/type/',
+
+
     postOrderCreate = 'orders',
     getOrderTodayDelivered = 'orders/today/delivered',
     getOrderTodayReceived = 'orders/today/received',
