@@ -13,7 +13,7 @@ import {OrderService} from "../../services/order.service";
 export class ClientTableComponent implements OnInit {
 
 
-    displayedColumns: string[] = ['id', 'name', 'doctor_name', 'phone', 'address', 'actions'];
+    displayedColumns: string[] = ['id', 'name', 'doctor_name', 'due', 'advance', 'phone', 'address', 'actions'];
     dataSource: MatTableDataSource<any>;
     clientList: any;
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator | any;

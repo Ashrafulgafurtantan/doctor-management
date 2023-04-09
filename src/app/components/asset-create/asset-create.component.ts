@@ -75,7 +75,6 @@ export class AssetCreateComponent implements OnInit {
 
     submit() {
         let formData = this.assetCreateForm.value;
-        // formData['buying_time'] = formData['buying_time'].toLocaleDateString();
         formData['buying_time'] = this._dateTimeService.getYearMonthDayFormat(this.assetCreateForm.value.buying_time);
 
         if (this.assetCreateForm.valid) {
