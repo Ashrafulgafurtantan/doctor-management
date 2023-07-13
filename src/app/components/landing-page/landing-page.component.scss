@@ -12,7 +12,6 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-
 }
 
 nav {
@@ -191,7 +190,6 @@ h3 {
   }
 }
 
-
 /* -------------Campus------------ */
 p {
   font-size: 14px;
@@ -220,13 +218,26 @@ h1 {
   margin-bottom: 30px;
   position: relative;
   overflow: hidden;
-
 }
-
 
 .campus-col img {
   width: 100%;
   display: block;
+}
+
+.director {
+  flex-basis: 22%;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.director img {
+  width: 100%;
+  display: block;
+  height: 300px;
+  // margin: 10px;
 }
 
 .layer {
@@ -276,7 +287,6 @@ h1 {
   margin: auto;
   text-align: center;
   padding-top: 100px;
-
 }
 
 .facilities-col {
@@ -302,7 +312,6 @@ h1 {
 }
 
 //----------------SIR-----------
-
 
 /* ------------ testimonials -------- */
 
@@ -330,9 +339,7 @@ h1 {
   border-radius: 5px;
   margin-left: 5px;
   margin-right: 10px;
-
 }
-
 
 .testimonials-col p {
   padding: 0;
@@ -349,13 +356,10 @@ h1 {
 
 @media (max-width: 700px) {
   .testimonials-col img {
-
     margin-left: 0px;
     margin-right: 15px;
-
   }
 }
-
 
 /* - ----------- Find Us On Google Map -------- */
 .gmap_canvas {
@@ -386,7 +390,6 @@ h1 {
   border-radius: 10px;
   text-align: center;
   padding: 100px 0;
-
 }
 
 .cta h1 {
@@ -409,9 +412,7 @@ h1 {
   }
 }
 
-
 /* -----------FWhy Us---------- */
-
 
 /* -----------Footer---------- */
 
