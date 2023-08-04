@@ -131,12 +131,17 @@ mat-form-field {
   position: sticky;
   top: 0;
   z-index: 100;
-  background-color: #dff6ff;
+  background-color: #dce8ed;
+  ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 5px !important;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
 }
 
-.searchBox input {
-  border: none;
-  border-radius: 4px;
-  padding: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+// .searchBox input {
+//   border: none;
+//   border-radius: 4px;
+//   padding: 8px;
+//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+// }
