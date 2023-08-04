@@ -67,7 +67,6 @@ export class SummaryComponent implements OnInit {
       } else if (this.params == "all-clinic-work-status") {
         this.title = "Report - All Clinic Work Status Summary";
       }
-      debugger;
     });
   }
 
