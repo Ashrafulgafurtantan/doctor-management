@@ -1,6 +1,6 @@
 .sidenav {
   background: #263238;
-  transition: all .5s ease;
+  transition: all 0.5s ease;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -64,21 +64,25 @@
   flex-direction: column;
   align-items: center;
   cursor: pointer;
+  overflow-y: auto;
+  max-height: 100vh;
 
   .sidenav-nav-item {
     width: 100%;
     margin-bottom: 0.625rem;
 
-    .sidenav-nav-link { //done
+    .sidenav-nav-link {
+      //done
       display: flex;
       align-items: center;
       height: 3rem;
       color: #f3f3f3;
       text-decoration: none;
       border-radius: 0.625rem;
-      transition: all .3s ease;
+      transition: all 0.3s ease;
 
-      .sidenav-link-icon { //done
+      .sidenav-link-icon {
+        //done
         font-size: 22px;
         width: 2rem;
         min-width: 2rem;
@@ -87,7 +91,8 @@
         color: #f3f3f3;
       }
 
-      .sidenav-link-text { //done
+      .sidenav-link-text {
+        //done
         margin-left: 1.5rem;
       }
     }
@@ -113,7 +118,7 @@
   height: 3rem;
   text-decoration: none;
   border-radius: 0.625rem;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   width: 100%;
 }
 
@@ -124,7 +129,6 @@
   .own-icon {
     color: #000;
   }
-
 }
 
 .active {
@@ -135,4 +139,21 @@
   .sidenav-link-text {
     color: #000;
   }
+}
+
+/* Change the width and color of the scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Customize the track (background) of the scrollbar */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
+}
+
+/* Customize the thumb (handle) of the scrollbar */
+::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 01);
+  -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 1);
 }
