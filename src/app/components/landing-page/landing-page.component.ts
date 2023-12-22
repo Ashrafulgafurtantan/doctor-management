@@ -1,29 +1,24 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {ApiConfig} from "../../utility/apiConfig";
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { ApiConfig } from "../../utility/apiConfig";
 
 @Component({
-    selector: 'app-landing-page',
-    templateUrl: './landing-page.component.html',
-    styleUrls: ['./landing-page.component.scss']
+  selector: "app-landing-page",
+  templateUrl: "./landing-page.component.html",
+  styleUrls: ["./landing-page.component.scss"],
 })
 export class LandingPageComponent implements OnInit {
-    apiConfig = ApiConfig;
+  apiConfig = ApiConfig;
 
-    constructor(private _router: Router) {
-    }
+  constructor(private _router: Router) {}
 
+  ngOnInit(): void {}
 
-    ngOnInit(): void {
-    }
+  scroll(el: HTMLElement) {
+    el.scrollIntoView();
+  }
 
-    scroll(el: HTMLElement) {
-        el.scrollIntoView();
-    }
-
-    navigateToSegment() {
-        this._router.navigate([], {fragment: "mapComponent"});
-    }
-
-
+  navigateToSegment() {
+    this._router.navigate([], { fragment: "mapComponent" });
+  }
 }

@@ -6,23 +6,26 @@
   "
 >
   <nav>
-    <a href="index.html">
-      <img
-        class="rounded-circle"
-        style="height: 100px; width: 100px"
-        src="../../../assets/images/logo.jpg"
-    /></a>
+    <img
+      class="rounded-circle"
+      style="height: 100px; width: 100px"
+      src="../../../assets/images/logo.jpg"
+    />
     <div class="nav-links" id="navLinks">
-      <i class="fa fa-times" onclick="hideMenu()"></i>
       <ul>
-        <li><a (click)="scroll(about)" class="cursor">About</a></li>
-        <li><a (click)="scroll(why)" class="cursor">Why Us</a></li>
-        <li><a (click)="scroll(contact)" class="cursor">Contact</a></li>
+        <li class="hide-on-mobile">
+          <a (click)="scroll(about)" class="cursor">About</a>
+        </li>
+        <li class="hide-on-mobile">
+          <a (click)="scroll(why)" class="cursor">Why Us</a>
+        </li>
+        <li class="hide-on-mobile">
+          <a (click)="scroll(contact)" class="cursor">Contact</a>
+        </li>
         <li><a [href]="apiConfig.downloadPdfUrl + 'labform'">Lab Form</a></li>
         <li><a [href]="apiConfig.loginUrl">Login</a></li>
       </ul>
     </div>
-    <i class="fa fa-bars" onclick="showMenu()"></i>
   </nav>
   <div class="text-box">
     <h1>VIVADENT DENTAL LABORATORY</h1>
@@ -336,15 +339,3 @@
     </div>
   </div>
 </section>
-
-<script>
-  var navLinks = document.getElementById("navLinks");
-
-  function showMenu() {
-    navLinks.style.right = "0";
-  }
-
-  function hideMenu() {
-    navLinks.style.right = "-200px";
-  }
-</script>
