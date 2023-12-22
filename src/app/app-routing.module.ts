@@ -30,6 +30,8 @@ import {PurchaseCreateComponent} from "./components/purchase-create/purchase-cre
 import {PurchaseListComponent} from "./components/purchase-list/purchase-list.component";
 import {ExpenseCreateComponent} from "./components/expense-create/expense-create.component";
 import {ExpenseListComponent} from "./components/expense-list/expense-list.component";
+import {PeticashListComponent} from "./components/peticash-list/peticash-list.component";
+import {PeticashCreateComponent} from "./components/peticash-create/peticash-create.component";
 
 const routes: Routes = [
     {path: "", redirectTo: "/welcome", pathMatch: "full"},
@@ -56,6 +58,8 @@ const routes: Routes = [
     {path: "purchase/list", component: PurchaseListComponent, canActivate: [AuthGuard]},
     {path: "expense/create", component: ExpenseCreateComponent, canActivate: [AuthGuard]},
     {path: "expense/list", component: ExpenseListComponent, canActivate: [AuthGuard]},
+    {path: "peticash/create", component: PeticashCreateComponent, canActivate: [AuthGuard]},
+    {path: "peticash/list", component: PeticashListComponent, canActivate: [AuthGuard]},
     {path: "asset/create", component: AssetCreateComponent, canActivate: [AuthGuard]},
     {path: "asset-list", component: AssetListComponent, canActivate: [AuthGuard]},
     {path: 'orders/status/:orderID', component: OrderStatusComponent, canActivate: [AuthGuard]},

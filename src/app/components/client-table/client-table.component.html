@@ -31,6 +31,18 @@
                     <th *matHeaderCellDef mat-header-cell mat-sort-header> Doctor Name</th>
                     <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['doctor_name']}} </td>
                 </ng-container>
+
+                <ng-container matColumnDef="due">
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header> DUE</th>
+                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['due']}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="advance">
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header> ADVANCE</th>
+                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['advance']}} </td>
+                </ng-container>
+
+
                 <ng-container matColumnDef="phone">
                     <th *matHeaderCellDef mat-header-cell mat-sort-header>Phone</th>
                     <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['phone']}} </td>

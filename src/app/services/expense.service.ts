@@ -29,5 +29,10 @@ export class ExpenseService {
 
     deleteExpense(id: any) {
         return this.http.delete(ApiConfig.baseUrl + ApiConfig.deleteExpenseByExpenseId + id);
+
+    }
+
+    getExpenseListByFilteringExpenseType(id: any) {
+        return this.http.get(ApiConfig.baseUrl + ApiConfig.getExpenseListByType + id);
     }
 }

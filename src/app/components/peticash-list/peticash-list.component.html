@@ -2,11 +2,11 @@
     <mat-card-content>
         <mat-grid-list cols="4" rowHeight="40px">
             <mat-grid-tile colspan="3">
-                <span class="title">Expenses List</span>
+                <span class="title">Peticash List</span>
             </mat-grid-tile>
             <mat-grid-tile colspan="1">
-                <a href="/expense/create" class="create-button-on-list-page"
-                   color="info" mat-raised-button>Create Expense
+                <a href="/peticash/create" class="create-button-on-list-page"
+                   color="info" mat-raised-button>Create Peticash
                 </a>
             </mat-grid-tile>
         </mat-grid-list>
@@ -20,41 +20,37 @@
             <div>
                 <mat-form-field appearance="fill">
                     <mat-label>Filter Type</mat-label>
-                    <mat-select (selectionChange)="onChangeExpenseType($event.value)">
-                        <mat-option value="99"><span class="badge badge-fire rounded-pill">All Types</span>
+                    <mat-select (selectionChange)="onChangePeticashStatus($event.value)">
+                        <mat-option value="99"><span class="badge badge-accent rounded-pill">All Types</span>
                         </mat-option>
-                        <mat-option value="1"><span class="badge badge-success rounded-pill">Staff Salary</span>
-                        </mat-option>
-                        <mat-option value="2"><span class="badge badge-info rounded-pill">Room Rent</span></mat-option>
-                        <mat-option value="3"><span class="badge badge-primary rounded-pill">Bonus</span></mat-option>
-                        <mat-option value="4"><span class="badge badge-accent rounded-pill">Other Expense</span>
-                        </mat-option>
+                        <mat-option value="1"><span class="badge badge-success rounded-pill">Paid</span></mat-option>
+                        <mat-option value="0"><span class="badge badge-primary rounded-pill">Unpaid</span></mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
             <div></div>
-
         </div>
 
-        <div *ngIf="itemList.length !==0" class="table-responsive">
+        <div class="table-responsive">
             <table [dataSource]="dataSource" class="text-nowrap w-100" mat-table matSort>
                 <ng-container matColumnDef="id">
                     <th *matHeaderCellDef mat-header-cell mat-sort-header>ID</th>
                     <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['id']}} </td>
                 </ng-container>
-                <ng-container matColumnDef="expense_date">
+
+
+                <ng-container matColumnDef="payment_date">
                     <th *matHeaderCellDef mat-header-cell mat-sort-header> Expense Date</th>
                     <td *matCellDef="let element" mat-cell>
-                        <p class="mb-0 fw-medium">{{element['expense_date'].substring(0, 10)}}</p>
+                        <p class="mb-0 fw-medium">{{element['payment_date'].substring(0, 10)}}</p>
                     </td>
                 </ng-container>
 
-                <ng-container matColumnDef="type">
+                <ng-container matColumnDef="status">
                     <th *matHeaderCellDef mat-header-cell mat-sort-header> Type</th>
                     <td *matCellDef="let element" class="fw-medium" mat-cell>
-                        <span class="badge {{expenseType[element['type']]['color']}} rounded-pill">{{expenseType[element['type']]['type']}}</span>
+                        <span class="badge {{element['status'] == 1 ? 'badge-success': 'badge-primary'}} rounded-pill">{{element['status'] == 1 ? 'Paid' : 'Unpaid'}}</span>
                     </td>
-
                 </ng-container>
                 <ng-container matColumnDef="voucher_no">
                     <th *matHeaderCellDef mat-header-cell mat-sort-header> Voucher No</th>
@@ -69,19 +65,21 @@
                     <th *matHeaderCellDef mat-header-cell mat-sort-header> Paid By</th>
                     <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['employee']['name']}} </td>
                 </ng-container>
-                <ng-container matColumnDef="remarks">
+                <ng-container matColumnDef="purpose">
                     <th *matHeaderCellDef mat-header-cell mat-sort-header> Remarks</th>
-                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['remarks']}} </td>
+                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['purpose']}} </td>
                 </ng-container>
                 <ng-container matColumnDef="actions">
                     <th *matHeaderCellDef mat-header-cell mat-sort-header> Actions</th>
                     <td *matCellDef="let element; let i = index" class="fw-medium" mat-cell>
-                        <button (click)="editExpense(element['id'])" color="primary" mat-icon-button>
-                            <mat-icon aria-label="icon-button">edit_square</mat-icon>
-                        </button>
-                        <button (click)="deleteExpense(element['id'])" color="warn" mat-icon-button>
-                            <mat-icon aria-label="icon-button">cancel</mat-icon>
-                        </button>
+                        <div class="button-container">
+                            <button (click)="editPeticash(element['id'])" color="primary" mat-icon-button>
+                                <mat-icon aria-label="icon-button">edit_square</mat-icon>
+                            </button>
+                            <button (click)="deletePeticash(element['id'])" color="warn" mat-icon-button>
+                                <mat-icon aria-label="icon-button">cancel</mat-icon>
+                            </button>
+                        </div>
                     </td>
                 </ng-container>
                 <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
@@ -92,10 +90,6 @@
                     [pageSizeOptions]="[10, 30, 60, 100]" [pageSize]="10"
                     aria-label="Select page">
             </mat-paginator>
-        </div>
-
-        <div *ngIf="itemList.length ===0" style="display: flex; justify-content: center">
-            <span style="font-size: 1.6rem;font-weight: 600;color: grey;">No Items Found</span>
         </div>
 
     </mat-card-content>

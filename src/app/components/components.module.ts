@@ -32,6 +32,8 @@ import { PurchaseCreateComponent } from './purchase-create/purchase-create.compo
 import { PurchaseListComponent } from './purchase-list/purchase-list.component';
 import { ExpenseCreateComponent } from './expense-create/expense-create.component';
 import { ExpenseListComponent } from './expense-list/expense-list.component';
+import { PeticashListComponent } from './peticash-list/peticash-list.component';
+import { PeticashCreateComponent } from './peticash-create/peticash-create.component';
 
 @NgModule({
     declarations: [
@@ -62,6 +64,8 @@ import { ExpenseListComponent } from './expense-list/expense-list.component';
         PurchaseListComponent,
         ExpenseCreateComponent,
         ExpenseListComponent,
+        PeticashListComponent,
+        PeticashCreateComponent,
     ],
     imports: [
         CommonModule,

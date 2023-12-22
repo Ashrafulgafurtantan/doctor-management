@@ -3,7 +3,6 @@
   justify-content: center;
 }
 
-
 mat-form-field {
   margin-right: 12px;
 }
@@ -15,4 +14,17 @@ mat-form-field {
 
 .mat-form-field {
   width: 100%;
+}
+.searchBox {
+  width: 100%;
+  // margin-bottom: 8px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #dce8ed;
+  ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 5px !important;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
 }

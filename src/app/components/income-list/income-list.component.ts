@@ -25,6 +25,9 @@ const ELEMENT_DATA: IncomeTableElement[] = [];
     styleUrls: ['./income-list.component.scss']
 })
 export class IncomeListComponent implements OnInit {
+
+    totalPayment: number = 0;
+    totalDue:number = 0;
     displayedColumns: string[] = ["id", "employee_id", "client_id", "type", "total_amount", "payment_date", "remarks", "actions"];
     dataSource: MatTableDataSource<IncomeTableElement>;
     itemList: IncomeTableElement[];
@@ -48,6 +51,13 @@ export class IncomeListComponent implements OnInit {
         this._incomeService.getIncomeListRequest().subscribe((resp: any) => {
             this.itemList = [];
             this.itemList = resp;
+            this.itemList.forEach((item)=>{
+                if(item.type == "0"){
+                    this.totalPayment += item.total_amount;
+                }else{
+                    this.totalDue += item.total_amount;
+                }
+            });
             this.dataSource = new MatTableDataSource(this.itemList);
             setTimeout(() => {
                 this.dataSource.sort = this.sort;
