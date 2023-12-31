@@ -436,7 +436,7 @@ i-feather {
   color: #f44336;
   margin: 0 13px;
   cursor: pointer;
-  padding: 18px 0;
+  // padding: 18px 0;
 }
 
 .heart {
@@ -465,4 +465,21 @@ i-feather {
   display: flex;
   justify-content: space-between;
   padding: 0 20%;
+}
+
+.slider-parent {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider-overly-text {
+  color: white;
+}
+.slider-overlay-background {
+  position: absolute;
+  background: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7));
+  width: 100%;
+  height: 100%;
 }

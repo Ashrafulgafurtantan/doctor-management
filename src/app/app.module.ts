@@ -16,6 +16,7 @@ import {MatTreeModule} from "@angular/material/tree";
 import {MAT_DATE_LOCALE} from "@angular/material/core";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptorService} from "./services/auth-interceptor.service";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     declarations: [
@@ -33,7 +34,8 @@ import {AuthInterceptorService} from "./services/auth-interceptor.service";
         DashboardModule,
         ComponentsModule,
         FormsModule,
-        MatTreeModule
+        MatTreeModule,
+        NgbModule
     ],
     providers: [
         {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
