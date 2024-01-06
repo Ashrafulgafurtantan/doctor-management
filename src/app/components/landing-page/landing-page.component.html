@@ -1,36 +1,97 @@
-<section
-  class="header"
-  style="
-    background: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),
-      url('../../../assets/images/landing-page.png');
-  "
->
+<section class="header">
   <nav>
-    <a href="index.html">
-      <img
-        class="rounded-circle"
-        style="height: 100px; width: 100px"
-        src="../../../assets/images/logo.jpg"
-    /></a>
+    <img
+      class="rounded-circle"
+      style="height: 50px; width: 50px; margin: 10px"
+      src="../../../assets/images/logo.jpg"
+    />
     <div class="nav-links" id="navLinks">
-      <i class="fa fa-times" onclick="hideMenu()"></i>
       <ul>
-        <li><a (click)="scroll(about)" class="cursor">About</a></li>
-        <li><a (click)="scroll(why)" class="cursor">Why Us</a></li>
-        <li><a (click)="scroll(contact)" class="cursor">Contact</a></li>
+        <li class="hide-on-mobile">
+          <a (click)="scroll(about)" class="cursor">About</a>
+        </li>
+        <li class="hide-on-mobile">
+          <a (click)="scroll(why)" class="cursor">Why Us</a>
+        </li>
+        <li class="hide-on-mobile">
+          <a (click)="scroll(contact)" class="cursor">Contact</a>
+        </li>
         <li><a [href]="apiConfig.downloadPdfUrl + 'labform'">Lab Form</a></li>
         <li><a [href]="apiConfig.loginUrl">Login</a></li>
       </ul>
     </div>
-    <i class="fa fa-bars" onclick="showMenu()"></i>
   </nav>
-  <div class="text-box">
-    <h1>VIVADENT DENTAL LABORATORY</h1>
-    <h3 style="margin-bottom: 20px">Urgency Is Our Priority</h3>
-    <a (click)="scroll(target)" class="hero-btn">Find Us In Map!</a>
-  </div>
 </section>
-
+<ngb-carousel [interval]="2000">
+  <ng-template ngbSlide>
+    <div class="slider-parent">
+      <img
+        src="../../../assets/images/Dentures.png"
+        alt="Slide 1"
+        style="width: 100%; height: 50%"
+      />
+      <div class="slider-overlay-background"></div>
+      <div class="slider-overly-text">
+        <div class="text-box">
+          <h1>VIVADENT DENTAL LABORATORY</h1>
+          <h3 style="margin-bottom: 20px">Urgency Is Our Priority</h3>
+          <a (click)="scroll(target)" class="hero-btn">Find Us In Map!</a>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template ngbSlide>
+    <div class="slider-parent">
+      <img
+        src="../../../assets/images/Zirconia.png"
+        alt="Slide 2"
+        style="width: 100%; height: 50%"
+      />
+      <div class="slider-overlay-background"></div>
+      <div class="slider-overly-text">
+        <div class="text-box">
+          <h1>VIVADENT DENTAL LABORATORY</h1>
+          <h3 style="margin-bottom: 20px">Urgency Is Our Priority</h3>
+          <a (click)="scroll(target)" class="hero-btn">Find Us In Map!</a>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template ngbSlide>
+    <div class="slider-parent">
+      <img
+        src="../../../assets/images/PFM.png"
+        alt="Slide 3"
+        style="width: 100%; height: 50%"
+      />
+      <div class="slider-overlay-background"></div>
+      <div class="slider-overly-text">
+        <div class="text-box">
+          <h1>VIVADENT DENTAL LABORATORY</h1>
+          <h3 style="margin-bottom: 20px">Urgency Is Our Priority</h3>
+          <a (click)="scroll(target)" class="hero-btn">Find Us In Map!</a>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template ngbSlide>
+    <div class="slider-parent">
+      <img
+        src="../../../assets/images/E-max.png"
+        alt="Slide 4"
+        style="width: 100%; height: 50%"
+      />
+      <div class="slider-overlay-background"></div>
+      <div class="slider-overly-text">
+        <div class="text-box">
+          <h1>VIVADENT DENTAL LABORATORY</h1>
+          <h3 style="margin-bottom: 20px">Urgency Is Our Priority</h3>
+          <a (click)="scroll(target)" class="hero-btn">Find Us In Map!</a>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</ngb-carousel>
 <!-- ---------- Facilities-------- -->
 <section class="facilities">
   <h1>Our Facilities</h1>
@@ -328,7 +389,7 @@
       </p>
     </div>
     <div>
-      <p>
+      <p style="padding: 5px 0px !important">
         Made with
         <i-feather name="heart" class="heart"></i-feather>
         jARC Software
@@ -336,15 +397,3 @@
     </div>
   </div>
 </section>
-
-<script>
-  var navLinks = document.getElementById("navLinks");
-
-  function showMenu() {
-    navLinks.style.right = "0";
-  }
-
-  function hideMenu() {
-    navLinks.style.right = "-200px";
-  }
-</script>

@@ -5,24 +5,22 @@
 }
 
 .header {
-  min-height: 100vh;
   width: 100%;
-  height: 100%;
   position: relative;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color: #245752;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  margin-bottom: 5px;
 }
 
 nav {
   display: flex;
-  padding: 2% 6%;
+  padding: 0px 10px !important;
   justify-content: space-between;
   align-items: center;
 }
 
 nav img {
-  width: 150px;
+  width: 50px;
 }
 
 .nav-links {
@@ -48,7 +46,7 @@ nav img {
   content: "";
   width: 0%;
   height: 2px;
-  background: #f44336;
+  background: #26a69a;
   display: block;
   margin: auto;
   transition: 0.5s;
@@ -102,37 +100,41 @@ nav .fa {
   display: none;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 767px) {
   .text-box h1 {
     font-size: 20px;
   }
 
-  .nav-links ul li {
-    display: block;
-  }
+  // .nav-links ul li {
+  //   display: block;
+  // }
 
-  .nav-links {
-    position: absolute;
-    background: #f44336;
-    height: 100vh;
-    width: 200px;
-    top: 0;
-    right: -200px;
-    text-align: left;
-    z-index: 2;
-    transition: 1s;
-  }
+  // .nav-links {
+  //   position: absolute;
+  //   background: #26a69a;
+  //   height: 100vh;
+  //   width: 200px;
+  //   top: 0;
+  //   right: -200px;
+  //   text-align: left;
+  //   z-index: 2;
+  //   transition: 1s;
+  // }
 
-  nav .fa {
-    display: block;
-    color: #fff;
-    cursor: pointer;
-    margin: 10px;
-    font-size: 22px;
-  }
+  // nav .fa {
+  //   display: block;
+  //   color: #fff;
+  //   cursor: pointer;
+  //   margin: 10px;
+  //   font-size: 22px;
+  // }
 
-  .nav-links ul {
-    padding: 30px;
+  // .nav-links ul {
+  //   padding: 30px;
+  // }
+
+  .nav-links .hide-on-mobile {
+    display: none !important;
   }
 }
 
@@ -432,7 +434,7 @@ i-feather {
   color: #f44336;
   margin: 0 13px;
   cursor: pointer;
-  padding: 18px 0;
+  // padding: 18px 0;
 }
 
 .heart {
@@ -461,4 +463,21 @@ i-feather {
   display: flex;
   justify-content: space-between;
   padding: 0 20%;
+}
+
+.slider-parent {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider-overly-text {
+  color: white;
+}
+.slider-overlay-background {
+  position: absolute;
+  background: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7));
+  width: 100%;
+  height: 100%;
 }
