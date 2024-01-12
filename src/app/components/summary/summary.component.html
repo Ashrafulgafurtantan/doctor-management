@@ -95,7 +95,9 @@
                   ? allWorkStatusHref
                   : params == 'all-delivered-work-status'
                   ? allDeliveredWorkStatusHref
-                  : allClinicStatusHref
+                  : params == 'all-clinic-work-status'
+                  ? allClinicStatusHref
+                  : allRedoWorkStatusHref
               "
             >
               Submit

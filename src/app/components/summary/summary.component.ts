@@ -28,6 +28,7 @@ export class SummaryComponent implements OnInit {
   allWorkStatusHref = "";
   allDeliveredWorkStatusHref = "";
   allClinicStatusHref = "";
+  allRedoWorkStatusHref = "";
 
   filterText: string = "";
   filteredData: any[] = [];
@@ -66,6 +67,8 @@ export class SummaryComponent implements OnInit {
         this.title = "Report - All Delivered Work Status Summary";
       } else if (this.params == "all-clinic-work-status") {
         this.title = "Report - All Clinic Work Status Summary";
+      } else if (this.params == "all-redo-work-summary") {
+        this.title = "Report - All Redo Work Summary";
       }
     });
   }
@@ -76,6 +79,7 @@ export class SummaryComponent implements OnInit {
     this.allWorkStatusHref = `${this.apiConfig.downloadPdfUrl}summary/all/start/${this.startDateString}/end/${this.endDateString}`;
     this.allDeliveredWorkStatusHref = `${this.apiConfig.downloadPdfUrl}summary/all/delivered/start/${this.startDateString}/end/${this.endDateString}`;
     this.allClinicStatusHref = `${this.apiConfig.downloadPdfUrl}clinic/all/start/${this.startDateString}/end/${this.endDateString}`;
+    this.allRedoWorkStatusHref = `${this.apiConfig.downloadPdfUrl}summary/redo/start/${this.startDateString}/end/${this.endDateString}`;
   }
 
   formInit() {
