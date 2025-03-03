@@ -232,21 +232,19 @@ export class OrderCreateComponent implements OnInit {
     this._router.navigateByUrl("/orders").then();
   }
 
-  applySearch(event) {
+  applySearch(event, data) {
     this.filterText = event.target.value;
-    this.findFilteredData();
+    this.findFilteredData(data);
   }
 
-  findFilteredData() {
-    this.filteredData = this.clientList.filter((item, index) => {
-      return index == 0
-        ? true
-        : item.name
-            .toLowerCase()
-            .indexOf(this.filterText.trim().toLowerCase()) != -1 ||
-            item.doctor_name
-              .toLowerCase()
-              .indexOf(this.filterText.trim().toLowerCase()) != -1;
+  findFilteredData(data) {
+    this.filteredData = data.filter((item, index) => {
+      if (index === 0) return true;
+
+      const searchText = this.filterText.trim().toLowerCase();
+      return Object.values(item).some(
+        (value) => value && value.toString().toLowerCase().includes(searchText)
+      );
     });
   }
 

@@ -63,7 +63,7 @@
                     autocomplete="off"
                     placeholder="Search..."
                     autocomplete="off"
-                    (keyup)="applySearch($event)"
+                    (keyup)="applySearch($event, clientList)"
                     appInputFocus
                   />
                 </mat-form-field>
@@ -104,11 +104,25 @@
               formControlName="single_item"
               (selectionChange)="onChangeTeethItemOption($event.value)"
             >
-              <mat-option
-                *ngFor="let item of teethItemList"
-                [value]="item['id']"
-                >{{ item["name"] }}</mat-option
-              >
+              <div>
+                <mat-form-field class="searchBox" appearance="outline">
+                  <input
+                    #SearchInput
+                    matInput
+                    placeholder="Search..."
+                    autocomplete="off"
+                    placeholder="Search..."
+                    autocomplete="off"
+                    (keyup)="applySearch($event, teethItemList)"
+                    appInputFocus
+                  />
+                </mat-form-field>
+                <mat-option
+                  *ngFor="let item of filteredData"
+                  [value]="item['id']"
+                  >{{ item["name"] }}</mat-option
+                >
+              </div>
             </mat-select>
           </mat-form-field>
         </div>
