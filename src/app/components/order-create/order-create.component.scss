@@ -131,7 +131,7 @@ mat-form-field {
   position: sticky;
   top: 0;
   z-index: 100;
-  background-color: #dce8ed;
+  background-color: #fff !important;
   ::ng-deep .mat-form-field-wrapper {
     padding-bottom: 5px !important;
     padding-left: 5px;
@@ -145,3 +145,8 @@ mat-form-field {
 //   padding: 8px;
 //   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 // }
+
+::ng-deep .mat-select-panel {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
