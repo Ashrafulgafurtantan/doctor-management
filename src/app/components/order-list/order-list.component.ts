@@ -154,4 +154,26 @@ export class OrderListComponent implements OnInit {
       .navigate(["orders/create"], { queryParams: { orderId: orderId } })
       .then();
   }
+
+  deliverOrder(orderId) {
+    this._alertMsg
+      .confirmStatusChangeAlert("Delivered")
+      .then((confirmed: any) => {
+        if (confirmed) {
+          const putObj = {
+            id: orderId,
+            status: 4,
+          };
+          this._orderService.changeOrderStatus(putObj).subscribe(
+            (resp: any) => {
+              this._alertMsg.successfulSubmissionAlert(
+                "Order Status Changed Successfully"
+              );
+              this.getOrderList();
+            },
+            (error: any) => this._authService.httpRequestErrorHandler(error)
+          );
+        }
+      });
+  }
 }

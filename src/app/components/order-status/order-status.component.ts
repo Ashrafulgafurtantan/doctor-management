@@ -5,7 +5,7 @@ import { OrderService } from "../../services/order.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AlertMessageService } from "../../services/alert-message.service";
 import { AuthenticationService } from "../../services/authentication.service";
-
+import { Location } from "@angular/common";
 @Component({
   selector: "app-order-status",
   templateUrl: "./order-status.component.html",
@@ -43,7 +43,8 @@ export class OrderStatusComponent implements OnInit {
     private _router: Router,
     private _alertMsg: AlertMessageService,
     private _authService: AuthenticationService,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private _location: Location
   ) {}
 
   ngOnInit(): void {
@@ -74,7 +75,6 @@ export class OrderStatusComponent implements OnInit {
       id: this.orderId,
       status: this.selectedStatusId,
     };
-    console.log(putObj);
     this._orderService.changeOrderStatus(putObj).subscribe(
       (resp: any) => {
         this._alertMsg.successfulSubmissionAlert(
@@ -84,5 +84,9 @@ export class OrderStatusComponent implements OnInit {
       },
       (error: any) => this._authService.httpRequestErrorHandler(error)
     );
+  }
+
+  goBack() {
+    this._location.back();
   }
 }

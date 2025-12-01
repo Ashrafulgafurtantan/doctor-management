@@ -101,18 +101,35 @@
               (click)="editOrder(element['id'])"
               color="primary"
               mat-icon-button
+              [matTooltip]="'Edit Order'"
             >
               <mat-icon aria-label="icon-button">edit_square</mat-icon>
             </button>
             <a [href]="apiConfig.downloadPdfUrl + 'order/' + element['id']">
-              <button color="accent" mat-icon-button>
+              <button
+                [matTooltip]="'Print Order'"
+                color="accent"
+                mat-icon-button
+              >
                 <mat-icon aria-label="icon-button">print</mat-icon>
               </button>
             </a>
+
+            <button
+              (click)="deliverOrder(element['id'])"
+              color="success"
+              mat-icon-button
+              style="color: #00c292ff"
+              [matTooltip]="'Deliver Order'"
+            >
+              <mat-icon aria-label="icon-button">task</mat-icon>
+            </button>
+
             <button
               (click)="deleteOrder(element['id'])"
               color="warn"
               mat-icon-button
+              [matTooltip]="'Delete Order'"
             >
               <mat-icon aria-label="icon-button">cancel</mat-icon>
             </button>
