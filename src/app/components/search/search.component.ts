@@ -12,6 +12,7 @@ import {MatSort} from "@angular/material/sort";
 import {OrderStatus, OrderTableElement} from "../order-list/order-list.component";
 import {DateTimeService} from "../../services/date-time.service";
 import {ApiConfig} from "../../utility/apiConfig";
+import {DropdownOption} from "../searchable-dropdown/searchable-dropdown.component";
 
 const ELEMENT_DATA: OrderTableElement[] = [];
 
@@ -32,6 +33,7 @@ export class SearchComponent implements OnInit {
 
     searchFormGroup!: FormGroup;
     clientList!: [];
+    clientDropdownOptions: DropdownOption[] = [];
     address!: any;
 
     constructor(public formBuilder: FormBuilder,
@@ -60,7 +62,20 @@ export class SearchComponent implements OnInit {
         this._orderService.getClientList().subscribe((resp: any) => {
             this.clientList = [];
             this.clientList = resp;
+            this.clientDropdownOptions = resp.map((item: any) => ({
+                id: item.id,
+                name: item.name,
+                secondaryText: item.doctor_name
+            }));
         });
+    }
+
+    onClientSelected(option: DropdownOption) {
+        const selected = this.clientList.filter((item: any) => item.id == option.id);
+        if (selected.length > 0) {
+            this.address = selected[0]['address'];
+            this.searchFormGroup.patchValue({ id: option.id });
+        }
     }
 
     onChangeClientOption(e: any) {
