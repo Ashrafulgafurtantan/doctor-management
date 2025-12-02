@@ -35,6 +35,7 @@ import { ExpenseListComponent } from "./expense-list/expense-list.component";
 import { PeticashListComponent } from "./peticash-list/peticash-list.component";
 import { PeticashCreateComponent } from "./peticash-create/peticash-create.component";
 import { SearchableDropdownComponent } from "./searchable-dropdown/searchable-dropdown.component";
+import { PaymentStatusComponent } from "./payment-status/payment-status.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
@@ -69,6 +70,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     PeticashListComponent,
     PeticashCreateComponent,
     SearchableDropdownComponent,
+    PaymentStatusComponent,
   ],
   imports: [
     CommonModule,

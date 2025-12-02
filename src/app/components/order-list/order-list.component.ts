@@ -1,5 +1,11 @@
 // @ts-nocheck
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+} from "@angular/core";
 import { MatTableDataSource } from "@angular/material/table";
 import { Router } from "@angular/router";
 import { OrderService } from "../../services/order.service";
@@ -18,6 +24,7 @@ export interface OrderTableElement {
   employee_id: string;
   total_amount: number;
   status: number;
+  payment_status: number;
   doctor_name: string;
 }
 
@@ -27,6 +34,11 @@ export enum OrderStatus {
   2 = "redo",
   3 = "trial",
   4 = "delivered",
+}
+
+export enum PaymentStatus {
+  0 = "Unpaid",
+  1 = "Paid",
 }
 
 const ELEMENT_DATA: OrderTableElement[] = [];
@@ -48,6 +60,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
     "employee_id",
     "total_amount",
     "status",
+    "payment_status",
     "actions",
   ];
   dataSource: MatTableDataSource<OrderTableElement>;
@@ -66,7 +79,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
   private searchSubject = new Subject<string>();
   private searchSubscription: Subscription;
 
-  @ViewChild('searchInput') searchInput: ElementRef;
+  @ViewChild("searchInput") searchInput: ElementRef;
 
   constructor(
     private _router: Router,
@@ -90,10 +103,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
 
   setupSearchSubscription(): void {
     this.searchSubscription = this.searchSubject
-      .pipe(
-        debounceTime(500),
-        distinctUntilChanged()
-      )
+      .pipe(debounceTime(500), distinctUntilChanged())
       .subscribe((searchTerm) => {
         if (searchTerm.length > 0) {
           this.current = null;
@@ -136,6 +146,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
     this.showPagination = this.last > 1;
     this.itemList.forEach((item: OrderTableElement) => {
       item.status = OrderStatus[item.status];
+      item.payment_status = PaymentStatus[item.payment_status];
     });
     this.dataSource = new MatTableDataSource(this.itemList);
   }
@@ -190,20 +201,32 @@ export class OrderListComponent implements OnInit, OnDestroy {
   }
 
   getStatusClass(status: string): string {
-    const statusLower = status?.toLowerCase() || '';
+    const statusLower = status?.toLowerCase() || "";
     switch (statusLower) {
-      case 'received':
-        return 'status-received';
-      case 'in-progress':
-        return 'status-in-progress';
-      case 'redo':
-        return 'status-redo';
-      case 'trial':
-        return 'status-trial';
-      case 'delivered':
-        return 'status-delivered';
+      case "received":
+        return "status-received";
+      case "in-progress":
+        return "status-in-progress";
+      case "redo":
+        return "status-redo";
+      case "trial":
+        return "status-trial";
+      case "delivered":
+        return "status-delivered";
       default:
-        return 'status-default';
+        return "status-default";
+    }
+  }
+
+  getPaymentStatusClass(status: string): string {
+    const statusLower = status?.toLowerCase() || "";
+    switch (statusLower) {
+      case "paid":
+        return "payment-paid";
+      case "unpaid":
+        return "payment-unpaid";
+      default:
+        return "payment-default";
     }
   }
 
@@ -211,6 +234,10 @@ export class OrderListComponent implements OnInit, OnDestroy {
     this._router
       .navigate(["orders/create"], { queryParams: { orderId: orderId } })
       .then();
+  }
+
+  changePaymentStatus(orderId) {
+    this._router.navigate([`orders/payment-status/${orderId}`]).then();
   }
 
   deliverOrder(orderId) {

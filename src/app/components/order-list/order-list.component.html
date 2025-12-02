@@ -140,6 +140,31 @@
             </td>
           </ng-container>
 
+          <!-- Payment Status Column -->
+          <ng-container matColumnDef="payment_status">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header>
+              Payment Status
+            </th>
+            <td *matCellDef="let element" mat-cell>
+              <div class="status-cell">
+                <span
+                  class="status-badge"
+                  [ngClass]="getPaymentStatusClass(element['payment_status'])"
+                >
+                  {{ element["payment_status"] }}
+                </span>
+                <button
+                  mat-icon-button
+                  class="status-edit-btn"
+                  (click)="changePaymentStatus(element['id'])"
+                  [matTooltip]="'Change Payment Status'"
+                >
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
           <!-- Actions Column -->
           <ng-container matColumnDef="actions">
             <th *matHeaderCellDef mat-header-cell>Actions</th>

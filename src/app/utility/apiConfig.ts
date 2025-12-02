@@ -47,6 +47,7 @@ export enum ApiConfig {
   putOrderUpdate = "orders",
   deleteOrder = "orders",
   putOrderStatusUpdate = "orders/change/status",
+  putPaymentStatusUpdate = "orders/change/payment-status",
   searchOrder = "orders/search/",
   postItemCreate = "items",
   putItemUpdate = "items",

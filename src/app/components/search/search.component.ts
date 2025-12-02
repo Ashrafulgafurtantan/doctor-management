@@ -9,7 +9,7 @@ import {SearchService} from "../../services/search.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
-import {OrderStatus, OrderTableElement} from "../order-list/order-list.component";
+import {OrderStatus, OrderTableElement, PaymentStatus} from "../order-list/order-list.component";
 import {DateTimeService} from "../../services/date-time.service";
 import {ApiConfig} from "../../utility/apiConfig";
 import {DropdownOption} from "../searchable-dropdown/searchable-dropdown.component";
@@ -23,7 +23,7 @@ const ELEMENT_DATA: OrderTableElement[] = [];
 })
 export class SearchComponent implements OnInit {
     displayedColumns: string[] = ['id', 'order_no', 'client_id', 'order_date',
-        'patient_name', 'delivery_date', 'employee_id', 'total_amount', 'status', 'actions'];
+        'patient_name', 'delivery_date', 'employee_id', 'total_amount', 'status', 'payment_status', 'actions'];
     dataSource: MatTableDataSource<OrderTableElement>;
     itemList: OrderTableElement[];
     apiConfig = ApiConfig;
@@ -104,6 +104,7 @@ export class SearchComponent implements OnInit {
                 this.itemList = item;
                 this.itemList.forEach((item: OrderTableElement) => {
                     item.status = OrderStatus[item.status];
+                    item.payment_status = PaymentStatus[item.payment_status];
                 });
                 console.log(this.itemList);
                 setTimeout(() => {
@@ -147,5 +148,35 @@ export class SearchComponent implements OnInit {
     applyFilter(e: any): void {
         const filterValue = e.value;
         this.dataSource.filter = filterValue.trim().toLowerCase();
+    }
+
+    getStatusClass(status: string): string {
+        const statusLower = status?.toLowerCase() || "";
+        switch (statusLower) {
+            case "received":
+                return "status-received";
+            case "in-progress":
+                return "status-in-progress";
+            case "redo":
+                return "status-redo";
+            case "trial":
+                return "status-trial";
+            case "delivered":
+                return "status-delivered";
+            default:
+                return "status-default";
+        }
+    }
+
+    getPaymentStatusClass(status: string): string {
+        const statusLower = status?.toLowerCase() || "";
+        switch (statusLower) {
+            case "paid":
+                return "payment-paid";
+            case "unpaid":
+                return "payment-unpaid";
+            default:
+                return "payment-default";
+        }
     }
 }

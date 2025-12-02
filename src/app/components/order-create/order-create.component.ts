@@ -9,6 +9,7 @@ import { SHADE_GUID_LIST } from "./shade-data";
 import { AlertMessageService } from "../../services/alert-message.service";
 import { AuthenticationService } from "../../services/authentication.service";
 import { DateTimeService } from "../../services/date-time.service";
+import { DropdownOption } from "../searchable-dropdown/searchable-dropdown.component";
 
 @Component({
   selector: "app-order-create",
@@ -41,8 +42,15 @@ export class OrderCreateComponent implements OnInit {
   currentReceipt: any;
   updateOrderId: any = null;
 
-  filterText: string = "";
-  filteredData: [] = [];
+  clientFilterText: string = "";
+  itemFilterText: string = "";
+  filteredClientList: any[] = [];
+  filteredItemList: any[] = [];
+
+  // Dropdown options for searchable dropdowns
+  employeeDropdownOptions: DropdownOption[] = [];
+  shadeGuideDropdownOptions: DropdownOption[] = [];
+  shadeDropdownOptions: DropdownOption[] = [];
 
   constructor(
     public formBuilder: FormBuilder,
@@ -55,6 +63,18 @@ export class OrderCreateComponent implements OnInit {
   ) {
     this.shadeList = SHADE_LIST;
     this.shadeGuidList = SHADE_GUID_LIST;
+
+    // Initialize shade guide dropdown options
+    this.shadeGuideDropdownOptions = SHADE_GUID_LIST.map((item: string) => ({
+      id: item,
+      name: item,
+    }));
+
+    // Initialize shade dropdown options
+    this.shadeDropdownOptions = SHADE_LIST.map((item: string) => ({
+      id: item,
+      name: item,
+    }));
   }
 
   ngOnInit(): void {
@@ -101,6 +121,12 @@ export class OrderCreateComponent implements OnInit {
     this._orderService.getEmployeeList().subscribe((resp: any) => {
       this.employeeList = [];
       this.employeeList = resp;
+
+      // Create dropdown options for employees
+      this.employeeDropdownOptions = resp.map((item: any) => ({
+        id: item.id,
+        name: item.name,
+      }));
     });
   }
 
@@ -108,7 +134,7 @@ export class OrderCreateComponent implements OnInit {
     this._orderService.getClientList().subscribe((resp: any) => {
       this.clientList = [];
       this.clientList = resp;
-      this.filteredData = resp;
+      this.filteredClientList = resp;
     });
   }
 
@@ -121,6 +147,7 @@ export class OrderCreateComponent implements OnInit {
     this._orderService.getItemList().subscribe((resp: any) => {
       this.teethItemList = [];
       this.teethItemList = resp;
+      this.filteredItemList = resp;
     });
   }
 
@@ -141,7 +168,7 @@ export class OrderCreateComponent implements OnInit {
       discount: ["0", [Validators.required]],
       additional_info: [""],
       additional_price: [""],
-      single_item: [""],
+      single_item: ["", [Validators.required]],
     });
   }
 
@@ -152,6 +179,11 @@ export class OrderCreateComponent implements OnInit {
   }
 
   onSelectSingleTooth(num: any) {
+    if (!this.currentReceipt || !this.currentReceipt.id) {
+      this._alertMsg.warningAlert("Please select an item first");
+      return;
+    }
+
     const receiptObj = {
       description: num,
       id: this.currentReceipt.id,
@@ -232,24 +264,53 @@ export class OrderCreateComponent implements OnInit {
     this._router.navigateByUrl("/orders").then();
   }
 
-  applySearch(event, data) {
-    this.filterText = event.target.value;
-    this.findFilteredData(data);
+  goBack() {
+    this._router.navigateByUrl("/orders").then();
   }
 
-  findFilteredData(data) {
-    this.filteredData = data.filter((item, index) => {
-      if (index === 0) return true;
+  applyClientSearch(event) {
+    this.clientFilterText = event.target.value;
+    this.filterClientList();
+  }
 
-      const searchText = this.filterText.trim().toLowerCase();
+  filterClientList() {
+    const searchText = this.clientFilterText.trim().toLowerCase();
+    if (!searchText) {
+      this.filteredClientList = this.clientList;
+      return;
+    }
+    this.filteredClientList = this.clientList.filter((item: any) => {
       return Object.values(item).some(
         (value) => value && value.toString().toLowerCase().includes(searchText)
       );
     });
   }
 
-  clearSearchBox() {
-    this.filterText = "";
-    this.findFilteredData();
+  clearClientSearch() {
+    this.clientFilterText = "";
+    this.filteredClientList = this.clientList;
+  }
+
+  applyItemSearch(event) {
+    this.itemFilterText = event.target.value;
+    this.filterItemList();
+  }
+
+  filterItemList() {
+    const searchText = this.itemFilterText.trim().toLowerCase();
+    if (!searchText) {
+      this.filteredItemList = this.teethItemList;
+      return;
+    }
+    this.filteredItemList = this.teethItemList.filter((item: any) => {
+      return Object.values(item).some(
+        (value) => value && value.toString().toLowerCase().includes(searchText)
+      );
+    });
+  }
+
+  clearItemSearch() {
+    this.itemFilterText = "";
+    this.filteredItemList = this.teethItemList;
   }
 }

@@ -1,5 +1,6 @@
 // @ts-nocheck
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ElementRef } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ElementRef, forwardRef } from "@angular/core";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { MatFormFieldAppearance } from "@angular/material/form-field";
 
 export interface DropdownOption {
@@ -12,8 +13,15 @@ export interface DropdownOption {
   selector: "app-searchable-dropdown",
   templateUrl: "./searchable-dropdown.component.html",
   styleUrls: ["./searchable-dropdown.component.scss"],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SearchableDropdownComponent),
+      multi: true,
+    },
+  ],
 })
-export class SearchableDropdownComponent implements OnInit {
+export class SearchableDropdownComponent implements OnInit, ControlValueAccessor {
   @Input() options: DropdownOption[] = [];
   @Input() label: string = "Select an option";
   @Input() placeholder: string = "Search...";
@@ -25,6 +33,9 @@ export class SearchableDropdownComponent implements OnInit {
   filteredOptions: DropdownOption[] = [];
   selectedValue: any = null;
   searchText: string = "";
+
+  private onChange: (value: any) => void = () => {};
+  private onTouched: () => void = () => {};
 
   ngOnInit(): void {
     this.filteredOptions = this.options;
@@ -56,6 +67,25 @@ export class SearchableDropdownComponent implements OnInit {
     if (selectedOption) {
       this.optionSelected.emit(selectedOption);
     }
+    this.onChange(selectedId);
+    this.onTouched();
+  }
+
+  // ControlValueAccessor implementation
+  writeValue(value: any): void {
+    this.selectedValue = value;
+  }
+
+  registerOnChange(fn: (value: any) => void): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+    // Can be implemented if needed
   }
 
   onOpenedChange(opened: boolean): void {

@@ -13,6 +13,7 @@ import {ClientCreateComponent} from "./components/client-create/client-create.co
 import {ProfileComponent} from "./components/profile/profile.component";
 import {ItemComponent} from './components/item/item.component';
 import {OrderStatusComponent} from "./components/order-status/order-status.component";
+import {PaymentStatusComponent} from "./components/payment-status/payment-status.component";
 import {SummaryComponent} from "./components/summary/summary.component";
 import {EmployeeTableComponent} from "./components/employee-table/employee-table.component";
 import {ClientTableComponent} from "./components/client-table/client-table.component";
@@ -63,6 +64,7 @@ const routes: Routes = [
     {path: "asset/create", component: AssetCreateComponent, canActivate: [AuthGuard]},
     {path: "asset-list", component: AssetListComponent, canActivate: [AuthGuard]},
     {path: 'orders/status/:orderID', component: OrderStatusComponent, canActivate: [AuthGuard]},
+    {path: 'orders/payment-status/:orderId', component: PaymentStatusComponent, canActivate: [AuthGuard]},
     {path: "today/received", component: TodayReceivedComponent, canActivate: [AuthGuard]},
     {path: "today/delivered", component: TodayDeliveredComponent, canActivate: [AuthGuard]},
     {path: "", redirectTo: "/home", pathMatch: "full"},
