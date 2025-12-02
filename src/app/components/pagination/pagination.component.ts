@@ -7,28 +7,46 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class PaginationComponent implements OnInit {
 
-    @Input() first: any;
-    @Input() last: any;
-    @Input() current: any;
+    @Input() first: number = 1;
+    @Input() last: number = 1;
+    @Input() current: number = 1;
 
     @Output() nextBtn = new EventEmitter();
     @Output() prevBtn = new EventEmitter();
-    @Output() numberBtn = new EventEmitter();
-
-
-    /*    first = 1;
-        last = 3;
-        current = 2;*/
-    diffBetweenFirstToCurrent = 0;
-    diffBetweenLastToCurrent = 0;
-
+    @Output() numberBtn = new EventEmitter<number>();
 
     constructor() {
     }
 
     ngOnInit(): void {
-        this.diffBetweenFirstToCurrent = Math.abs(this.current - this.first);
-        this.diffBetweenLastToCurrent = Math.abs(this.last - this.current);
+    }
+
+    getPageNumbers(): number[] {
+        const pages: number[] = [];
+        const totalPages = this.last;
+        const currentPage = this.current;
+
+        // Calculate range around current page
+        let start = Math.max(this.first, currentPage - 2);
+        let end = Math.min(totalPages, currentPage + 2);
+
+        // Adjust if we're near the beginning
+        if (currentPage <= 3) {
+            start = this.first;
+            end = Math.min(totalPages, 5);
+        }
+
+        // Adjust if we're near the end
+        if (currentPage >= totalPages - 2) {
+            start = Math.max(this.first, totalPages - 4);
+            end = totalPages;
+        }
+
+        for (let i = start; i <= end; i++) {
+            pages.push(i);
+        }
+
+        return pages;
     }
 
     nextBtnClick() {
@@ -39,7 +57,7 @@ export class PaginationComponent implements OnInit {
         this.prevBtn.emit();
     }
 
-    numberBtnClick(val: any) {
+    numberBtnClick(val: number) {
         this.numberBtn.emit(val);
     }
 }

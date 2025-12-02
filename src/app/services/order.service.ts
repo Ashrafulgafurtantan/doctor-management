@@ -64,4 +64,8 @@ export class OrderService {
     searchQueryForOrder(queryWord: any) {
         return this.http.get(ApiConfig.baseUrl + ApiConfig.searchOrder + queryWord);
     }
+
+    searchQueryForOrderWithPage(queryWord: any, pageNumber: number) {
+        return this.http.get(ApiConfig.baseUrl + ApiConfig.searchOrder + queryWord + '?page=' + pageNumber);
+    }
 }

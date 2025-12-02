@@ -1,12 +1,12 @@
 // @ts-nocheck
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from "@angular/core";
 import { MatTableDataSource } from "@angular/material/table";
 import { Router } from "@angular/router";
 import { OrderService } from "../../services/order.service";
 import { ApiConfig } from "../../utility/apiConfig";
 import { AlertMessageService } from "../../services/alert-message.service";
-import { debounceTime } from "rxjs/operators";
-import { fromEvent } from "rxjs";
+import { debounceTime, distinctUntilChanged } from "rxjs/operators";
+import { Subject, Subscription } from "rxjs";
 
 export interface OrderTableElement {
   id: number;
@@ -36,7 +36,7 @@ const ELEMENT_DATA: OrderTableElement[] = [];
   templateUrl: "./order-list.component.html",
   styleUrls: ["./order-list.component.scss"],
 })
-export class OrderListComponent implements OnInit {
+export class OrderListComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = [
     "id",
     "order_no",
@@ -55,11 +55,18 @@ export class OrderListComponent implements OnInit {
   apiConfig = ApiConfig;
 
   first = 1;
-  last = null;
-  current = null;
+  last: number = 1;
+  current: number = 1;
   nextPageUrl = null;
   prevPageUrl = null;
   searchKey = "";
+  showPagination = false;
+
+  // Search subject for debouncing
+  private searchSubject = new Subject<string>();
+  private searchSubscription: Subscription;
+
+  @ViewChild('searchInput') searchInput: ElementRef;
 
   constructor(
     private _router: Router,
@@ -72,22 +79,26 @@ export class OrderListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getOrderList();
+    this.setupSearchSubscription();
   }
 
-  getOrderList() {
-    this._orderService.getOrderListRequest().subscribe((resp: any) => {
-      this.getDataSyncWithLocalVariable(resp);
-    });
+  ngOnDestroy(): void {
+    if (this.searchSubscription) {
+      this.searchSubscription.unsubscribe();
+    }
   }
 
-  onKeyUp(event: any) {
-    fromEvent(event.target, "keyup")
-      .pipe(debounceTime(1000))
-      .subscribe(() => {
-        if (event.target.value.length != 0) {
+  setupSearchSubscription(): void {
+    this.searchSubscription = this.searchSubject
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged()
+      )
+      .subscribe((searchTerm) => {
+        if (searchTerm.length > 0) {
           this.current = null;
           this._orderService
-            .searchQueryForOrder(event.target.value)
+            .searchQueryForOrder(searchTerm)
             .subscribe((resp) => this.getDataSyncWithLocalVariable(resp));
         } else {
           this.current = null;
@@ -96,13 +107,33 @@ export class OrderListComponent implements OnInit {
       });
   }
 
+  getOrderList() {
+    this._orderService.getOrderListRequest().subscribe((resp: any) => {
+      this.getDataSyncWithLocalVariable(resp);
+    });
+  }
+
+  onSearchInput(event: any): void {
+    this.searchKey = event.target.value;
+    this.searchSubject.next(this.searchKey);
+  }
+
+  clearSearch(): void {
+    this.searchKey = "";
+    if (this.searchInput) {
+      this.searchInput.nativeElement.value = "";
+    }
+    this.searchSubject.next("");
+  }
+
   getDataSyncWithLocalVariable(resp: any) {
     this.itemList = [];
     this.itemList = resp.data;
-    this.current = resp.current_page;
-    this.last = resp.last_page;
+    this.current = resp.current_page || 1;
+    this.last = resp.last_page || 1;
     this.nextPageUrl = resp.next_page_url;
     this.prevPageUrl = resp.prev_page_url;
+    this.showPagination = this.last > 1;
     this.itemList.forEach((item: OrderTableElement) => {
       item.status = OrderStatus[item.status];
     });
@@ -111,7 +142,6 @@ export class OrderListComponent implements OnInit {
 
   nextBtnClick() {
     if (this.nextPageUrl) {
-      this.current = null;
       this._orderService
         .navigateToNextPage(this.nextPageUrl)
         .subscribe((resp) => this.getDataSyncWithLocalVariable(resp));
@@ -120,18 +150,24 @@ export class OrderListComponent implements OnInit {
 
   prevBtnClick() {
     if (this.prevPageUrl) {
-      this.current = null;
       this._orderService
         .navigateToPreviousPage(this.prevPageUrl)
         .subscribe((resp) => this.getDataSyncWithLocalVariable(resp));
     }
   }
 
-  numberBtnClick(e) {
-    this.current = null;
-    this._orderService
-      .navigateToNumberPage(e)
-      .subscribe((resp) => this.getDataSyncWithLocalVariable(resp));
+  numberBtnClick(e: number) {
+    if (this.searchKey && this.searchKey.length > 0) {
+      // If there's a search query, use search with pagination
+      this._orderService
+        .searchQueryForOrderWithPage(this.searchKey, e)
+        .subscribe((resp) => this.getDataSyncWithLocalVariable(resp));
+    } else {
+      // Otherwise use regular pagination
+      this._orderService
+        .navigateToNumberPage(e)
+        .subscribe((resp) => this.getDataSyncWithLocalVariable(resp));
+    }
   }
 
   deleteOrder(orderId: any) {
@@ -145,8 +181,30 @@ export class OrderListComponent implements OnInit {
     });
   }
 
+  createOrder() {
+    this._router.navigate(["orders/create"]).then();
+  }
+
   changeStatusOrder(orderId) {
     this._router.navigate([`orders/status/${orderId}`]).then();
+  }
+
+  getStatusClass(status: string): string {
+    const statusLower = status?.toLowerCase() || '';
+    switch (statusLower) {
+      case 'received':
+        return 'status-received';
+      case 'in-progress':
+        return 'status-in-progress';
+      case 'redo':
+        return 'status-redo';
+      case 'trial':
+        return 'status-trial';
+      case 'delivered':
+        return 'status-delivered';
+      default:
+        return 'status-default';
+    }
   }
 
   editOrder(orderId) {

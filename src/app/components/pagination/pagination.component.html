@@ -1,38 +1,63 @@
-<div class="container">
-    <ul class="page">
-        <button style="color: #23ADADE1;cursor: pointer" mat-icon-button (click)="prevBtnClick()">
-            <mat-icon>chevron_left</mat-icon>
-        </button>
-        <ng-container *ngIf="diffBetweenFirstToCurrent<=4;else lowerBoundary">
-            <button
-                    *ngFor="let item of [].constructor(current-first); let i = index" class="page__numbers"
-                    [ngClass]="current == i+1? 'active': ''" (click)="numberBtnClick(i +1)"
-                    mat-button>{{i + 1}}</button>
-        </ng-container>
-        <ng-template #lowerBoundary>
-            <button (click)="numberBtnClick(first)" class="page__numbers"> {{first}}</button>
-            <li class="page__dots">...</li>
-            <button *ngFor="let item of [].constructor(2); let i = index"
-                    [ngClass]="current == i - 2 + current? 'active': ''"
-                    class="page__numbers" (click)="numberBtnClick(i - 2 + current)">
-                {{i - 2 + current}}
-            </button>
-        </ng-template>
-        <ng-container *ngIf="diffBetweenLastToCurrent<=4;else upperBoundary" class="page__btn">
-            <button *ngFor="let item of [].constructor(last-current+1); let i = index"
-                    [ngClass]="current == i+current? 'active': ''"
-                    class="page__numbers">{{i + current}}</button>
-        </ng-container>
-        <ng-template #upperBoundary>
-            <button *ngFor="let item of [].constructor(2); let i = index"
-                    [ngClass]="current == i+current? 'active': ''"
-                    class="page__numbers" (click)="numberBtnClick(i+current)">{{i + current}}</button>
-            <li class="page__dots">...</li>
-            <button (click)="numberBtnClick(last)" class="page__numbers"> {{last}}</button>
-        </ng-template>
-        <!-- <span class="material-icons">chevron_right</span>-->
-        <button style="color: #23ADADE1;cursor: pointer" mat-icon-button (click)="nextBtnClick()">
-            <mat-icon>chevron_right</mat-icon>
-        </button>
-    </ul>
+<div class="pagination-container">
+  <div class="pagination">
+    <!-- Previous Button -->
+    <button
+      class="pagination-btn nav-btn"
+      [disabled]="current === first"
+      (click)="prevBtnClick()"
+    >
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+
+    <!-- First Page -->
+    <button
+      *ngIf="current > 3"
+      class="pagination-btn page-btn"
+      [class.active]="current === first"
+      (click)="numberBtnClick(first)"
+    >
+      {{ first }}
+    </button>
+
+    <!-- Left Dots -->
+    <span *ngIf="current > 4" class="pagination-dots">...</span>
+
+    <!-- Page Numbers -->
+    <ng-container *ngFor="let page of getPageNumbers()">
+      <button
+        class="pagination-btn page-btn"
+        [class.active]="current === page"
+        (click)="numberBtnClick(page)"
+      >
+        {{ page }}
+      </button>
+    </ng-container>
+
+    <!-- Right Dots -->
+    <span *ngIf="current < last - 3" class="pagination-dots">...</span>
+
+    <!-- Last Page -->
+    <button
+      *ngIf="current < last - 2 && last > 5"
+      class="pagination-btn page-btn"
+      [class.active]="current === last"
+      (click)="numberBtnClick(last)"
+    >
+      {{ last }}
+    </button>
+
+    <!-- Next Button -->
+    <button
+      class="pagination-btn nav-btn"
+      [disabled]="current === last"
+      (click)="nextBtnClick()"
+    >
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
+
+  <!-- Page Info -->
+  <div class="page-info">
+    Page {{ current }} of {{ last }}
+  </div>
 </div>

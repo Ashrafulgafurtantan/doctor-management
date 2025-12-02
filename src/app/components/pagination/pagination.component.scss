@@ -1,144 +1,116 @@
-
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: inherit;
+.pagination-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 0;
 }
 
-button {
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.pagination-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: none;
-  background-color: transparent;
-}
-
-html {
-  box-sizing: border-box;
-  font-size: 50.5%; // 1rem = 10px    100% = 16px
-  overflow-y: scroll;
-  font-family: "Poppins", sans-serif;
-  letter-spacing: 0.6px;
-  line-height: 1.4;
-  -webkit-user-select: none;
-  backface-visibility: hidden;
-  -webkit-font-smoothing: subpixel-antialiased;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-ul {
-  list-style-type: none;
-}
-
-.items-list {
-  max-width: 90vw;
-  margin: 2rem;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-gap: 3rem;
-  justify-content: center;
-  align-content: center;
-
-  @media only screen and (max-width: 600px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.item {
-  width: 10rem;
-  height: 10rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #2d4848;
+  background: transparent;
   cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
 
-  span {
-    background: #ffffff;
-    box-shadow: 0 0.8rem 2rem rgba(#5a6181, 0.05);
-    border-radius: 0.6rem;
-    padding: 2rem;
-    font-size: 3rem;
-    transition: all 0.3s ease;
-  }
-
-  &:hover {
-    span {
-      transform: scale(1.2);
-      color: #23adad;
-    }
-  }
-
-  p {
-    font-size: 1.2rem;
-    margin-top: 1rem;
-    color: #23adade1;
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
   }
 }
 
-.page {
+.nav-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  color: #1565c0;
+
+  mat-icon {
+    font-size: 24px;
+    height: 24px;
+    width: 24px;
+  }
+
+  &:not(:disabled):hover {
+    background-color: #e3f2fd;
+  }
+
+  &:not(:disabled):active {
+    background-color: #bbdefb;
+  }
+}
+
+.page-btn {
+  min-width: 36px;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #424242;
+
+  &:hover:not(.active) {
+    background-color: #f5f5f5;
+  }
+
+  &.active {
+    background-color: #1565c0;
+    color: #fff;
+    font-weight: 600;
+  }
+}
+
+.pagination-dots {
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 4rem;
-  width: 80%;
-  margin: 0.7rem;
-  border-radius: 0.6rem;
-  background: #ffffff;
-  box-shadow: 0 0.8rem 2rem rgba(#5a6181, 0.05);
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: #9e9e9e;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
 
-  &__numbers,
-  &__btn,
-  &__dots {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0.8rem;
-    font-size: 1rem;
-    cursor: pointer;
+.page-info {
+  font-size: 13px;
+  color: #757575;
+  font-weight: 500;
+}
+
+// Responsive
+@media (max-width: 576px) {
+  .pagination {
+    padding: 6px 8px;
+    gap: 2px;
   }
 
-  &__dots {
-    width: 2.6rem;
-    height: 2.6rem;
-    color: #23ADADE1;
-    cursor: initial;
+  .nav-btn,
+  .page-btn {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
   }
 
-  &__numbers {
-    width: 2.6rem;
-    height: 2.6rem;
-    border-radius: 0.4rem;
-
-    &:hover {
-      color: #23ADADFF;
-    }
-
-    &.active {
-      color: #ffffff;
-      background: #23ADADFF;
-      font-weight: 600;
-      border: 1px solid #23ADADFF;
-    }
+  .page-btn {
+    padding: 0 8px;
+    font-size: 13px;
   }
 
-  &__btn {
-    color: #23adade1;
-    pointer-events: none;
-
-    &.active {
-      color: #2d4848;
-      pointer-events: initial;
-
-      &:hover {
-        color: #23adad;
-      }
-    }
+  .pagination-dots {
+    width: 28px;
   }
 }
