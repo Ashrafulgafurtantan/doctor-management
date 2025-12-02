@@ -45,6 +45,10 @@ export class OrderService {
         return this.http.put(ApiConfig.baseUrl + ApiConfig.putOrderStatusUpdate, formObj);
     }
 
+    changePaymentStatus(formObj: any) {
+        return this.http.put(ApiConfig.baseUrl + ApiConfig.putPaymentStatusUpdate, formObj);
+    }
+
     deleteOrderById(id: any) {
         return this.http.delete(ApiConfig.baseUrl + ApiConfig.deleteOrder + "/" + id);
     }
@@ -63,5 +67,9 @@ export class OrderService {
 
     searchQueryForOrder(queryWord: any) {
         return this.http.get(ApiConfig.baseUrl + ApiConfig.searchOrder + queryWord);
+    }
+
+    searchQueryForOrderWithPage(queryWord: any, pageNumber: number) {
+        return this.http.get(ApiConfig.baseUrl + ApiConfig.searchOrder + queryWord + '?page=' + pageNumber);
     }
 }

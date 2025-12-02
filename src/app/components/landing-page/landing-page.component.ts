@@ -13,6 +13,7 @@ export class LandingPageComponent implements OnInit {
   constructor(private _router: Router) {}
 
   ngOnInit(): void {}
+  currentYear = new Date().getFullYear();
 
   scroll(el: HTMLElement) {
     el.scrollIntoView();
