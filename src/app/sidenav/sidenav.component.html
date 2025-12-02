@@ -77,7 +77,8 @@
       </mat-tree-node>
     </mat-tree>
   </div>
-  <!--    LOGOUT-->
+
+  <!-- Header Toolbar -->
   <mat-toolbar class="header ps-24 pe-24">
     <div class="ms-auto">
       <button
@@ -89,26 +90,26 @@
           alt=""
           class="rounded-circle"
           src="assets/images/logo.jpg"
-          style="width: 50px; height: 50px"
+          style="width: 40px; height: 40px"
         />
         <span class="fw-light ms-8 text-secondary">Hi,</span>
         <span class="fw-bold ms-8">{{ currentUser["name"] }}</span>
         <i-feather class="feather-base mt-n2" name="chevron-down"></i-feather>
       </button>
       <mat-menu #menu="matMenu" class="profile-dropdown">
-        <div class="p-16 mb-4">
-          <button (click)="onClickSettings()" class="fs-16" mat-menu-item>
-            My Settings
-          </button>
-        </div>
-
-        <hr />
-
-        <div class="p-16">
-          <button (click)="logout()" class="btn btn-info w-100" mat-button>
-            Logout
-          </button>
-        </div>
+        <button (click)="onClickSettings()" mat-menu-item>
+          <mat-icon>settings</mat-icon>
+          <span>My Settings</span>
+        </button>
+        <!-- <button mat-menu-item>
+          <mat-icon>help_outline</mat-icon>
+          <span>Help & Support</span>
+        </button> -->
+        <mat-divider></mat-divider>
+        <button (click)="logout()" mat-menu-item class="logout-btn">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
       </mat-menu>
     </div>
   </mat-toolbar>
