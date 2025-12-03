@@ -237,7 +237,44 @@ export class OrderListComponent implements OnInit, OnDestroy {
   }
 
   changePaymentStatus(orderId) {
-    this._router.navigate([`orders/payment-status/${orderId}`]).then();
+    // Find the current order to get its payment status
+    const order = this.itemList.find((item) => item.id === orderId);
+    if (!order) return;
+
+    // Determine the current payment status (convert string back to number)
+    const currentPaymentStatus =
+      order.payment_status.toLowerCase() === "paid" ? 1 : 0;
+
+    // Determine new payment status and message
+    const newPaymentStatus = currentPaymentStatus === 0 ? 1 : 0;
+    const newStatusText = newPaymentStatus === 1 ? "Paid" : "Unpaid";
+    const currentStatusText = currentPaymentStatus === 1 ? "Paid" : "Unpaid";
+
+    // Show confirmation modal with dynamic message
+    this._alertMsg
+      .confirmStatusChangeAlert(newStatusText)
+      .then((confirmed: any) => {
+        if (confirmed) {
+          const putObj = {
+            id: orderId,
+            payment_status: newPaymentStatus,
+          };
+
+          this._orderService.changePaymentStatus(putObj).subscribe(
+            (resp: any) => {
+              this._alertMsg.successToast(
+                `Payment Status Changed to ${newStatusText}`
+              );
+              // Refresh the list to show updated status
+              this.getOrderList();
+            },
+            (error: any) => {
+              this._alertMsg.submissionErrorAlert();
+              console.error("Error updating payment status:", error);
+            }
+          );
+        }
+      });
   }
 
   deliverOrder(orderId) {

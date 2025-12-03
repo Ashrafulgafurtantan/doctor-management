@@ -1,11 +1,26 @@
 <div class="card">
   <div class="card-body">
-    <h4 class="mb-32">Order Search</h4>
+    <div class="page-header">
+      <div class="header-content">
+        <div class="icon-wrapper">
+          <mat-icon class="header-icon">search</mat-icon>
+        </div>
+        <div class="header-text">
+          <h4 class="page-title">Order Search</h4>
+          <p class="page-subtitle">Search and filter orders by client and date range</p>
+        </div>
+      </div>
+    </div>
 
-    <div>
+    <div class="search-form-container">
       <form [formGroup]="searchFormGroup" (ngSubmit)="onSubmit()">
-        <div class="container">
-          <div>
+        <!-- Client and Address Row -->
+        <div class="form-row">
+          <div class="form-field client-field">
+            <label class="field-label">
+              <mat-icon class="label-icon">person</mat-icon>
+              Select Client
+            </label>
             <app-searchable-dropdown
               [options]="clientDropdownOptions"
               [label]="'Choose a client'"
@@ -14,49 +29,88 @@
               (optionSelected)="onClientSelected($event)"
             ></app-searchable-dropdown>
           </div>
-          <div>
-            <mat-form-field appearance="fill" class="w-100 fs-16">
-              <mat-label>Textarea</mat-label>
-              <textarea matInput placeholder="Address" rows="2">{{
-                address
-              }}</textarea>
+
+          <div class="form-field address-field">
+            <label class="field-label">
+              <mat-icon class="label-icon">location_on</mat-icon>
+              Client Address
+            </label>
+            <mat-form-field appearance="outline" class="w-100">
+              <textarea
+                matInput
+                placeholder="Address will appear here..."
+                rows="2"
+                readonly
+                class="address-textarea"
+              >{{ address }}</textarea>
             </mat-form-field>
           </div>
         </div>
-        <div class="container">
-          <div>
-            <mat-form-field appearance="outline">
+
+        <!-- Date Range Row -->
+        <div class="form-row date-row">
+          <div class="form-field">
+            <label class="field-label">
+              <mat-icon class="label-icon">event</mat-icon>
+              Start Date
+            </label>
+            <mat-form-field appearance="outline" class="date-picker-field">
               <input
                 (focus)="picker.open()"
                 [matDatepicker]="picker"
                 formControlName="startDate"
                 matInput
-                placeholder="Start Date"
+                placeholder="Select start date"
               />
-              <mat-icon matSuffix>today</mat-icon>
-              <mat-hint>DD/MM/YYYY</mat-hint>
+              <mat-icon matSuffix class="calendar-icon">calendar_today</mat-icon>
             </mat-form-field>
             <mat-datepicker #picker></mat-datepicker>
           </div>
-          <div>
-            <mat-form-field appearance="outline">
+
+          <div class="date-separator">
+            <mat-icon>arrow_forward</mat-icon>
+          </div>
+
+          <div class="form-field">
+            <label class="field-label">
+              <mat-icon class="label-icon">event</mat-icon>
+              End Date
+            </label>
+            <mat-form-field appearance="outline" class="date-picker-field">
               <input
                 (focus)="picker2.open()"
                 [matDatepicker]="picker2"
                 matInput
-                placeholder="End Date"
+                placeholder="Select end date"
                 formControlName="endDate"
               />
-              <mat-icon matSuffix>today</mat-icon>
-              <mat-hint>DD/MM/YYYY</mat-hint>
+              <mat-icon matSuffix class="calendar-icon">calendar_today</mat-icon>
             </mat-form-field>
             <mat-datepicker #picker2></mat-datepicker>
           </div>
         </div>
-        <div class="container">
-          <div>
-            <button class="search" mat-raised-butto>Search</button>
-          </div>
+
+        <!-- Search Button Row -->
+        <div class="button-row">
+          <button type="submit" class="search-btn" mat-raised-button [disabled]="!searchFormGroup.valid">
+            <mat-icon>search</mat-icon>
+            <span>Search Orders</span>
+          </button>
+          <button type="button" class="clear-btn" mat-stroked-button (click)="searchFormGroup.reset()">
+            <mat-icon>clear</mat-icon>
+            <span>Clear</span>
+          </button>
+          <button
+            type="button"
+            class="mark-paid-btn"
+            mat-raised-button
+            (click)="markAllAsPaid()"
+            [disabled]="!searchFormGroup.valid || itemList.length === 0"
+            matTooltip="Mark all unpaid orders in the selected date range as paid"
+          >
+            <mat-icon>check_circle</mat-icon>
+            <span>Mark All as Paid</span>
+          </button>
         </div>
       </form>
     </div>

@@ -1,75 +1,96 @@
-import {Injectable} from '@angular/core';
-import {Router} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
-import {ApiConfig} from "../utility/apiConfig";
+import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
+import { HttpClient } from "@angular/common/http";
+import { ApiConfig } from "../utility/apiConfig";
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: "root",
 })
 export class OrderService {
+  constructor(private _router: Router, private http: HttpClient) {}
 
-    constructor(private _router: Router,
-                private http: HttpClient,) {
-    }
+  getOrderById(id: any) {
+    return this.http.get(ApiConfig.baseUrl + "orders/" + id);
+  }
 
-    getOrderById(id: any) {
-        return this.http.get(ApiConfig.baseUrl + 'orders/' + id);
-    }
+  getEmployeeList() {
+    return this.http.get(ApiConfig.baseUrl + ApiConfig.getEmployeeList);
+  }
 
-    getEmployeeList() {
-        return this.http.get(ApiConfig.baseUrl + ApiConfig.getEmployeeList);
-    }
+  getClientList() {
+    return this.http.get(ApiConfig.baseUrl + ApiConfig.getClientList);
+  }
 
-    getClientList() {
-        return this.http.get(ApiConfig.baseUrl + ApiConfig.getClientList);
-    }
+  getItemList() {
+    return this.http.get(ApiConfig.baseUrl + ApiConfig.getItemList);
+  }
 
-    getItemList() {
-        return this.http.get(ApiConfig.baseUrl + ApiConfig.getItemList);
-    }
+  orderCreatePostRequest(formData: any) {
+    return this.http.post(
+      ApiConfig.baseUrl + ApiConfig.postOrderCreate,
+      formData
+    );
+  }
 
-    orderCreatePostRequest(formData: any) {
-        return this.http.post(ApiConfig.baseUrl + ApiConfig.postOrderCreate, formData);
-    }
+  orderUpdatePutRequest(formData: any) {
+    return this.http.put(
+      ApiConfig.baseUrl + ApiConfig.putOrderUpdate,
+      formData
+    );
+  }
 
-    orderUpdatePutRequest(formData: any) {
-        return this.http.put(ApiConfig.baseUrl + ApiConfig.putOrderUpdate, formData);
-    }
+  getOrderListRequest() {
+    //return this.http.get(ApiConfig.baseUrl + ApiConfig.getOrderList);
+    return this.http.get(ApiConfig.baseUrl + ApiConfig.getOrderListPagewise);
+  }
 
-    getOrderListRequest() {
-        //return this.http.get(ApiConfig.baseUrl + ApiConfig.getOrderList);
-        return this.http.get(ApiConfig.baseUrl + ApiConfig.getOrderListPagewise);
-    }
+  changeOrderStatus(formObj: any) {
+    return this.http.put(
+      ApiConfig.baseUrl + ApiConfig.putOrderStatusUpdate,
+      formObj
+    );
+  }
 
-    changeOrderStatus(formObj: any) {
-        return this.http.put(ApiConfig.baseUrl + ApiConfig.putOrderStatusUpdate, formObj);
-    }
+  changePaymentStatus(formObj: any) {
+    return this.http.put(
+      ApiConfig.baseUrl + ApiConfig.putPaymentStatusUpdate,
+      formObj
+    );
+  }
 
-    changePaymentStatus(formObj: any) {
-        return this.http.put(ApiConfig.baseUrl + ApiConfig.putPaymentStatusUpdate, formObj);
-    }
+  deleteOrderById(id: any) {
+    return this.http.delete(
+      ApiConfig.baseUrl + ApiConfig.deleteOrder + "/" + id
+    );
+  }
 
-    deleteOrderById(id: any) {
-        return this.http.delete(ApiConfig.baseUrl + ApiConfig.deleteOrder + "/" + id);
-    }
+  navigateToNextPage(url: any) {
+    return this.http.get(url);
+  }
 
-    navigateToNextPage(url: any) {
-        return this.http.get(url);
-    }
+  navigateToPreviousPage(url: any) {
+    return this.http.get(url);
+  }
 
-    navigateToPreviousPage(url: any) {
-        return this.http.get(url);
-    }
+  navigateToNumberPage(number: any) {
+    return this.http.get(ApiConfig.baseUrl + ApiConfig.page + number);
+  }
 
-    navigateToNumberPage(number: any) {
-        return this.http.get(ApiConfig.baseUrl + ApiConfig.page + number);
-    }
+  searchQueryForOrder(queryWord: any) {
+    return this.http.get(ApiConfig.baseUrl + ApiConfig.searchOrder + queryWord);
+  }
 
-    searchQueryForOrder(queryWord: any) {
-        return this.http.get(ApiConfig.baseUrl + ApiConfig.searchOrder + queryWord);
-    }
+  searchQueryForOrderWithPage(queryWord: any, pageNumber: number) {
+    return this.http.get(
+      ApiConfig.baseUrl +
+        ApiConfig.searchOrder +
+        queryWord +
+        "?page=" +
+        pageNumber
+    );
+  }
 
-    searchQueryForOrderWithPage(queryWord: any, pageNumber: number) {
-        return this.http.get(ApiConfig.baseUrl + ApiConfig.searchOrder + queryWord + '?page=' + pageNumber);
-    }
+  markAllOrdersAsPaid(payload: any) {
+    return this.http.put(ApiConfig.baseUrl + ApiConfig.markAllAsPaid, payload);
+  }
 }
