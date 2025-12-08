@@ -211,61 +211,375 @@ h1 {
   }
 }
 
-// Facilities Section
-.facilities {
-  width: 90%;
+// Facilities Section - Modern Tabbed Design
+.facilities-section {
+  background: linear-gradient(135deg, $bg-light 0%, #ffffff 100%);
+  padding: 80px 0;
+}
+
+.facilities-container {
   max-width: 95%;
-  margin: auto;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.facilities-header {
   text-align: center;
-  padding: 100px 0;
+  margin-bottom: 50px;
+
+  h1 {
+    font-size: 42px;
+    font-weight: 700;
+    color: $text-dark;
+    margin-bottom: 16px;
+  }
+
+  .facilities-subtitle {
+    font-size: 16px;
+    color: $text-muted;
+    // max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
 }
 
-.row {
-  margin-top: 50px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 30px;
+// Tab Navigation
+.facilities-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 50px;
+  flex-wrap: wrap;
 }
 
-.facilities-col {
+.tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
   background: $white;
-  border-radius: 16px;
-  padding: 0;
-  overflow: hidden;
-  box-shadow: $shadow-sm;
+  border: 2px solid #e0e0e0;
+  border-radius: 50px;
+  color: $text-muted;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
   transition: $transition;
-  text-align: left;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  i-feather {
+    display: flex;
+    align-items: center;
+  }
 
   &:hover {
-    transform: translateY(-8px);
-    box-shadow: $shadow-lg;
+    border-color: $accent-color;
+    color: $accent-color;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(38, 166, 154, 0.15);
+  }
 
-    img {
-      transform: scale(1.05);
+  &.active {
+    background: linear-gradient(135deg, $accent-color 0%, $accent-light 100%);
+    border-color: $accent-color;
+    color: $white;
+    box-shadow: 0 4px 15px rgba(38, 166, 154, 0.3);
+
+    i-feather ::ng-deep svg {
+      stroke: $white !important;
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(38, 166, 154, 0.4);
+    }
+  }
+}
+
+// Facilities Marquee Wrapper
+.facilities-marquee-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 20px 0;
+}
+
+// Fade effects on edges - subtle shadow only
+.marquee-fade-left,
+.marquee-fade-right {
+  display: none;
+}
+
+// Marquee track - contains both content sets
+.marquee-track {
+  display: flex;
+  width: fit-content;
+  animation: marquee 40s linear infinite;
+
+  &.paused {
+    animation-play-state: paused;
+  }
+}
+
+// Marquee content - each set of cards
+.marquee-content {
+  display: flex;
+  gap: 30px;
+  padding: 0 15px;
+}
+
+// Marquee animation
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// Facility Card
+.facility-card {
+  background: $white;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: 1px solid #f5f5f5;
+  position: relative;
+  flex-shrink: 0;
+  width: 320px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, $accent-color, $primary-color);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+  }
+
+  &:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 12px 40px rgba(38, 166, 154, 0.2);
+    border-color: rgba(38, 166, 154, 0.3);
+
+    &::before {
+      transform: scaleX(1);
+    }
+
+    .facility-overlay {
+      opacity: 1;
+    }
+
+    .facility-image {
+      transform: scale(1.15);
+    }
+
+    .facility-title {
+      color: $accent-color;
+    }
+  }
+}
+
+.facility-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  background: $bg-light;
+}
+
+.facility-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.facility-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(36, 87, 82, 0.9) 0%,
+    rgba(38, 166, 154, 0.9) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+
+  .view-text {
+    color: $white;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}
+
+.facility-content {
+  padding: 24px;
+
+  .facility-title {
+    font-size: 19px;
+    font-weight: 700;
+    color: $text-dark;
+    margin: 0 0 12px 0;
+    line-height: 1.3;
+    transition: color 0.3s ease;
+  }
+
+  .facility-description {
+    font-size: 14px;
+    color: $text-muted;
+    line-height: 1.8;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .facilities-section {
+    padding: 60px 0;
+  }
+
+  .facilities-header {
+    h1 {
+      font-size: 32px;
+    }
+
+    .facilities-subtitle {
+      font-size: 15px;
     }
   }
 
-  img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    transition: transform 0.5s ease;
+  .facilities-tabs {
+    gap: 12px;
   }
 
-  h3 {
-    font-size: 20px;
-    font-weight: 600;
-    color: $text-dark;
-    margin: 20px 24px 12px;
-    text-align: left;
-  }
-
-  p {
+  .tab-btn {
+    padding: 12px 20px;
     font-size: 14px;
-    color: $text-muted;
-    line-height: 1.7;
-    padding: 0 24px 24px;
-    margin: 0;
+
+    span {
+      display: none;
+    }
+
+    i-feather {
+      margin: 0;
+    }
+  }
+
+  .marquee-fade-left,
+  .marquee-fade-right {
+    width: 60px;
+  }
+
+  .facility-card {
+    width: 280px;
+  }
+
+  .facility-image-wrapper {
+    height: 200px;
+  }
+
+  .facility-content {
+    padding: 20px;
+
+    .facility-title {
+      font-size: 17px;
+    }
+
+    .facility-description {
+      font-size: 13px;
+    }
+  }
+
+  .marquee-content {
+    gap: 20px;
+  }
+
+  .marquee-track {
+    animation-duration: 35s;
+  }
+}
+
+@media (max-width: 480px) {
+  .facilities-container {
+    padding: 0 15px;
+  }
+
+  .facilities-header {
+    margin-bottom: 35px;
+
+    h1 {
+      font-size: 28px;
+    }
+  }
+
+  .facilities-tabs {
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .tab-btn {
+    flex: 1;
+    padding: 10px 12px;
+    min-width: 60px;
+    justify-content: center;
+  }
+
+  .marquee-fade-left,
+  .marquee-fade-right {
+    width: 40px;
+  }
+
+  .facility-card {
+    width: 260px;
+  }
+
+  .marquee-content {
+    gap: 16px;
+  }
+
+  .marquee-track {
+    animation-duration: 30s;
   }
 }
 

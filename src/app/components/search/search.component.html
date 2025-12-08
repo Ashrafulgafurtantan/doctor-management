@@ -123,6 +123,24 @@
           <div class="title-section">
             <h5 class="results-title">Search Results</h5>
             <span class="order-count">{{ itemList.length }} orders</span>
+            <div class="selection-info" *ngIf="selection.selected.length > 0">
+              <mat-icon class="selection-icon">check_circle</mat-icon>
+              <span class="selection-text">
+                {{ selection.selected.length }} selected
+              </span>
+              <span class="selection-amount">
+                Total: {{ getSelectedTotal().toFixed(2) }}
+              </span>
+              <button
+                type="button"
+                class="mark-selected-paid-btn"
+                mat-raised-button
+                (click)="markSelectedAsPaid()"
+              >
+                <mat-icon>payment</mat-icon>
+                <span>Mark Selected as Paid</span>
+              </button>
+            </div>
           </div>
           <div class="search-box">
             <mat-icon class="search-icon">search</mat-icon>
@@ -143,6 +161,28 @@
             mat-table
             matSort
           >
+            <!-- Checkbox Column -->
+            <ng-container matColumnDef="select">
+              <th *matHeaderCellDef mat-header-cell>
+                <mat-checkbox
+                  (change)="$event ? toggleAllRows() : null"
+                  [checked]="selection.hasValue() && isAllSelected()"
+                  [indeterminate]="selection.hasValue() && !isAllSelected()"
+                  [aria-label]="checkboxLabel()"
+                >
+                </mat-checkbox>
+              </th>
+              <td *matCellDef="let row" mat-cell>
+                <mat-checkbox
+                  (click)="$event.stopPropagation()"
+                  (change)="$event ? selection.toggle(row) : null"
+                  [checked]="selection.isSelected(row)"
+                  [aria-label]="checkboxLabel(row)"
+                >
+                </mat-checkbox>
+              </td>
+            </ng-container>
+
             <!-- ID Column -->
             <ng-container matColumnDef="id">
               <th *matHeaderCellDef mat-header-cell mat-sort-header>ID</th>
@@ -308,17 +348,6 @@
               </td>
             </tr>
           </table>
-        </div>
-
-        <!-- Paginator -->
-        <div class="paginator-section">
-          <mat-paginator
-            [length]="itemList.length"
-            [pageSizeOptions]="[10, 30, 60, 100]"
-            [pageSize]="10"
-            aria-label="Select page"
-          >
-          </mat-paginator>
         </div>
       </mat-card-content>
     </mat-card>

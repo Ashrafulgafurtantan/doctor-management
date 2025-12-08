@@ -58,4 +58,5 @@ export enum ApiConfig {
   getItemList = "items/all",
   putPasswordChange = "users/password",
   markAllAsPaid = "orders/clients/mark-as-paid",
+  markSelectedAsPaid = "orders/selected/mark-as-paid",
 }

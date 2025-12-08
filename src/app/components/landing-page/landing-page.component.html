@@ -140,103 +140,112 @@
     </div>
   </ng-template>
 </ngb-carousel>
+
 <!-- ---------- Facilities-------- -->
-<section class="facilities">
-  <h1>Our Facilities</h1>
-  <div class="row">
-    <div class="facilities-col">
-      <img src="../../../assets/images/Zirconia.png" />
-      <h3>Zirconia Crown</h3>
-      <p>
-        Over 40 years, zirconia has already been broadly used for equally
-        commercial and industrial purposes. It is vastly biocompatible and
-        remarkably robust in longevity. Applications for dentistry are found in
-        zirconia crowns, bridges and dental implants. Here are some features of
-        our Zirconia Crown  High Strength  Excellent Aesthetics view.  Smart
-        transparent color blend with other teeth.  Retain more of the existing
-        tooth.
+<section class="facilities-section">
+  <div class="facilities-container">
+    <div class="facilities-header">
+      <h1>Our Facilities</h1>
+      <p class="facilities-subtitle">
+        Comprehensive dental laboratory services with cutting-edge technology
+        and premium materials
       </p>
     </div>
 
-    <div class="facilities-col">
-      <img src="../../../assets/images/Dentures.png" />
-      <h3>Dentures</h3>
-      <p>
-        Dentures are prosthetic devices constructed to replace missing teeth,
-        and are supported by the surrounding soft and hard tissues of the oral
-        cavity. Conventional dentures are removable. However, there are many
-        denture designs, some which rely on bonding or clasping onto teeth or
-        dental implants.
-      </p>
+    <!-- Tab Navigation -->
+    <div class="facilities-tabs">
+      <button
+        class="tab-btn"
+        [class.active]="activeTab === 'crowns'"
+        (click)="setActiveTab('crowns')"
+      >
+        <i-feather name="award"></i-feather>
+        <span>Crowns & Bridges</span>
+      </button>
+      <button
+        class="tab-btn"
+        [class.active]="activeTab === 'orthodontics'"
+        (click)="setActiveTab('orthodontics')"
+      >
+        <i-feather name="activity"></i-feather>
+        <span>Hawley Retainers</span>
+      </button>
+      <button
+        class="tab-btn"
+        [class.active]="activeTab === 'dentures'"
+        (click)="setActiveTab('dentures')"
+      >
+        <i-feather name="smile"></i-feather>
+        <span>Dentures</span>
+      </button>
+      <button
+        class="tab-btn"
+        [class.active]="activeTab === 'other'"
+        (click)="setActiveTab('other')"
+      >
+        <i-feather name="package"></i-feather>
+        <span>Other Services</span>
+      </button>
     </div>
 
-    <div class="facilities-col">
-      <img src="../../../assets/images/PFM.png" />
-      <h3>PFM Crown</h3>
-      <p>
-        PFM is the traditional choice for simple to advanced combination cases.
-        Using different metals such as base metal alloys(cobalt, nickel,
-        chromium), titanium alloys, and gold alloys PFM restorations can be
-        made. Here are some features of our PFM Crown and Bridge  Reliable
-        metal-ceramic bond  Low hardness  Metal Framework designed by CAD/CAM.
-         High degree of intraoral comfort for patients due to high thermal
-        stability  Biocompatible and corrosion-resistant
-      </p>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="facilities-col">
-      <img src="../../../assets/images/Implant.png" />
-      <h3>Implant Crown</h3>
-      <p>
-        A crown is a cap that looks like a tooth and is placed over an existing
-        tooth. It can be used to repair a broken tooth. A dental implant is a
-        surgical implant that replaces a missing tooth and has a crown placed on
-        top to look and function like a normal tooth.
-      </p>
-    </div>
-
-    <div class="facilities-col">
-      <img src="../../../assets/images/E-max.png" />
-      <h3>E-max Crown</h3>
-      <p>
-        Emax is an all-ceramic system that is based on Lithium disilicate glass,
-        and consists of quartz, lithium dioxide, phosphoroxide, alumina,
-        potassium oxide and trace elements. Emax based all-ceramic prostheses
-        are rapidly gaining widespread popularity in cosmetic dentistry due to
-        their excellent esthetics, durability, and strength.
-      </p>
-    </div>
-
-    <div class="facilities-col">
-      <img src="../../../assets/images/Flexible.png" />
-      <h3>Flexible Dentures</h3>
-      <p>
-        Flexible dentures are the recent improvement of traditional dentures to
-        replace missing teeth with soft and transparent base. Flexible dentures
-        are easy and comfortable to use and non-brittle, unlikely to shatter if
-        dropped. They don’t have any metallic clips or attachments and adhesives
-        are unneeded. Flexible dentures are non-allergic and most patients find
-        chewing and speaking easier with it.
-      </p>
+    <!-- Facilities Marquee Carousel -->
+    <div
+      class="facilities-marquee-wrapper"
+      (mouseenter)="pauseMarquee()"
+      (mouseleave)="resumeMarquee()"
+    >
+      <div class="marquee-fade-left"></div>
+      <div class="marquee-fade-right"></div>
+      <div class="marquee-track" [class.paused]="isMarqueePaused">
+        <!-- First set of cards -->
+        <div class="marquee-content">
+          <div
+            class="facility-card"
+            *ngFor="let facility of getAllActiveFacilities()"
+          >
+            <div class="facility-image-wrapper">
+              <img
+                [src]="'../../../assets/images/' + facility.image"
+                [alt]="facility.title"
+                class="facility-image"
+              />
+              <div class="facility-overlay">
+                <span class="view-text">View Details</span>
+              </div>
+            </div>
+            <div class="facility-content">
+              <h3 class="facility-title">{{ facility.title }}</h3>
+              <p class="facility-description">{{ facility.description }}</p>
+            </div>
+          </div>
+        </div>
+        <!-- Duplicate set for seamless loop -->
+        <div class="marquee-content">
+          <div
+            class="facility-card"
+            *ngFor="let facility of getAllActiveFacilities()"
+          >
+            <div class="facility-image-wrapper">
+              <img
+                [src]="'../../../assets/images/' + facility.image"
+                [alt]="facility.title"
+                class="facility-image"
+              />
+              <div class="facility-overlay">
+                <span class="view-text">View Details</span>
+              </div>
+            </div>
+            <div class="facility-content">
+              <h3 class="facility-title">{{ facility.title }}</h3>
+              <p class="facility-description">{{ facility.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Campus Sir -->
-<!--<section class="campus">
-    <h1>Our Doctors</h1>
-    <div class="d-flex" style="justify-content: center">
-        <div class="campus-col">
-            <img src="../../../assets/images/sir.png">
-            <div class="layer">
-                <h3>Dr.Mohd Faizal Hafez <br>(Periodontist)</h3>
-
-            </div>
-        </div>
-    </div>
-</section>-->
 <!-- About Us -->
 <section class="about-section" #about>
   <div class="about-container">
@@ -285,100 +294,8 @@
         </p>
       </div>
     </div>
-
-    <!-- <div class="about-stats">
-      <div class="stat-item">
-        <span class="stat-number">10+</span>
-        <span class="stat-label">Years Experience</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-number">500+</span>
-        <span class="stat-label">Happy Clients</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-number">15K+</span>
-        <span class="stat-label">Cases Completed</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-number">99%</span>
-        <span class="stat-label">Satisfaction Rate</span>
-      </div>
-    </div> -->
   </div>
 </section>
-
-<!-- Campus Madam-->
-<!--<section class="campus">
-  <h1>Our Management</h1>
-  <div class="d-flex" style="justify-content: center">
-    <div class="campus-col">
-      <img src="../../../assets/images/madam.jpeg" />
-      <div class="layer">
-        <h3>
-          Noorfaezah<br />Dalimi <br />
-          CEO and Director
-          <br />
-          <a
-            href="https://www.facebook.com/profile.php?id=100088776870889"
-            target="_blank"
-          >
-            <i-feather name="facebook"></i-feather>
-          </a>
-          <a
-            href="https://api.whatsapp.com/send?phone=01188881905"
-            target="_blank"
-          >
-            <i-feather name="phone"></i-feather>
-          </a>
-        </h3>
-      </div>
-      <div style="margin-top: 8px">
-        <span style="font-size: 20px; font-weight: bold"
-          >Noorfaezah Dalimi</span
-        >
-        <br />
-        <span style="font-size: 14px; font-weight: bold; color: #26a69a"
-          >CEO and Director</span
-        >
-      </div>
-    </div>
-  </div>
-  <div class="d-flex" style="justify-content: center">
-
-      <div class="campus-col" style="margin-right: 30px">
-        <img src="../../../assets/images/nadim.png"/>
-        <div class="layer">
-          <h3>
-            Nadim Mahmud<br />
-            Director
-          </h3>
-        </div>
-        <div style="margin-top: 8px">
-          <span style="font-size: 20px; font-weight: bold">Nadim Mahmud</span>
-          <br />
-          <span style="font-size: 14px; font-weight: bold; color: #26a69a"
-          >Director
-        </span>
-        </div>
-      </div>
-      <div class="campus-col">
-        <img src="../../../assets/images/siddik.png"/>
-        <div class="layer">
-          <h3>
-            Abu Bakar Siddek <br />
-            Director
-          </h3>
-        </div>
-        <div style="margin-top: 8px">
-          <span style="font-size: 20px; font-weight: bold">Abu Bakar Siddek</span>
-          <br />
-          <span style="font-size: 14px; font-weight: bold; color: #26a69a"
-          >Director</span
-          >
-        </div>
-      </div>
-  </div>
-</section>-->
 
 <!-- ----------- Find Us On Google Map -------- -->
 <section class="location-section" #target>
@@ -482,7 +399,7 @@
   <ul>
     <li>Our dental lab provide fast and hassle free service.</li>
     <li>
-      We guarantee that you don’t spend much chair time adjusting the dentures.
+      We guarantee that you don't spend much chair time adjusting the dentures.
     </li>
     <li>
       We make sure that your patient will be happy with the dentures from our
@@ -490,9 +407,6 @@
     </li>
   </ul>
 </section>
-
-<!-- ----------- Why Us -------- -->
-<section class="footer"></section>
 
 <!-- ----------- Footer -------- -->
 <section class="footer contact-us" #contact>

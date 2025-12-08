@@ -14,6 +14,7 @@ import { SearchService } from "../../services/search.service";
 import { MatTableDataSource } from "@angular/material/table";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
+import { SelectionModel } from "@angular/cdk/collections";
 import {
   OrderStatus,
   OrderTableElement,
@@ -32,6 +33,7 @@ const ELEMENT_DATA: OrderTableElement[] = [];
 })
 export class SearchComponent implements OnInit {
   displayedColumns: string[] = [
+    "select",
     "id",
     "order_no",
     "client_id",
@@ -54,6 +56,7 @@ export class SearchComponent implements OnInit {
   clientList!: [];
   clientDropdownOptions: DropdownOption[] = [];
   address!: any;
+  selection = new SelectionModel<OrderTableElement>(true, []);
 
   constructor(
     public formBuilder: FormBuilder,
@@ -140,15 +143,94 @@ export class SearchComponent implements OnInit {
           // Show success toast
           this._alertMsg.successToast(`Found ${this.itemList.length} orders`);
 
+          // Clear selection when new search is performed
+          this.selection.clear();
+
           setTimeout(() => {
             this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
             this.dataSource = new MatTableDataSource(this.itemList);
           });
         },
         (error: any) => this._authService.httpRequestErrorHandler(error)
       );
     }
+  }
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  toggleAllRows() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+
+    this.selection.select(...this.dataSource.data);
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: OrderTableElement): string {
+    if (!row) {
+      return `${this.isAllSelected() ? "deselect" : "select"} all`;
+    }
+    return `${this.selection.isSelected(row) ? "deselect" : "select"} row ${
+      row.id
+    }`;
+  }
+
+  /** Get the total amount of selected rows */
+  getSelectedTotal(): number {
+    return this.selection.selected.reduce(
+      (total, order) => total + parseFloat(order.total_amount.toString()),
+      0
+    );
+  }
+
+  /** Mark selected orders as paid */
+  markSelectedAsPaid() {
+    if (this.selection.selected.length === 0) {
+      this._alertMsg.warningAlert("Please select at least one order");
+      return;
+    }
+
+    const selectedIds = this.selection.selected.map((order) => order.id);
+    const selectedCount = selectedIds.length;
+    const totalAmount = this.getSelectedTotal();
+
+    // Show confirmation modal
+    this._alertMsg
+      .confirmStatusChangeAlert(
+        `Paid for ${selectedCount} Selected Orders (Total: ${totalAmount.toFixed(
+          2
+        )})`
+      )
+      .then((confirmed: any) => {
+        if (confirmed) {
+          const payload = {
+            order_ids: selectedIds,
+          };
+          this._orderService.markSelectedOrdersAsPaid(payload).subscribe(
+            (resp: any) => {
+              this._alertMsg.successToast(
+                `${selectedCount} orders marked as paid successfully`
+              );
+              // Clear selection
+              this.selection.clear();
+              // Refresh the search results
+              this.onSubmit();
+            },
+            (error: any) => {
+              this._alertMsg.submissionErrorAlert();
+              console.error("Error marking selected orders as paid:", error);
+            }
+          );
+        }
+      });
   }
 
   markAllAsPaid() {

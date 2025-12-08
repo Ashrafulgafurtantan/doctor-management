@@ -93,4 +93,11 @@ export class OrderService {
   markAllOrdersAsPaid(payload: any) {
     return this.http.put(ApiConfig.baseUrl + ApiConfig.markAllAsPaid, payload);
   }
+
+  markSelectedOrdersAsPaid(payload: any) {
+    return this.http.put(
+      ApiConfig.baseUrl + ApiConfig.markSelectedAsPaid,
+      payload
+    );
+  }
 }
