@@ -16,42 +16,62 @@ export const TREE_DATA: SideNavNode[] = [
       { name: "Employee List", icon: "groups", routerLink: "/employee-list" },
     ],
   },
-  {
-    name: "Client",
-    icon: "person_add",
-    routerLink: "/",
-    children: [
-      // {name: 'Client Create', icon: 'group_add', routerLink: '/client-create'},
-      { name: "Client List", icon: "diversity_3", routerLink: "/client-list" },
-    ],
-  },
-  {
-    name: "Item",
-    icon: "article",
-    routerLink: "/",
-    children: [
-      //{name: 'Item Create', icon: 'post_add', routerLink: '/item-create'},
-      { name: "Item List", icon: "auto_stories", routerLink: "/item-list" },
-    ],
-  },
+  // {
+  //   name: "Client",
+  //   icon: "person_add",
+  //   routerLink: "/",
+  //   children: [
+  //     // {name: 'Client Create', icon: 'group_add', routerLink: '/client-create'},
+  //     { name: "Client List", icon: "diversity_3", routerLink: "/client-list" },
+  //   ],
+  // },
+  { name: "Client List", icon: "diversity_3", routerLink: "/client-list" },
+  { name: "Item List", icon: "auto_stories", routerLink: "/item-list" },
+  // {
+  //   name: "Item",
+  //   icon: "article",
+  //   routerLink: "/",
+  //   children: [
+  //     //{name: 'Item Create', icon: 'post_add', routerLink: '/item-create'},
+  //     { name: "Item List", icon: "auto_stories", routerLink: "/item-list" },
+  //   ],
+  // },
   {
     name: "Accounts",
     icon: "paid",
     routerLink: "/",
     children: [
+      // {
+      //   name: "Asset List",
+      //   icon: "format_list_numbered",
+      //   routerLink: "/asset-list",
+      // },
+      // { name: "Income List", icon: "sort", routerLink: "/income/list" },
+      // {
+      //   name: "Purchase List",
+      //   icon: "shopping_bag",
+      //   routerLink: "/purchase/list",
+      // },
+      // { name: "Expense List", icon: "local_atm", routerLink: "/expense/list" },
+      // { name: "Peticash List", icon: "receipt", routerLink: "/peticash/list" },
+    ],
+  },
+  {
+    name: "Order",
+    icon: "shopping_cart",
+    routerLink: "/",
+    children: [
+      { name: "Order List", icon: "receipt_long", routerLink: "/orders" },
       {
-        name: "Asset List",
-        icon: "format_list_numbered",
-        routerLink: "/asset-list",
+        name: "Order Delivered",
+        icon: "local_shipping",
+        routerLink: "/today/delivered",
       },
-      { name: "Income List", icon: "sort", routerLink: "/income/list" },
-      {
-        name: "Purchase List",
-        icon: "shopping_bag",
-        routerLink: "/purchase/list",
-      },
-      { name: "Expense List", icon: "local_atm", routerLink: "/expense/list" },
-      { name: "Peticash List", icon: "receipt", routerLink: "/peticash/list" },
+      // {
+      //   name: "Order Create",
+      //   icon: "add_shopping_cart",
+      //   routerLink: "/orders/create",
+      // },
     ],
   },
   {
@@ -63,6 +83,11 @@ export const TREE_DATA: SideNavNode[] = [
         name: "Work Status Summary",
         icon: "equalizer",
         routerLink: "/summary/work-status",
+      },
+      {
+        name: "All Clinic Work Status Summary",
+        routerLink: "/summary/all-clinic-work-status",
+        icon: "medical_services",
       },
       { name: "Work Summary", routerLink: "/summary/work", icon: "pie_chart" },
       {
@@ -76,45 +101,22 @@ export const TREE_DATA: SideNavNode[] = [
         icon: "incomplete_circle",
       },
       {
-        name: "All Clinic Work Status Summary",
-        routerLink: "/summary/all-clinic-work-status",
-        icon: "medical_services",
-      },
-      {
         name: "All Redo Work Summary",
         routerLink: "/summary/all-redo-work-summary",
         icon: "incomplete_circle",
       },
     ],
   },
-  {
-    name: "Order",
-    icon: "shopping_cart",
-    routerLink: "/",
-    children: [
-      { name: "Order List", icon: "receipt_long", routerLink: "/orders" },
-      {
-        name: "Order Create",
-        icon: "add_shopping_cart",
-        routerLink: "/orders/create",
-      },
-    ],
-  },
-  {
-    name: "Today Order",
-    icon: "today",
-    routerLink: "/",
-    children: [
-      {
-        name: "Order Received",
-        icon: "local_mall",
-        routerLink: "/today/received",
-      },
-      {
-        name: "Order Delivered",
-        icon: "local_shipping",
-        routerLink: "/today/delivered",
-      },
-    ],
-  },
+  // {
+  //   name: "Today Order",
+  //   icon: "today",
+  //   routerLink: "/",
+  //   children: [
+  //     {
+  //       name: "Order Received",
+  //       icon: "local_mall",
+  //       routerLink: "/today/received",
+  //     },
+  //   ],
+  // },
 ];
