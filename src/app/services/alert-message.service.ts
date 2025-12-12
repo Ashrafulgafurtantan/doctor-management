@@ -110,4 +110,58 @@ export class AlertMessageService {
       iconColor: "#155724",
     });
   }
+
+  confirmEmployeeStatusChangeAlert(statusName: string, employeeName: string) {
+    return Swal.fire({
+      title: "Are you sure?",
+      text: `Are you sure you want to ${statusName} "${employeeName}"?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, change it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  }
+
+  confirmClientStatusChangeAlert(statusName: string, clientName: string) {
+    return Swal.fire({
+      title: "Are you sure?",
+      text: `Are you sure you want to ${statusName} "${clientName}"?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, change it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  }
+
+  confirmItemStatusChangeAlert(statusName: string, itemName: string) {
+    return Swal.fire({
+      title: "Are you sure?",
+      text: `Are you sure you want to ${statusName} "${itemName}"?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, change it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  }
 }

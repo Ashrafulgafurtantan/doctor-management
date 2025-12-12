@@ -118,7 +118,7 @@ export class OrderCreateComponent implements OnInit {
   }
 
   getEmployeeList() {
-    this._orderService.getEmployeeList().subscribe((resp: any) => {
+    this._orderService.getActiveEmployeeList().subscribe((resp: any) => {
       this.employeeList = [];
       this.employeeList = resp;
 
@@ -131,7 +131,7 @@ export class OrderCreateComponent implements OnInit {
   }
 
   getClientList() {
-    this._orderService.getClientList().subscribe((resp: any) => {
+    this._orderService.getActiveClientList().subscribe((resp: any) => {
       this.clientList = [];
       this.clientList = resp;
       this.filteredClientList = resp;
@@ -144,7 +144,7 @@ export class OrderCreateComponent implements OnInit {
   }
 
   getItemList() {
-    this._orderService.getItemList().subscribe((resp: any) => {
+    this._orderService.getActiveItemList().subscribe((resp: any) => {
       this.teethItemList = [];
       this.teethItemList = resp;
       this.filteredItemList = resp;

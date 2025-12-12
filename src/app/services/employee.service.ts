@@ -25,4 +25,8 @@ export class EmployeeService {
         return this.http.put(ApiConfig.baseUrl + ApiConfig.putEmployeeUpdateRequest, formObj);
     }
 
+    changeEmployeeStatus(data: { id: number; status: number }) {
+        return this.http.put(ApiConfig.baseUrl + ApiConfig.putEmployeeStatusUpdate, data);
+    }
+
 }

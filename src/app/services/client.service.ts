@@ -23,4 +23,8 @@ export class ClientService {
     updateClientRequest(formObj: any) {
         return this.http.put(ApiConfig.baseUrl + ApiConfig.putClientDataUpdateRequest, formObj);
     }
+
+    changeClientStatus(data: { id: number; status: number }) {
+        return this.http.put(ApiConfig.baseUrl + ApiConfig.putClientStatusUpdate, data);
+    }
 }

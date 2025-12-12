@@ -17,12 +17,23 @@ export class OrderService {
     return this.http.get(ApiConfig.baseUrl + ApiConfig.getEmployeeList);
   }
 
+  getActiveEmployeeList() {
+    return this.http.get(ApiConfig.baseUrl + ApiConfig.getActiveEmployeeList);
+  }
+
   getClientList() {
     return this.http.get(ApiConfig.baseUrl + ApiConfig.getClientList);
   }
 
+  getActiveClientList() {
+    return this.http.get(ApiConfig.baseUrl + ApiConfig.getActiveClientList);
+  }
+
   getItemList() {
     return this.http.get(ApiConfig.baseUrl + ApiConfig.getItemList);
+  }
+  getActiveItemList() {
+    return this.http.get(ApiConfig.baseUrl + ApiConfig.getActiveItemList);
   }
 
   orderCreatePostRequest(formData: any) {

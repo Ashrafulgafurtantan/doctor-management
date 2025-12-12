@@ -1,57 +1,134 @@
-<mat-card class="w-100">
-    <mat-card-content>
-        <mat-grid-list cols="4" rowHeight="40px">
-            <mat-grid-tile colspan="3">
-                <span class="title">Employee List</span>
-            </mat-grid-tile>
-            <mat-grid-tile colspan="1">
-                <button (click)="createEmployee()" class="create-attendance"
-                        color="info" mat-raised-button>Create Employee
-                </button>
-            </mat-grid-tile>
-        </mat-grid-list>
+<!--@ts-nocheck-->
+<div class="employee-list-container">
+  <!-- Header Section -->
+  <div class="header-section">
+    <div class="title-section">
+      <h4 class="page-title">Employee List</h4>
+      <span class="employee-count" *ngIf="employeeList?.length">{{ employeeList.length }} employees</span>
+    </div>
+  </div>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Search</mat-label>
-            <input (keyup)="applyFilter($event.target)" matInput>
-        </mat-form-field>
-        <div class="table-responsive">
-            <table [dataSource]="dataSource" class=" w-100" mat-table matSort>
-                <ng-container matColumnDef="id">
-                    <th *matHeaderCellDef mat-header-cell mat-sort-header> Employee ID</th>
-                    <td *matCellDef="let element" mat-cell>
-                        <p class="mb-0 fw-medium">{{element['employee_no']}}</p>
-                    </td>
-                </ng-container>
-                <ng-container matColumnDef="name">
-                    <th *matHeaderCellDef mat-header-cell mat-sort-header> Employee Name</th>
-                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['name']}} </td>
-                </ng-container>
-                <ng-container matColumnDef="phone">
-                    <th *matHeaderCellDef mat-header-cell mat-sort-header>Phone</th>
-                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['phone']}} </td>
-                </ng-container>
-                <ng-container matColumnDef="address">
-                    <th *matHeaderCellDef mat-header-cell mat-sort-header> Address</th>
-                    <td *matCellDef="let element" class="fw-medium" mat-cell> {{element['address']}} </td>
-                </ng-container>
-                <ng-container matColumnDef="actions">
-                    <th *matHeaderCellDef mat-header-cell mat-sort-header> Actions</th>
-                    <td *matCellDef="let element; let i = index" class="fw-medium" mat-cell>
-                        <button (click)="editEmployee(element['id'])" color="primary" mat-icon-button>
-                            <mat-icon aria-label="icon-button">edit_square</mat-icon>
-                        </button>
-                    </td>
-                </ng-container>
-                <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-                <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
-            </table>
-            <mat-paginator
-                    [length]="employeeList.length"
-                    [pageSizeOptions]="[10, 30, 60, 100]"
-                    [pageSize]="10"
-                    aria-label="Select page">
-            </mat-paginator>
+  <!-- Card Container -->
+  <mat-card class="table-card">
+    <mat-card-content>
+      <!-- Toolbar Section -->
+      <div class="toolbar-section">
+        <div class="search-box">
+          <mat-icon class="search-icon">search</mat-icon>
+          <input
+            type="text"
+            placeholder="Search employees by name, phone, address..."
+            (input)="applyFilter($event.target)"
+            class="search-input"
+          />
         </div>
+        <button
+          mat-raised-button
+          color="primary"
+          class="create-btn"
+          (click)="createEmployee()"
+        >
+          <mat-icon>add</mat-icon>
+          Create Employee
+        </button>
+      </div>
+
+      <!-- Table Container -->
+      <div class="table-container">
+        <table [dataSource]="dataSource" class="employees-table" mat-table matSort>
+          <!-- Employee ID Column -->
+          <ng-container matColumnDef="id">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header>Employee ID</th>
+            <td *matCellDef="let element" mat-cell>
+              <span class="cell-text employee-no">{{ element['employee_no'] }}</span>
+            </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header>Name</th>
+            <td *matCellDef="let element" mat-cell>
+              <span class="cell-text">{{ element['name'] }}</span>
+            </td>
+          </ng-container>
+
+          <!-- Phone Column -->
+          <ng-container matColumnDef="phone">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header>Phone</th>
+            <td *matCellDef="let element" mat-cell>
+              <span class="cell-text">{{ element['phone'] }}</span>
+            </td>
+          </ng-container>
+
+          <!-- Address Column -->
+          <ng-container matColumnDef="address">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header>Address</th>
+            <td *matCellDef="let element" mat-cell>
+              <span class="cell-text">{{ element['address'] }}</span>
+            </td>
+          </ng-container>
+
+          <!-- Status Column -->
+          <ng-container matColumnDef="status">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header>Status</th>
+            <td *matCellDef="let element" mat-cell>
+              <div class="status-cell">
+                <span class="status-badge" [ngClass]="getStatusClass(element['status'])">
+                  {{ element['status'] }}
+                </span>
+                <button
+                  mat-icon-button
+                  class="status-edit-btn"
+                  (click)="changeEmployeeStatus(element)"
+                  [matTooltip]="'Change Status'"
+                >
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th *matHeaderCellDef mat-header-cell>Actions</th>
+            <td *matCellDef="let element" mat-cell>
+              <div class="action-buttons">
+                <button
+                  (click)="editEmployee(element['id'])"
+                  mat-icon-button
+                  class="action-btn edit-btn"
+                  [matTooltip]="'Edit Employee'"
+                >
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr *matHeaderRowDef="displayedColumns; sticky: true" mat-header-row></tr>
+          <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
+
+          <!-- No Data Row -->
+          <tr class="no-data-row" *matNoDataRow>
+            <td [attr.colspan]="displayedColumns.length" class="no-data-cell">
+              <div class="no-data-content">
+                <mat-icon>inbox</mat-icon>
+                <span>No employees found</span>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Paginator -->
+      <mat-paginator
+        [length]="employeeList.length"
+        [pageSize]="100"
+        [hidePageSize]="true"
+        aria-label="Select page"
+        class="table-paginator"
+      >
+      </mat-paginator>
     </mat-card-content>
-</mat-card>
+  </mat-card>
+</div>

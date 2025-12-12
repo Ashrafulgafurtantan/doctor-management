@@ -24,4 +24,8 @@ export class ItemService {
     fetchItemsById(id: any) {
         return this.http.get(ApiConfig.baseUrl + ApiConfig.getItemByItemId + id);
     }
+
+    changeItemStatus(data: { id: number; status: number }) {
+        return this.http.put(ApiConfig.baseUrl + ApiConfig.putItemStatusUpdate, data);
+    }
 }
