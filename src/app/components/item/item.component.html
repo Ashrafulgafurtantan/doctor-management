@@ -1,35 +1,44 @@
-<div class="card">
+<div class="card item-card">
+    <div class="card-header">
+        <div class="header-content">
+            <mat-icon class="header-icon">{{updateItemId == null ? 'add_circle' : 'edit'}}</mat-icon>
+            <h4 class="card-title">{{updateItemId == null ? 'Create New Item' : 'Update Item'}}</h4>
+        </div>
+    </div>
     <div class="card-body">
-        <h4 class="card-title">Item {{updateItemId == null ? 'Create' : 'Update' }} </h4>
-        <hr/>
         <form [formGroup]="itemFormGroup" (ngSubmit)="onSubmit()">
-            <div class="container">
-                <div>
-                    <mat-form-field appearance="outline" class="w-100 fs-16">
-                        <mat-label>Name</mat-label>
-                        <input matInput placeholder="Name" class="form-control" formControlName="name" type="text">
+            <div class="form-section">
+                <div class="form-row">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Item Name</mat-label>
+                        <input matInput placeholder="Enter item name" formControlName="name" type="text">
+                        <mat-icon matPrefix>inventory_2</mat-icon>
+                        <mat-error *ngIf="itemFormGroup.get('name')?.hasError('required')">
+                            Name is required
+                        </mat-error>
                     </mat-form-field>
                 </div>
-            </div>
-            <div class="container">
-                <div>
-                    <mat-form-field appearance="outline" class="w-100 fs-16">
+                <div class="form-row">
+                    <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Price</mat-label>
-                        <input matInput placeholder="Price" formControlName="price" type="text">
+                        <input matInput placeholder="Enter price" formControlName="price" type="number">
+                        <mat-icon matPrefix>attach_money</mat-icon>
+                        <mat-error *ngIf="itemFormGroup.get('price')?.hasError('required')">
+                            Price is required
+                        </mat-error>
                     </mat-form-field>
                 </div>
             </div>
-            <mat-grid-list cols="4" rowHeight="40px">
-                <mat-grid-tile colspan="3">
-                    <button class="block-btn-global submit-btn-global" color="primary"
-                            mat-raised-button>{{updateItemId == null ? 'Create' : 'Update'}}</button>
-                </mat-grid-tile>
-                <mat-grid-tile colspan="1">
-                    <button (click)="cancel()" class="block-btn-global cancel-btn-global" color="danger"
-                            mat-raised-button>Cancel
-                    </button>
-                </mat-grid-tile>
-            </mat-grid-list>
+            <div class="button-row">
+                <button type="button" (click)="cancel()" class="btn-cancel" mat-stroked-button>
+                    <mat-icon>close</mat-icon>
+                    Cancel
+                </button>
+                <button type="submit" class="btn-submit" mat-raised-button [disabled]="!itemFormGroup.valid">
+                    <mat-icon>{{updateItemId == null ? 'add' : 'save'}}</mat-icon>
+                    {{updateItemId == null ? 'Create Item' : 'Update Item'}}
+                </button>
+            </div>
         </form>
     </div>
 </div>

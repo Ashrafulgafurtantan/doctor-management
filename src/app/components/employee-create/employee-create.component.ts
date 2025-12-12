@@ -123,7 +123,7 @@ export class EmployeeCreateComponent implements OnInit {
     }
 
     cancel() {
-        this._router.navigateByUrl('/attendance-list').then();
+        this._router.navigateByUrl('/employee-list').then();
     }
 
 }

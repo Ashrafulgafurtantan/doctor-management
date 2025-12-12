@@ -87,7 +87,7 @@ export class ItemComponent implements OnInit {
     }
 
     cancel() {
-        this._router.navigateByUrl('/home').then();
+        this._router.navigateByUrl('/item-list').then();
     }
 
 }

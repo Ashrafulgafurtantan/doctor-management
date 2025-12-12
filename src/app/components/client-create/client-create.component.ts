@@ -107,6 +107,6 @@ export class ClientCreateComponent implements OnInit {
     }
 
     cancel() {
-        this._router.navigateByUrl('/home').then();
+        this._router.navigateByUrl('/client-list').then();
     }
 }
