@@ -2,6 +2,9 @@
   padding: 1rem;
   background: #f5f7fa;
   min-height: 100vh;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 
   @media (max-width: 768px) {
     padding: 0.75rem;
@@ -27,8 +30,34 @@
   }
 
   .header-left {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
     @media (max-width: 768px) {
       width: 100%;
+      gap: 1rem;
+    }
+
+    .logo-container {
+      flex-shrink: 0;
+
+      .dashboard-logo {
+        height: 60px;
+        width: auto;
+        object-fit: contain;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        @media (max-width: 768px) {
+          height: 45px;
+        }
+      }
+    }
+
+    .header-text {
+      flex: 1;
+      min-width: 0;
     }
 
     .page-title {
@@ -150,6 +179,8 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 // Info Cards Row
@@ -158,10 +189,7 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
   margin-bottom: 1rem;
-
-  @media (max-width: 1400px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  max-width: 100%;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
@@ -176,6 +204,8 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    min-width: 0;
+    overflow: hidden;
 
     @media (max-width: 768px) {
       padding: 1rem;
@@ -243,26 +273,39 @@
 // Charts Grid
 .charts-grid {
   width: 100%;
-  display: flex;
-  // grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  margin-bottom: 1rem;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 
-  @media (max-width: 1200px) {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
+  @media (max-width: 1400px) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+    gap: 1.5rem;
   }
 }
 
 .chart-card {
   width: 100%;
-  background: white;
-  padding: 1.25rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  min-width: 0;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: hidden;
+  position: relative;
 
   @media (max-width: 768px) {
-    padding: 1rem;
+    padding: 0;
   }
 
   &.full-width {
@@ -273,26 +316,76 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin: 0 0 1rem 0;
-    font-size: 1.1rem;
+    margin: 0 0 0.75rem 0;
+    font-size: 1rem;
     font-weight: 600;
     color: #2c3e50;
+    padding: 0;
 
     @media (max-width: 768px) {
-      font-size: 1rem;
-      margin: 0 0 0.75rem 0;
+      font-size: 0.95rem;
+      margin: 0 0 0.5rem 0;
     }
 
     mat-icon {
-      font-size: 22px;
-      width: 22px;
-      height: 22px;
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
       color: #667eea;
 
       @media (max-width: 768px) {
-        font-size: 20px;
-        width: 20px;
-        height: 20px;
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+
+  // Chart container
+  apx-chart {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  // Ensure ApexCharts are responsive and remove backgrounds
+  ::ng-deep {
+    .apexcharts-canvas {
+      width: 100% !important;
+      max-width: 100%;
+      background: transparent !important;
+    }
+
+    svg {
+      width: 100% !important;
+      max-width: 100%;
+      background: transparent !important;
+    }
+
+    .apexcharts-inner {
+      background: transparent !important;
+    }
+
+    .apexcharts-legend {
+      max-width: 100%;
+    }
+
+    .apexcharts-datalabels {
+      @media (max-width: 768px) {
+        font-size: 9px !important;
+      }
+    }
+
+    .apexcharts-text {
+      @media (max-width: 768px) {
+        font-size: 9px !important;
+      }
+    }
+
+    .apexcharts-xaxis-label,
+    .apexcharts-yaxis-label {
+      @media (max-width: 768px) {
+        font-size: 9px !important;
       }
     }
   }
@@ -361,12 +454,33 @@
 // Top Clients Section
 .top-clients-section {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
+  max-width: 100%;
+  overflow: hidden;
 
-  @media (max-width: 1200px) {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
+  @media (max-width: 1400px) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  > .chart-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+    @media (max-width: 768px) {
+      padding: 1rem;
+    }
+
+    h3 {
+      margin-bottom: 1rem;
+
+      @media (max-width: 768px) {
+        margin-bottom: 0.75rem;
+      }
+    }
   }
 
   .clients-list {

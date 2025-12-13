@@ -2,11 +2,20 @@
   <!-- Page Header -->
   <div class="page-header">
     <div class="header-left">
-      <h1 class="page-title">
-        <mat-icon>dashboard</mat-icon>
-        Dashboard Analytics
-      </h1>
-      <p class="page-subtitle">{{ selectedYear }} Performance Overview</p>
+      <div class="logo-container">
+        <img
+          src="assets/images/logo.jpg"
+          alt="Vivadent Logo"
+          class="dashboard-logo"
+        />
+      </div>
+      <div class="header-text">
+        <h1 class="page-title">
+          <mat-icon>dashboard</mat-icon>
+          Dashboard Vivadent
+        </h1>
+        <p class="page-subtitle">{{ selectedYear }} Overview</p>
+      </div>
     </div>
     <div class="header-filters">
       <mat-form-field appearance="outline" class="compact-filter">
@@ -64,7 +73,7 @@
     <!-- Row 1: Info Cards -->
     <div class="info-cards-row">
       <div class="info-card">
-        <div class="info-label">Average Order Value</div>
+        <div class="info-label">Average Order Price</div>
         <div class="info-value">
           {{ formatCurrency(dashboardData.overview.average_order_value) }}
         </div>
@@ -179,7 +188,7 @@
       <div class="chart-card">
         <h3>
           <mat-icon>show_chart</mat-icon>
-          Monthly Order Value
+          Monthly Overview
         </h3>
         <apx-chart
           #monthlyChart

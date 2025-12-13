@@ -182,8 +182,10 @@ export class DashboardComponent implements OnInit {
       ],
       chart: {
         type: "bar",
-        height: 280,
+        height: 250,
+        width: '100%',
         toolbar: { show: false },
+        background: 'transparent',
       },
       plotOptions: {
         bar: {
@@ -244,8 +246,10 @@ export class DashboardComponent implements OnInit {
       ],
       chart: {
         type: "bar",
-        height: 280,
+        height: 250,
+        width: '100%',
         toolbar: { show: false },
+        background: 'transparent',
       },
       plotOptions: {
         bar: {
@@ -307,8 +311,10 @@ export class DashboardComponent implements OnInit {
       ],
       chart: {
         type: "bar",
-        height: 280,
+        height: 250,
+        width: '100%',
         toolbar: { show: false },
+        background: 'transparent',
       },
       plotOptions: {
         bar: {
@@ -360,7 +366,9 @@ export class DashboardComponent implements OnInit {
       ],
       chart: {
         type: "donut",
-        height: 200,
+        height: 250,
+        width: '100%',
+        background: 'transparent',
       },
       labels: ["Paid", "Unpaid"],
       colors: ["#10b981", "#ef4444"],
