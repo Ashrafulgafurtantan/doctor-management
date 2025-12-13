@@ -37,6 +37,8 @@ import { PeticashCreateComponent } from "./peticash-create/peticash-create.compo
 import { SearchableDropdownComponent } from "./searchable-dropdown/searchable-dropdown.component";
 import { PaymentStatusComponent } from "./payment-status/payment-status.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { SaleInvoiceComponent } from './sale-invoice/sale-invoice.component';
+import { ShareLinkDialogComponent } from './sale-invoice/share-link-dialog/share-link-dialog.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +73,8 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     PeticashCreateComponent,
     SearchableDropdownComponent,
     PaymentStatusComponent,
+    SaleInvoiceComponent,
+    ShareLinkDialogComponent,
   ],
   imports: [
     CommonModule,

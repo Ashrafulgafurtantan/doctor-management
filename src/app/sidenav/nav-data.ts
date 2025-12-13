@@ -41,6 +41,11 @@ export const TREE_DATA: SideNavNode[] = [
     icon: "paid",
     routerLink: "/",
     children: [
+      {
+        name: "Sale Invoice",
+        icon: "receipt",
+        routerLink: "/sale-invoice",
+      },
       // {
       //   name: "Asset List",
       //   icon: "format_list_numbered",

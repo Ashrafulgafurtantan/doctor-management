@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Share Report Link</h2>
+<mat-dialog-content>
+  <p class="description">Copy the link below to share this report:</p>
+  <div class="link-container">
+    <input
+      type="text"
+      class="link-input"
+      [value]="data.link"
+      readonly
+      #linkInput
+    />
+    <button
+      mat-raised-button
+      color="primary"
+      class="copy-btn"
+      (click)="copyLink()"
+    >
+      <mat-icon>{{ copied ? "check" : "content_copy" }}</mat-icon>
+      {{ copied ? "Copied!" : "Copy" }}
+    </button>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-flat-button color="warn" (click)="close()">Close</button>
+</mat-dialog-actions>
