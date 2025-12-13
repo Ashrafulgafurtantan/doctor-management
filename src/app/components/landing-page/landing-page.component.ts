@@ -98,6 +98,30 @@ export class LandingPageComponent {
           "Classic removable orthodontic retainer. Durable wire and acrylic design to maintain teeth alignment after braces.",
       },
       {
+        image: "Hawley_Retainer_5.jpeg",
+        title: "Hawley Retainer",
+        description:
+          "Classic removable orthodontic retainer. Durable wire and acrylic design to maintain teeth alignment after braces.",
+      },
+      {
+        image: "Hawley_Retainer_6.jpeg",
+        title: "Hawley Retainer",
+        description:
+          "Classic removable orthodontic retainer. Durable wire and acrylic design to maintain teeth alignment after braces.",
+      },
+      {
+        image: "Hawley_Retainer_7.jpeg",
+        title: "Hawley Retainer",
+        description:
+          "Classic removable orthodontic retainer. Durable wire and acrylic design to maintain teeth alignment after braces.",
+      },
+      {
+        image: "Hawley_Retainer_8.jpeg",
+        title: "Hawley Retainer",
+        description:
+          "Classic removable orthodontic retainer. Durable wire and acrylic design to maintain teeth alignment after braces.",
+      },
+      {
         image: "Hawley_Retainer_3.jpg",
         title: "Fixed Retainer",
         description:

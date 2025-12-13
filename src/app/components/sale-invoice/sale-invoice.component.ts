@@ -8,7 +8,6 @@ import {
 import { ApiConfig } from "../../utility/apiConfig";
 import { OrderService } from "../../services/order.service";
 import { AlertMessageService } from "../../services/alert-message.service";
-import { DropdownOption } from "../searchable-dropdown/searchable-dropdown.component";
 import { ShareLinkDialogComponent } from "./share-link-dialog/share-link-dialog.component";
 
 @Component({
@@ -22,12 +21,10 @@ export class SaleInvoiceComponent implements OnInit {
   selectedMonth: number | null = null;
   selectedDate: number | null = null;
   selectedPaymentStatus: number | null = null;
-  selectedClient: number | null = null;
+  searchText: string = "";
 
   // Data
   orders: any[] = [];
-  clients: any[] = [];
-  clientOptions: DropdownOption[] = [];
   summary: any = {
     total_orders: 0,
     total_amount: 0,
@@ -90,32 +87,7 @@ export class SaleInvoiceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadActiveClients();
     this.loadSaleInvoices();
-  }
-
-  loadActiveClients(): void {
-    this.saleInvoiceService.getActiveClients().subscribe({
-      next: (response: any) => {
-        this.clients = response.data || response || [];
-        this.clientOptions = [
-          { id: 0, name: "All Clients" },
-          ...this.clients.map((client: any) => ({
-            id: client.id,
-            name: client.name,
-            secondaryText: `Dr. ${client.doctor_name}`,
-          })),
-        ];
-      },
-      error: (error) => {
-        console.error("Error loading clients:", error);
-      },
-    });
-  }
-
-  onClientSelected(option: DropdownOption): void {
-    this.selectedClient = option.id === 0 ? null : (option.id as number);
-    this.onFilterChange();
   }
 
   loadSaleInvoices(): void {
@@ -134,8 +106,8 @@ export class SaleInvoiceComponent implements OnInit {
     if (this.selectedPaymentStatus !== null) {
       filters.payment_status = this.selectedPaymentStatus;
     }
-    if (this.selectedClient) {
-      filters.client_id = this.selectedClient;
+    if (this.searchText && this.searchText.trim()) {
+      filters.search = this.searchText.trim();
     }
 
     this.saleInvoiceService.getSaleInvoices(filters).subscribe({
@@ -162,7 +134,7 @@ export class SaleInvoiceComponent implements OnInit {
     this.selectedMonth = new Date().getMonth() + 1;
     this.selectedDate = null;
     this.selectedPaymentStatus = null;
-    this.selectedClient = null;
+    this.searchText = "";
     this.loadSaleInvoices();
   }
 
@@ -298,8 +270,8 @@ export class SaleInvoiceComponent implements OnInit {
     if (this.selectedPaymentStatus !== null) {
       url += `&payment_status=${this.selectedPaymentStatus}`;
     }
-    if (this.selectedClient) {
-      url += `&client_id=${this.selectedClient}`;
+    if (this.searchText && this.searchText.trim()) {
+      url += `&search=${encodeURIComponent(this.searchText.trim())}`;
     }
 
     return url;

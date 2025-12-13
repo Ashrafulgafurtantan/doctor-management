@@ -66,14 +66,16 @@
           </mat-select>
         </mat-form-field>
 
-        <app-searchable-dropdown
-          class="filter-field filter-field-wide"
-          [options]="clientOptions"
-          label="Client"
-          placeholder="Search client..."
-          [(ngModel)]="selectedClient"
-          (optionSelected)="onClientSelected($event)"
-        ></app-searchable-dropdown>
+        <mat-form-field appearance="outline" class="filter-field filter-field-wide">
+          <mat-label>Search</mat-label>
+          <input
+            matInput
+            [(ngModel)]="searchText"
+            (ngModelChange)="onFilterChange()"
+            placeholder="Search by client, patient, order no..."
+            type="text"
+          />
+        </mat-form-field>
 
         <button
           mat-stroked-button

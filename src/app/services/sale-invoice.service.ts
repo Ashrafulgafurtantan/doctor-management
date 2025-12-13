@@ -8,7 +8,7 @@ export interface SaleInvoiceFilters {
   month?: number;
   date?: number;
   payment_status?: number;
-  client_id?: number;
+  search?: string;
 }
 
 @Injectable({
@@ -33,8 +33,8 @@ export class SaleInvoiceService {
     if (filters.payment_status !== undefined && filters.payment_status !== null) {
       params = params.set('payment_status', filters.payment_status.toString());
     }
-    if (filters.client_id) {
-      params = params.set('client_id', filters.client_id.toString());
+    if (filters.search) {
+      params = params.set('search', filters.search);
     }
 
     return this.http.get(ApiConfig.baseUrl + 'sale-invoices', { params });

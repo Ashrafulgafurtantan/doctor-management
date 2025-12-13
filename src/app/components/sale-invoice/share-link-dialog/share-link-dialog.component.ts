@@ -8,6 +8,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 })
 export class ShareLinkDialogComponent {
   copied = false;
+  whatsappNumber = "";
 
   constructor(
     public dialogRef: MatDialogRef<ShareLinkDialogComponent>,
@@ -21,6 +22,27 @@ export class ShareLinkDialogComponent {
         this.copied = false;
       }, 2000);
     });
+  }
+
+  shareOnWhatsApp(): void {
+    // Remove any non-digit characters from the phone number
+    const phoneNumber = this.whatsappNumber.replace(/\D/g, "");
+
+    if (!phoneNumber) {
+      alert("Please enter a WhatsApp number");
+      return;
+    }
+
+    // Create the WhatsApp message
+    const message = encodeURIComponent(
+      `Here is the Invoice Report Link:\n\n${this.data.link}`
+    );
+
+    // WhatsApp URL - works on both desktop (opens WhatsApp Web) and mobile (opens WhatsApp app)
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+
+    // Open WhatsApp in a new window
+    window.open(whatsappUrl, "_blank");
   }
 
   close(): void {
