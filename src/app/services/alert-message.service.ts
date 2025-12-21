@@ -111,6 +111,20 @@ export class AlertMessageService {
     });
   }
 
+  errorToast(message: string) {
+    Swal.fire({
+      toast: true,
+      position: "top-end",
+      icon: "error",
+      title: message,
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      background: "#f8d7da",
+      iconColor: "#721c24",
+    });
+  }
+
   confirmEmployeeStatusChangeAlert(statusName: string, employeeName: string) {
     return Swal.fire({
       title: "Are you sure?",

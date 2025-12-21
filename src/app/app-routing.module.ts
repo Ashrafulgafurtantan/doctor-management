@@ -34,6 +34,7 @@ import { ExpenseListComponent } from "./components/expense-list/expense-list.com
 import { PeticashListComponent } from "./components/peticash-list/peticash-list.component";
 import { PeticashCreateComponent } from "./components/peticash-create/peticash-create.component";
 import { SaleInvoiceComponent } from "./components/sale-invoice/sale-invoice.component";
+import { CashSaleComponent } from "./components/cash-sale/cash-sale.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "/welcome", pathMatch: "full" },
@@ -168,6 +169,11 @@ const routes: Routes = [
   {
     path: "sale-invoice",
     component: SaleInvoiceComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "cash-sale",
+    component: CashSaleComponent,
     canActivate: [AuthGuard],
   },
   { path: "", redirectTo: "/home", pathMatch: "full" },

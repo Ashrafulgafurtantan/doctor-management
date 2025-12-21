@@ -39,6 +39,7 @@ import { PaymentStatusComponent } from "./payment-status/payment-status.componen
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { SaleInvoiceComponent } from './sale-invoice/sale-invoice.component';
 import { ShareLinkDialogComponent } from './sale-invoice/share-link-dialog/share-link-dialog.component';
+import { CashSaleComponent } from './cash-sale/cash-sale.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { ShareLinkDialogComponent } from './sale-invoice/share-link-dialog/share
     PaymentStatusComponent,
     SaleInvoiceComponent,
     ShareLinkDialogComponent,
+    CashSaleComponent,
   ],
   imports: [
     CommonModule,

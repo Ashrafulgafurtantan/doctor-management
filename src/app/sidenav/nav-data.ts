@@ -37,6 +37,11 @@ export const TREE_DATA: SideNavNode[] = [
   //   ],
   // },
   {
+    name: "Cash Sale",
+    icon: "point_of_sale",
+    routerLink: "/cash-sale",
+  },
+  {
     name: "Accounts",
     icon: "paid",
     routerLink: "/",
