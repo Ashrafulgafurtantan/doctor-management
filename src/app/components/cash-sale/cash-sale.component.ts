@@ -25,7 +25,7 @@ export class CashSaleComponent implements OnInit {
   ) {
     this.cashSaleForm = this.fb.group({
       date: [new Date(), Validators.required],
-      particular: ["Cash Sale", Validators.required],
+      particular: ["", Validators.required],
       paymentMethod: ["Cash", Validators.required],
       amount: [null, [Validators.required, Validators.min(0.01)]],
       reference: [""],
