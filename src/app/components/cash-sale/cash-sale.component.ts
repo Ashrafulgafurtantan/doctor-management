@@ -21,7 +21,7 @@ export class CashSaleComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private datePipe: DatePipe,
-    private cashSaleService: CashSaleService
+    private cashSaleService: CashSaleService,
   ) {
     this.cashSaleForm = this.fb.group({
       date: [new Date(), Validators.required],
@@ -60,6 +60,7 @@ export class CashSaleComponent implements OnInit {
       amount: parseFloat(formValues.amount),
       payment_method: formValues.paymentMethod,
       particulars: formValues.particular,
+      reference: formValues.reference,
     };
 
     // Open PDF in new tab - browser will show print/save dialog

@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
+import { SelectionModel } from "@angular/cdk/collections";
 import {
   SaleInvoiceService,
   SaleInvoiceFilters,
@@ -59,6 +60,7 @@ export class SaleInvoiceComponent implements OnInit {
 
   loading = false;
   displayedColumns: string[] = [
+    "select",
     "id",
     "order_no",
     "client",
@@ -70,13 +72,14 @@ export class SaleInvoiceComponent implements OnInit {
     "payment_status",
     "actions",
   ];
+  selection = new SelectionModel<any>(true, []);
 
   constructor(
     private saleInvoiceService: SaleInvoiceService,
     private orderService: OrderService,
     private alertService: AlertMessageService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {
     const now = new Date();
     this.selectedYear = now.getFullYear();
@@ -185,7 +188,7 @@ export class SaleInvoiceComponent implements OnInit {
           this.orderService.changeOrderStatus(formObj).subscribe({
             next: () => {
               this.alertService.successfulSubmissionAlert(
-                "Order Status Changed Successfully"
+                "Order Status Changed Successfully",
               );
               this.loadSaleInvoices();
             },
@@ -204,7 +207,7 @@ export class SaleInvoiceComponent implements OnInit {
         this.orderService.deleteOrderById(orderId).subscribe({
           next: () => {
             this.alertService.successfulSubmissionAlert(
-              "Order deleted successfully"
+              "Order deleted successfully",
             );
             this.loadSaleInvoices();
           },
@@ -233,7 +236,7 @@ export class SaleInvoiceComponent implements OnInit {
           this.orderService.changePaymentStatus(formObj).subscribe({
             next: () => {
               this.alertService.successToast(
-                `Payment Status Changed to ${newStatusText}`
+                `Payment Status Changed to ${newStatusText}`,
               );
               this.loadSaleInvoices();
             },
@@ -275,5 +278,79 @@ export class SaleInvoiceComponent implements OnInit {
     }
 
     return url;
+  }
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected(): boolean {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.orders.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  toggleAllRows(): void {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+    this.selection.select(...this.orders);
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: any): string {
+    if (!row) {
+      return `${this.isAllSelected() ? "deselect" : "select"} all`;
+    }
+    return `${this.selection.isSelected(row) ? "deselect" : "select"} row ${
+      row.id
+    }`;
+  }
+
+  /** Get the total amount of selected rows */
+  getSelectedTotal(): number {
+    return this.selection.selected.reduce(
+      (total, order) =>
+        total + parseFloat(order.total_amount?.toString() || "0"),
+      0,
+    );
+  }
+
+  /** Mark selected orders as paid */
+  markSelectedAsPaid(): void {
+    if (this.selection.selected.length === 0) {
+      this.alertService.warningAlert("Please select at least one order");
+      return;
+    }
+
+    const selectedIds = this.selection.selected.map((order) => order.id);
+    const selectedCount = selectedIds.length;
+    const totalAmount = this.getSelectedTotal();
+
+    this.alertService
+      .confirmStatusChangeAlert(
+        `Paid for ${selectedCount} Selected Orders (Total: ${totalAmount.toFixed(
+          2,
+        )})`,
+      )
+      .then((confirmed: boolean) => {
+        if (confirmed) {
+          const payload = {
+            order_ids: selectedIds,
+          };
+          this.orderService.markSelectedOrdersAsPaid(payload).subscribe({
+            next: () => {
+              this.alertService.successToast(
+                `${selectedCount} orders marked as paid successfully`,
+              );
+              this.selection.clear();
+              this.loadSaleInvoices();
+            },
+            error: (error) => {
+              this.alertService.submissionErrorAlert();
+              console.error("Error marking selected orders as paid:", error);
+            },
+          });
+        }
+      });
   }
 }

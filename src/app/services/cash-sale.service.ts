@@ -8,6 +8,7 @@ export interface CashSaleData {
   amount: number;
   payment_method: string;
   particulars: string;
+  reference: string;
 }
 
 @Injectable({
@@ -35,6 +36,7 @@ export class CashSaleService {
       amount: data.amount.toString(),
       payment_method: data.payment_method,
       particulars: data.particulars,
+      reference: data.reference || "",
     });
 
     return `${ApiConfig.downloadPdfUrl}cash-sale?${params.toString()}`;

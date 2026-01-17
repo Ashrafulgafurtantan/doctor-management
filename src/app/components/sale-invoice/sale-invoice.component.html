@@ -66,7 +66,10 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="filter-field filter-field-wide">
+        <mat-form-field
+          appearance="outline"
+          class="filter-field filter-field-wide"
+        >
           <mat-label>Search</mat-label>
           <input
             matInput
@@ -161,9 +164,57 @@
         <p>Loading sale invoices...</p>
       </div>
 
+      <!-- Selection Info Bar -->
+      <div class="selection-info-bar" *ngIf="selection.selected.length > 0">
+        <div class="selection-info">
+          <div class="selection-count-wrapper">
+            <span class="count-number">{{ selection.selected.length }}</span>
+            <span class="count-label">selected</span>
+          </div>
+          <div class="selection-amount-wrapper">
+            <span class="amount-label">Total</span>
+            <span class="amount-value"
+              >RM {{ getSelectedTotal().toFixed(2) }}</span
+            >
+          </div>
+        </div>
+        <div class="selection-actions">
+          <button class="btn-clear" (click)="selection.clear()">
+            <mat-icon>close</mat-icon>
+            Clear
+          </button>
+          <button class="btn-mark-paid" (click)="markSelectedAsPaid()">
+            <mat-icon>check</mat-icon>
+            Mark as Paid
+          </button>
+        </div>
+      </div>
+
       <!-- Table Container -->
       <div class="table-container" *ngIf="!loading">
         <table [dataSource]="orders" class="orders-table" mat-table matSort>
+          <!-- Checkbox Column -->
+          <ng-container matColumnDef="select">
+            <th *matHeaderCellDef mat-header-cell>
+              <mat-checkbox
+                (change)="$event ? toggleAllRows() : null"
+                [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()"
+                [aria-label]="checkboxLabel()"
+              >
+              </mat-checkbox>
+            </th>
+            <td *matCellDef="let row" mat-cell>
+              <mat-checkbox
+                (click)="$event.stopPropagation()"
+                (change)="$event ? selection.toggle(row) : null"
+                [checked]="selection.isSelected(row)"
+                [aria-label]="checkboxLabel(row)"
+              >
+              </mat-checkbox>
+            </td>
+          </ng-container>
+
           <!-- ID Column -->
           <ng-container matColumnDef="id">
             <th *matHeaderCellDef mat-header-cell mat-sort-header>ID</th>
