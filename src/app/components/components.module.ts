@@ -40,6 +40,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { SaleInvoiceComponent } from './sale-invoice/sale-invoice.component';
 import { ShareLinkDialogComponent } from './sale-invoice/share-link-dialog/share-link-dialog.component';
 import { CashSaleComponent } from './cash-sale/cash-sale.component';
+import { InstantInvoiceComponent } from './instant-invoice/instant-invoice.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { CashSaleComponent } from './cash-sale/cash-sale.component';
     SaleInvoiceComponent,
     ShareLinkDialogComponent,
     CashSaleComponent,
+    InstantInvoiceComponent,
   ],
   imports: [
     CommonModule,
