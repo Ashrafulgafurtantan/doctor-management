@@ -194,10 +194,15 @@ export class InstantInvoiceComponent implements OnInit {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background: url('${
-        window.location.origin
-      }/assets/images/bg_vivadent.png') no-repeat center center;
-      background-size: auto;
+    }
+    .watermark {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: -1;
+      opacity: 0.8;
+      pointer-events: none;
     }
     table {
       border-collapse: collapse;
@@ -224,29 +229,24 @@ export class InstantInvoiceComponent implements OnInit {
       top: 0;
       left: 0;
       right: 0;
-      height: 30px;
+      height: 20px;
       padding: 5px 0;
     }
 
-    /* Fixed page footer - repeats on every printed page */
-    .page-footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 60px;
-      padding: 5px 0;
+    /* Spacer that repeats on each page to push content below fixed header */
+    thead .spacer-row td {
+      height: 35px;
+      padding: 0;
+      border: none !important;
     }
 
-    /* Main content with margins to clear fixed header/footer */
+    /* Main content with margins to clear fixed header on page 1 */
     .content {
-      margin-top: 40px;
-      margin-bottom: 70px;
+      margin-top: 35px;
     }
 
-    /* Page margins reserve space for fixed header (top) and footer (bottom) */
     @page {
-      margin: 45px 10mm 75px 10mm;
+      margin: 5mm 10mm 15mm 10mm;
     }
     @media print {
       body {
@@ -258,6 +258,11 @@ export class InstantInvoiceComponent implements OnInit {
   </style>
 </head>
 <body>
+
+  <!-- Watermark centered on every page -->
+  <img class="watermark" src="${
+    window.location.origin
+  }/assets/images/bg_vivadent.png" />
 
   <!-- Repeating page header (fixed position) -->
   <div class="page-header">
@@ -324,11 +329,11 @@ export class InstantInvoiceComponent implements OnInit {
         </td>
       </tr>
     </table>
-    <br/>
 
     <!-- Body table -->
     <table class="bordertable">
       <thead>
+        <tr class="spacer-row"><td colspan="6"></td></tr>
         <tr style="background-color: #258ab9; color: #fff; font-weight: bolder;">
           <th style="width: 60px;">Case</th>
           <th style="width: 140px;">Patient Name</th>
