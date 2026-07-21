@@ -1,41 +1,113 @@
-<div class="body-wrapper background">
-    <div class="page-wrapper">
-        <div>
-            <div fxLayout="column" fxLayoutAlign="space-around center">
-                <div fxFlex.md="66%" class="overflow-x-hidden" fxFlex.lg="66%" fxFlex.xl="66%" fxFlex.sm="100%">
-                    <mat-card>
-                        <mat-card-content>
-                            <h3>Welcome</h3>
-                            <h5>Login to your account</h5>
-                            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                                <mat-form-field class="w-100 fs-16" appearance="outline">
-                                    <mat-label>Email</mat-label>
-                                    <input matInput placeholder="Username" type="text" formControlName="username"
-                                           required>
-                                    <mat-error>Please provide a valid username</mat-error>
-                                </mat-form-field>
+<div class="auth" @pageEnter>
 
-                                <mat-form-field class="w-100 fs-16" appearance="outline">
-                                    <mat-label>Password</mat-label>
+    <!-- ============ LEFT : BRAND / HERO PANEL ============ -->
+    <aside class="auth__brand" @brandStagger>
+        <!-- ambient animated background -->
+        <div class="orb orb--1"></div>
+        <div class="orb orb--2"></div>
+        <div class="orb orb--3"></div>
+        <div class="grid-overlay"></div>
 
-                                    <input matInput placeholder="Password"
-                                           [type]="visibilityForPass ? 'text' : 'password'" formControlName="password"
-                                           required>
-                                    <mat-icon matSuffix (click)="toggleVisibility()">
-                                        {{visibilityForPass ? 'visibility' : 'visibility_off'}}
-                                    </mat-icon>
-                                    <mat-error>Please provide a valid password</mat-error>
-                                </mat-form-field>
-                                <button [disabled]="!loginForm.valid" mat-button class="btn btn-info fw-normal"
-                                        type="submit">Login
-                                </button>
-                            </form>
-                        </mat-card-content>
-                    </mat-card>
-                </div>
+        <div class="auth__brand-inner">
+            <div class="logo-lockup brand-anim">
+                <span class="logo-mark">
+                    <i class="fas fa-tooth"></i>
+                </span>
+                <span class="logo-text">Vivadent</span>
             </div>
+
+            <div class="brand-copy brand-anim">
+                <h1>The complete dental&nbsp;lab management platform.</h1>
+                <p>Track orders, clients, invoices and production — all in one refined workspace built for modern dental laboratories.</p>
+            </div>
+
+            <ul class="brand-features">
+                <li class="brand-anim">
+                    <span class="feat-ico"><i class="fas fa-clipboard-list"></i></span>
+                    <span>End-to-end order & production tracking</span>
+                </li>
+                <li class="brand-anim">
+                    <span class="feat-ico"><i class="fas fa-file-invoice-dollar"></i></span>
+                    <span>Instant invoicing & payment status</span>
+                </li>
+                <li class="brand-anim">
+                    <span class="feat-ico"><i class="fas fa-chart-line"></i></span>
+                    <span>Real-time insights & summaries</span>
+                </li>
+            </ul>
+
+            <p class="brand-foot brand-anim">© 2026 Vivadent · Crafted for precision.</p>
         </div>
-    </div>
+    </aside>
+
+    <!-- ============ RIGHT : LOGIN FORM ============ -->
+    <main class="auth__panel">
+        <div class="auth__card" [@errorShake]="errorMessage ? errorMessage : null">
+
+            <!-- compact logo shown only on small screens -->
+            <div class="logo-lockup logo-lockup--mobile anim-item" @formStagger>
+                <span class="logo-mark">
+                    <i class="fas fa-tooth"></i>
+                </span>
+                <span class="logo-text">Vivadent</span>
+            </div>
+
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" @formStagger>
+
+                <header class="auth__head anim-item">
+                    <h2>Welcome back</h2>
+                    <p>Please sign in to your account to continue.</p>
+                </header>
+
+                <!-- error banner -->
+                <div class="auth__error anim-item" *ngIf="errorMessage" @errorShake>
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>{{ errorMessage }}</span>
+                </div>
+
+                <mat-form-field class="w-100 field anim-item" appearance="outline">
+                    <mat-label>Email or username</mat-label>
+                    <mat-icon matPrefix class="field-ico">person_outline</mat-icon>
+                    <input matInput placeholder="you@vivadent.com" type="text"
+                           formControlName="username" autocomplete="username" required>
+                    <mat-error>Please provide a valid username</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="w-100 field anim-item" appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <mat-icon matPrefix class="field-ico">lock_outline</mat-icon>
+                    <input matInput placeholder="Enter your password"
+                           [type]="visibilityForPass ? 'text' : 'password'"
+                           formControlName="password" autocomplete="current-password" required>
+                    <button mat-icon-button matSuffix type="button" class="pw-toggle"
+                            (click)="toggleVisibility()"
+                            [attr.aria-label]="visibilityForPass ? 'Hide password' : 'Show password'">
+                        <mat-icon>{{ visibilityForPass ? 'visibility' : 'visibility_off' }}</mat-icon>
+                    </button>
+                    <mat-error>Please provide a valid password</mat-error>
+                </mat-form-field>
+
+                <div class="auth__options anim-item">
+                    <mat-checkbox color="primary" class="remember">Remember me</mat-checkbox>
+                </div>
+
+                <button class="auth__submit anim-item" type="submit"
+                        [class.is-loading]="loading"
+                        [disabled]="!loginForm.valid || loading">
+                    <span class="btn-label" *ngIf="!loading">
+                        Sign in
+                        <i class="fas fa-arrow-right"></i>
+                    </span>
+                    <span class="btn-label" *ngIf="loading">
+                        <mat-spinner diameter="20" strokeWidth="2.5"></mat-spinner>
+                        Signing in…
+                    </span>
+                </button>
+
+                <p class="auth__foot anim-item">
+                    Trouble signing in? <a href="mailto:vivadentsdnbhd@gmail.com">Contact your administrator</a>
+                </p>
+            </form>
+        </div>
+    </main>
 </div>
-
-
