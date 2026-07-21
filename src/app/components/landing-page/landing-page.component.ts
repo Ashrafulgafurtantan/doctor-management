@@ -1,4 +1,10 @@
-import { Component } from "@angular/core";
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  OnDestroy,
+} from "@angular/core";
 import { Router } from "@angular/router";
 import { ApiConfig } from "../../utility/apiConfig";
 
@@ -7,11 +13,31 @@ import { ApiConfig } from "../../utility/apiConfig";
   templateUrl: "./landing-page.component.html",
   styleUrls: ["./landing-page.component.scss"],
 })
-export class LandingPageComponent {
+export class LandingPageComponent implements AfterViewInit, OnDestroy {
   apiConfig = ApiConfig;
   currentYear = new Date().getFullYear();
   activeTab: string = "crowns";
   isMarqueePaused: boolean = false;
+
+  /** Sticky-nav visual state + mobile drawer */
+  scrolled = false;
+  mobileMenuOpen = false;
+
+  /** Back-to-top button visibility + click animation flag */
+  showToTop = false;
+  launching = false;
+
+  /** Rotating product showcase inside the hero visual */
+  heroSlides = [
+    { img: "Zirconia.png", label: "Zirconia Crown" },
+    { img: "E-max.png", label: "E-max Crown" },
+    { img: "PFM.png", label: "PFM Crown" },
+    { img: "Implant.png", label: "Implant Crown" },
+    { img: "Dentures.png", label: "Complete Dentures" },
+    { img: "Flexible.png", label: "Flexible Dentures" },
+  ];
+
+  private observer?: IntersectionObserver;
 
   facilities = {
     crowns: [
@@ -168,10 +194,76 @@ export class LandingPageComponent {
     ],
   };
 
-  constructor(private _router: Router) {}
+  constructor(private _router: Router, private host: ElementRef) {}
 
+  /* ---------- Sticky nav shadow / condensed state ---------- */
+  @HostListener("window:scroll")
+  onWindowScroll() {
+    const y = window.pageYOffset || document.documentElement.scrollTop;
+    this.scrolled = y > 40;
+    this.showToTop = y > 500;
+  }
+
+  /* ---------- Scroll-reveal on enter viewport ---------- */
+  ngAfterViewInit(): void {
+    if (typeof IntersectionObserver === "undefined") {
+      // Fallback: reveal everything immediately
+      this.host.nativeElement
+        .querySelectorAll(".reveal")
+        .forEach((el: Element) => el.classList.add("reveal--visible"));
+      return;
+    }
+
+    this.observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("reveal--visible");
+            this.observer?.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -60px 0px" }
+    );
+
+    this.host.nativeElement
+      .querySelectorAll(".reveal")
+      .forEach((el: Element) => this.observer?.observe(el));
+  }
+
+  ngOnDestroy(): void {
+    this.observer?.disconnect();
+  }
+
+  /* ---------- Navigation helpers ---------- */
+  go(el: HTMLElement) {
+    this.closeMenu();
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  scrollTop() {
+    this.closeMenu();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  /** Back-to-top with a "tooth launch" click animation */
+  launchToTop() {
+    this.launching = true;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setTimeout(() => (this.launching = false), 700);
+  }
+
+  toggleMobileMenu() {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
+  }
+
+  closeMenu() {
+    this.mobileMenuOpen = false;
+  }
+
+  /** kept for backward compatibility with existing template hooks */
   scroll(el: HTMLElement) {
-    el.scrollIntoView({ behavior: "smooth" });
+    this.go(el);
   }
 
   navigateToSegment() {

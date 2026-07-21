@@ -1,376 +1,317 @@
-<section class="header">
-  <nav>
-    <img
-      class="rounded-circle"
-      style="height: 50px; width: 50px; margin: 10px"
-      src="../../../assets/images/logo.jpg"
-    />
-    <div class="nav-links" id="navLinks">
-      <ul>
-        <li class="hide-on-mobile">
-          <a (click)="scroll(about)" class="cursor">About</a>
-        </li>
-        <li class="hide-on-mobile">
-          <a (click)="scroll(why)" class="cursor">Why Us</a>
-        </li>
-        <li class="hide-on-mobile">
-          <a (click)="scroll(contact)" class="cursor">Contact</a>
-        </li>
-        <li><a [href]="apiConfig.downloadPdfUrl + 'labform'">Lab Form</a></li>
-        <li><a [href]="apiConfig.loginUrl">Login</a></li>
-      </ul>
-    </div>
-  </nav>
-</section>
-<ngb-carousel [interval]="2000">
-  <ng-template ngbSlide>
-    <div class="slider-parent">
-      <img
-        src="../../../assets/images/Dentures.png"
-        alt="Slide 1"
-        style="width: 100%; height: 50%"
-      />
-      <div class="slider-overlay-background"></div>
-      <div class="slider-overly-text">
-        <div class="text-box">
-          <h1 style="color: #527853">VIVADENT DENTAL LABORATORY</h1>
-          <h3 style="margin-bottom: 20px; color: #527853">
-            Urgency Is Our Priority
-          </h3>
-          <a (click)="scroll(target)" class="hero-btn">Find Us In Map!</a>
-        </div>
-      </div>
-    </div>
-  </ng-template>
-  <ng-template ngbSlide>
-    <div class="slider-parent">
-      <img
-        src="../../../assets/images/Zirconia.png"
-        alt="Slide 2"
-        style="width: 100%; height: 50%"
-      />
-      <div class="slider-overlay-background"></div>
-      <div class="slider-overly-text">
-        <div class="text-box">
-          <h1 style="color: #527853">VIVADENT DENTAL LABORATORY</h1>
-          <h3 style="margin-bottom: 20px; color: #527853">
-            Urgency Is Our Priority
-          </h3>
-          <a (click)="scroll(target)" class="hero-btn">Find Us In Map!</a>
-        </div>
-      </div>
-    </div>
-  </ng-template>
-  <ng-template ngbSlide>
-    <div class="slider-parent">
-      <img
-        src="../../../assets/images/PFM.png"
-        alt="Slide 3"
-        style="width: 100%; height: 50%"
-      />
-      <div class="slider-overlay-background"></div>
-      <div class="slider-overly-text">
-        <div class="text-box">
-          <h1 style="color: #527853">VIVADENT DENTAL LABORATORY</h1>
-          <h3 style="margin-bottom: 20px; color: #527853">
-            Urgency Is Our Priority
-          </h3>
-          <a (click)="scroll(target)" class="hero-btn">Find Us In Map!</a>
-        </div>
-      </div>
-    </div>
-  </ng-template>
-  <ng-template ngbSlide>
-    <div class="slider-parent">
-      <img
-        src="../../../assets/images/E-max.png"
-        alt="Slide 4"
-        style="width: 100%; height: 50%"
-      />
-      <div class="slider-overlay-background"></div>
-      <div class="slider-overly-text">
-        <div class="text-box">
-          <h1 style="color: #527853">VIVADENT DENTAL LABORATORY</h1>
-          <h3 style="margin-bottom: 20px; color: #527853">
-            Urgency Is Our Priority
-          </h3>
-          <a (click)="scroll(target)" class="hero-btn">Find Us In Map!</a>
-        </div>
-      </div>
-    </div>
-  </ng-template>
+<div class="lp">
 
-  <ng-template ngbSlide>
-    <div class="slider-parent">
-      <img
-        src="../../../assets/images/jakie.jpg"
-        alt="Slide 5"
-        style="width: 100%; height: 50%"
-      />
-      <div class="slider-overlay-background"></div>
-      <div class="slider-overly-text">
-        <div class="text-box">
-          <h1 style="color: #527853">VIVADENT DENTAL LABORATORY</h1>
-          <h3 style="margin-bottom: 20px; color: #527853">
-            Urgency Is Our Priority
-          </h3>
-          <a (click)="scroll(target)" class="hero-btn">Find Us In Map!</a>
-        </div>
-      </div>
-    </div>
-  </ng-template>
+  <!-- ==================== NAVBAR ==================== -->
+  <header class="nav" [class.nav--scrolled]="scrolled" [class.nav--open]="mobileMenuOpen">
+    <div class="nav__inner">
+      <a class="brand cursor" (click)="scrollTop()">
+        <img src="../../../assets/images/logo.jpg" alt="Vivadent" class="brand__logo" />
+        <span class="brand__text">
+          <strong>Vivadent</strong>
+          <small>Dental Laboratory</small>
+        </span>
+      </a>
 
-  <ng-template ngbSlide>
-    <div class="slider-parent">
-      <img
-        src="../../../assets/images/mad-max.jpg"
-        alt="Slide 6"
-        style="width: 100%; height: 50%"
-      />
-      <div class="slider-overlay-background"></div>
-      <div class="slider-overly-text">
-        <div class="text-box">
-          <h1 style="color: #527853">VIVADENT DENTAL LABORATORY</h1>
-          <h3 style="margin-bottom: 20px; color: #527853">
-            Urgency Is Our Priority
-          </h3>
-          <a (click)="scroll(target)" class="hero-btn">Find Us In Map!</a>
-        </div>
-      </div>
-    </div>
-  </ng-template>
-</ngb-carousel>
+      <nav class="nav__links">
+        <a class="nav__link cursor" (click)="go(about)">About</a>
+        <a class="nav__link cursor" (click)="go(facilities)">Facilities</a>
+        <a class="nav__link cursor" (click)="go(why)">Why Us</a>
+        <a class="nav__link cursor" (click)="go(contact)">Contact</a>
+        <a class="nav__ghost" [href]="apiConfig.downloadPdfUrl + 'labform'" (click)="closeMenu()">
+          <i-feather name="file-text"></i-feather>
+          <span>Lab Form</span>
+        </a>
+        <a class="nav__cta" [href]="apiConfig.loginUrl" (click)="closeMenu()">
+          <span>Login</span>
+          <i-feather name="arrow-right"></i-feather>
+        </a>
+      </nav>
 
-<!-- ---------- Facilities-------- -->
-<section class="facilities-section">
-  <div class="facilities-container">
-    <div class="facilities-header">
-      <h1>Our Facilities</h1>
-      <p class="facilities-subtitle">
-        Comprehensive dental laboratory services with cutting-edge technology
-        and premium materials
-      </p>
-    </div>
-
-    <!-- Tab Navigation -->
-    <div class="facilities-tabs">
-      <button
-        class="tab-btn"
-        [class.active]="activeTab === 'crowns'"
-        (click)="setActiveTab('crowns')"
-      >
-        <i-feather name="award"></i-feather>
-        <span>Crowns & Bridges</span>
-      </button>
-      <button
-        class="tab-btn"
-        [class.active]="activeTab === 'orthodontics'"
-        (click)="setActiveTab('orthodontics')"
-      >
-        <i-feather name="activity"></i-feather>
-        <span>Hawley Retainers</span>
-      </button>
-      <button
-        class="tab-btn"
-        [class.active]="activeTab === 'dentures'"
-        (click)="setActiveTab('dentures')"
-      >
-        <i-feather name="smile"></i-feather>
-        <span>Dentures</span>
-      </button>
-      <button
-        class="tab-btn"
-        [class.active]="activeTab === 'other'"
-        (click)="setActiveTab('other')"
-      >
-        <i-feather name="package"></i-feather>
-        <span>Other Services</span>
+      <button class="nav__burger" (click)="toggleMobileMenu()" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
       </button>
     </div>
+  </header>
 
-    <!-- Facilities Marquee Carousel -->
-    <div
-      class="facilities-marquee-wrapper"
-      (mouseenter)="pauseMarquee()"
-      (mouseleave)="resumeMarquee()"
-    >
-      <div class="marquee-fade-left"></div>
-      <div class="marquee-fade-right"></div>
-      <div class="marquee-track" [class.paused]="isMarqueePaused">
-        <!-- First set of cards -->
-        <div class="marquee-content">
-          <div
-            class="facility-card"
-            *ngFor="let facility of getAllActiveFacilities()"
-          >
-            <div class="facility-image-wrapper">
-              <img
-                [src]="'../../../assets/images/' + facility.image"
-                [alt]="facility.title"
-                class="facility-image"
-              />
-              <div class="facility-overlay">
-                <span class="view-text">View Details</span>
-              </div>
-            </div>
-            <div class="facility-content">
-              <h3 class="facility-title">{{ facility.title }}</h3>
-              <p class="facility-description">{{ facility.description }}</p>
-            </div>
-          </div>
-        </div>
-        <!-- Duplicate set for seamless loop -->
-        <div class="marquee-content">
-          <div
-            class="facility-card"
-            *ngFor="let facility of getAllActiveFacilities()"
-          >
-            <div class="facility-image-wrapper">
-              <img
-                [src]="'../../../assets/images/' + facility.image"
-                [alt]="facility.title"
-                class="facility-image"
-              />
-              <div class="facility-overlay">
-                <span class="view-text">View Details</span>
-              </div>
-            </div>
-            <div class="facility-content">
-              <h3 class="facility-title">{{ facility.title }}</h3>
-              <p class="facility-description">{{ facility.description }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- About Us -->
-<section class="about-section" #about>
-  <div class="about-container">
-    <div class="about-header">
-      <!-- <span class="about-tag">Who We Are</span> -->
-      <h1>About Us</h1>
-      <p class="about-subtitle">
-        Delivering excellence in dental laboratory services with precision,
-        quality, and care.
-      </p>
+  <!-- ==================== HERO ==================== -->
+  <section class="hero">
+    <div class="hero__bg" aria-hidden="true">
+      <span class="orb orb--1"></span>
+      <span class="orb orb--2"></span>
+      <span class="orb orb--3"></span>
+      <div class="hero__grid"></div>
     </div>
 
-    <div class="about-grid">
-      <div class="about-card">
-        <div class="about-icon">
-          <i-feather name="award"></i-feather>
-        </div>
-        <h3>Quality Focused</h3>
-        <p>
-          Our dental lab is highly focused in providing services unlike other
-          dental lab. We meet your expectation for high quality products so that
-          you don't need to worry about adjusting the work and spend your
-          valuable time on your patient.
+    <div class="hero__inner">
+      <div class="hero__copy">
+        <span class="eyebrow">
+          <span class="dot"></span> All-in-One Dental Laboratory · Shah Alam, Malaysia
+        </span>
+
+        <h1 class="hero__title">
+          Precision dental prosthetics,
+          <span class="grad">delivered with speed.</span>
+        </h1>
+
+        <p class="hero__slogan">
+          <span class="hero__slogan-bar"></span>
+          "Urgency Is Our Priority"
         </p>
-      </div>
 
-      <div class="about-card">
-        <div class="about-icon">
-          <i-feather name="clock"></i-feather>
-        </div>
-        <h3>Fast Turnaround</h3>
-        <p>
-          Time is essence, we take your cases with urgency so that you can
-          provide your patient with high quality product in minimum time.
+        <p class="hero__sub">
+          PFM, Zirconia, E-max, Implant crowns, flexible &amp; CCP dentures and ortho
+          appliances — one trusted lab delivering premium quality with the fast turnaround
+          your patients deserve.
         </p>
-      </div>
 
-      <div class="about-card">
-        <div class="about-icon">
-          <i-feather name="target"></i-feather>
-        </div>
-        <h3>Our Mission</h3>
-        <p>
-          Our goal is to provide exceptional dental laboratory products with
-          less fuss. We strive to be your trusted partner in dental care.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ----------- Find Us On Google Map -------- -->
-<section class="location-section" #target>
-  <div class="location-container">
-    <div class="location-header">
-      <!-- <span class="location-tag">Visit Us</span> -->
-      <h1>Find Our Location</h1>
-      <p class="location-subtitle">
-        We're conveniently located in Shah Alam, Selangor. Drop by our lab or
-        get in touch!
-      </p>
-    </div>
-
-    <div class="location-content">
-      <div class="location-info">
-        <div class="info-card">
-          <div class="info-icon">
+        <div class="hero__actions">
+          <a class="btn btn--primary cursor" (click)="go(facilities)">
+            <span>Explore Our Work</span>
+            <i-feather name="arrow-right"></i-feather>
+          </a>
+          <a class="btn btn--ghost cursor" (click)="go(target)">
             <i-feather name="map-pin"></i-feather>
-          </div>
-          <div class="info-details">
-            <h4>Our Address</h4>
-            <p>
-              No 43, Tingkat Atas, Jalan Pinang B 18/B, Seksyen 18, 40200 Shah
-              Alam, Selangor, Malaysia
-            </p>
-          </div>
+            <span>Find Us</span>
+          </a>
         </div>
 
-        <div class="info-card">
-          <div class="info-icon">
-            <i-feather name="phone"></i-feather>
-          </div>
-          <div class="info-details">
-            <h4>Phone Numbers</h4>
-            <p>Admin: 011 8888 6191</p>
-            <p>Finance: 016 676 2891</p>
-            <p>Technician: 016 444 1905</p>
-          </div>
+        <div class="hero__chips">
+          <span>PFM</span>
+          <span>Zirconia</span>
+          <span>E-max</span>
+          <span>Implant</span>
+          <span>Dentures</span>
+          <span>Ortho</span>
+        </div>
+      </div>
+
+      <div class="hero__visual">
+        <div class="glow-ring"></div>
+        <div class="showcase">
+          <ngb-carousel [interval]="2600" [showNavigationArrows]="false" [pauseOnHover]="false">
+            <ng-template ngbSlide *ngFor="let s of heroSlides">
+              <div class="showcase__slide">
+                <img [src]="'../../../assets/images/' + s.img" [alt]="s.label" />
+                <span class="showcase__tag">{{ s.label }}</span>
+              </div>
+            </ng-template>
+          </ngb-carousel>
         </div>
 
-        <div class="info-card">
-          <div class="info-icon">
-            <i-feather name="mail"></i-feather>
-          </div>
-          <div class="info-details">
-            <h4>Email Us</h4>
-            <a href="mailto:vivadentsdnbhd@gmail.com"
-              >vivadentsdnbhd@gmail.com</a
-            >
-          </div>
+        <div class="float-card float-card--a">
+          <span class="fc-ico"><i-feather name="award"></i-feather></span>
+          <div class="fc-text"><strong>Premium</strong><small>Materials</small></div>
         </div>
-
-        <div class="info-card">
-          <div class="info-icon">
-            <i-feather name="clock"></i-feather>
-          </div>
-          <div class="info-details">
-            <h4>Working Hours</h4>
-            <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
-            <p>Saturday: 9:00 AM - 1:00 PM</p>
-          </div>
+        <div class="float-card float-card--b">
+          <span class="fc-ico"><i-feather name="zap"></i-feather></span>
+          <div class="fc-text"><strong>Fast</strong><small>Turnaround</small></div>
         </div>
+      </div>
+    </div>
 
-        <a
-          href="https://maps.google.com/maps?q=Vivadent%20Dental%20Laboratory%20Selangor,%20Malaysia"
-          target="_blank"
-          class="directions-btn"
-        >
+    <a class="hero__scroll cursor" (click)="go(facilities)" aria-label="Scroll down">
+      <span class="mouse"></span>
+      <em>Scroll</em>
+    </a>
+  </section>
+
+  <!-- ==================== FACILITIES ==================== -->
+  <section class="facilities" #facilities>
+    <div class="section-head reveal">
+      <span class="eyebrow eyebrow--dark"><span class="dot"></span> What we craft</span>
+      <h2 class="section-title">Our <span class="grad">Facilities</span></h2>
+      <p class="section-sub">
+        Comprehensive dental laboratory services with cutting-edge technology and premium materials.
+      </p>
+    </div>
+
+    <div class="tabs reveal">
+      <button class="tab" [class.active]="activeTab === 'crowns'" (click)="setActiveTab('crowns')">
+        <i-feather name="award"></i-feather><span>Crowns &amp; Bridges</span>
+      </button>
+      <button class="tab" [class.active]="activeTab === 'orthodontics'" (click)="setActiveTab('orthodontics')">
+        <i-feather name="activity"></i-feather><span>Hawley Retainers</span>
+      </button>
+      <button class="tab" [class.active]="activeTab === 'dentures'" (click)="setActiveTab('dentures')">
+        <i-feather name="smile"></i-feather><span>Dentures</span>
+      </button>
+      <button class="tab" [class.active]="activeTab === 'other'" (click)="setActiveTab('other')">
+        <i-feather name="package"></i-feather><span>Other Services</span>
+      </button>
+    </div>
+
+    <div class="marquee reveal" (mouseenter)="pauseMarquee()" (mouseleave)="resumeMarquee()">
+      <div class="marquee__track" [class.paused]="isMarqueePaused">
+        <div class="marquee__set" *ngFor="let dup of [0,1]">
+          <article class="fcard" *ngFor="let facility of getAllActiveFacilities()">
+            <div class="fcard__media">
+              <img [src]="'../../../assets/images/' + facility.image" [alt]="facility.title" />
+              <span class="fcard__badge">View Details</span>
+            </div>
+            <div class="fcard__body">
+              <h3>{{ facility.title }}</h3>
+              <p>{{ facility.description }}</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ABOUT ==================== -->
+  <section class="about" #about>
+    <div class="about__bg" aria-hidden="true"></div>
+    <div class="about__inner">
+      <div class="section-head reveal">
+        <span class="eyebrow eyebrow--dark"><span class="dot"></span> Who we are</span>
+        <h2 class="section-title">About <span class="grad">Vivadent</span></h2>
+        <p class="section-sub">
+          Delivering excellence in dental laboratory services with precision, quality, and care.
+        </p>
+      </div>
+
+      <div class="about__grid">
+        <article class="acard reveal">
+          <span class="acard__no">01</span>
+          <span class="acard__ico"><i-feather name="award"></i-feather></span>
+          <h3>Quality Focused</h3>
+          <p>
+            We are highly focused on delivering products that meet your expectations for high
+            quality — so you don't need to waste valuable chair time adjusting the work and can
+            focus fully on your patient.
+          </p>
+        </article>
+
+        <article class="acard reveal">
+          <span class="acard__no">02</span>
+          <span class="acard__ico"><i-feather name="clock"></i-feather></span>
+          <h3>Fast Turnaround</h3>
+          <p>
+            Time is of the essence. We treat every case with urgency so you can provide your
+            patient with a high-quality product in the minimum possible time.
+          </p>
+        </article>
+
+        <article class="acard reveal">
+          <span class="acard__no">03</span>
+          <span class="acard__ico"><i-feather name="target"></i-feather></span>
+          <h3>Our Mission</h3>
+          <p>
+            To provide exceptional dental laboratory products with less fuss. We strive to be your
+            trusted, long-term partner in delivering outstanding dental care.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== WHY US ==================== -->
+  <section class="why" #why>
+    <div class="why__bg" aria-hidden="true">
+      <span class="orb orb--1"></span>
+      <span class="orb orb--2"></span>
+    </div>
+    <div class="why__inner">
+      <div class="why__copy reveal">
+        <span class="eyebrow"><span class="dot"></span> Why choose us</span>
+        <h2 class="why__title">
+          A partner built around <span class="grad">speed &amp; trust.</span>
+        </h2>
+        <p class="why__lead">
+          "One Lab" service for PFM, Zirconia, E-max, Implant crowns, flexible &amp; CCP dentures,
+          and ortho appliances — everything under one roof.
+        </p>
+        <a class="btn btn--primary cursor" (click)="go(target)">
+          <span>Visit Our Lab</span>
           <i-feather name="navigation"></i-feather>
-          Get Directions
         </a>
       </div>
 
-      <div class="map-wrapper">
-        <div class="map-container">
+      <ul class="why__list">
+        <li class="reveal">
+          <span class="wl-ico"><i-feather name="zap"></i-feather></span>
+          <div>
+            <h4>Fast &amp; hassle-free</h4>
+            <p>Our lab provides fast, hassle-free service so your cases never stall.</p>
+          </div>
+        </li>
+        <li class="reveal">
+          <span class="wl-ico"><i-feather name="check-circle"></i-feather></span>
+          <div>
+            <h4>Minimal chair time</h4>
+            <p>We guarantee you won't spend much chair time adjusting dentures.</p>
+          </div>
+        </li>
+        <li class="reveal">
+          <span class="wl-ico"><i-feather name="smile"></i-feather></span>
+          <div>
+            <h4>Happy patients</h4>
+            <p>We make sure your patients are delighted with the dentures from our lab.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ==================== LOCATION ==================== -->
+  <section class="location" #target>
+    <div class="location__inner">
+      <div class="section-head reveal">
+        <span class="eyebrow eyebrow--dark"><span class="dot"></span> Visit us</span>
+        <h2 class="section-title">Find Our <span class="grad">Location</span></h2>
+        <p class="section-sub">
+          We're conveniently located in Shah Alam, Selangor. Drop by our lab or get in touch!
+        </p>
+      </div>
+
+      <div class="location__grid">
+        <div class="location__info">
+          <div class="info reveal">
+            <span class="info__ico"><i-feather name="map-pin"></i-feather></span>
+            <div>
+              <h4>Our Address</h4>
+              <p>No 43, Tingkat Atas, Jalan Pinang B 18/B, Seksyen 18, 40200 Shah Alam, Selangor, Malaysia</p>
+            </div>
+          </div>
+
+          <div class="info reveal">
+            <span class="info__ico"><i-feather name="phone"></i-feather></span>
+            <div>
+              <h4>Phone Numbers</h4>
+              <p>Admin: 011 8888 6191</p>
+              <p>Finance: 016 676 2891</p>
+              <p>Technician: 016 444 1905</p>
+            </div>
+          </div>
+
+          <div class="info reveal">
+            <span class="info__ico"><i-feather name="mail"></i-feather></span>
+            <div>
+              <h4>Email Us</h4>
+              <a href="mailto:vivadentsdnbhd@gmail.com">vivadentsdnbhd@gmail.com</a>
+            </div>
+          </div>
+
+          <div class="info reveal">
+            <span class="info__ico"><i-feather name="clock"></i-feather></span>
+            <div>
+              <h4>Working Hours</h4>
+              <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+              <p>Saturday: 9:00 AM - 1:00 PM</p>
+            </div>
+          </div>
+
+          <a
+            href="https://maps.google.com/maps?q=Vivadent%20Dental%20Laboratory%20Selangor,%20Malaysia"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn--primary directions reveal"
+          >
+            <i-feather name="navigation"></i-feather>
+            <span>Get Directions</span>
+          </a>
+        </div>
+
+        <div class="location__map reveal">
           <iframe
             width="100%"
             height="100%"
@@ -379,125 +320,80 @@
             frameborder="0"
             scrolling="no"
             loading="lazy"
+            title="Vivadent Dental Laboratory location"
           ></iframe>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ----------- Call To Action -------- -->
-<section
-  #why
-  class="cta"
-  style="
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-      url('../../../assets/images/why-us.jpg');
-  "
->
-  <h1>Why Us</h1>
-  <ul>
-    <li>Our dental lab provide fast and hassle free service.</li>
-    <li>
-      We guarantee that you don't spend much chair time adjusting the dentures.
-    </li>
-    <li>
-      We make sure that your patient will be happy with the dentures from our
-      lab.
-    </li>
-  </ul>
-</section>
-
-<!-- ----------- Footer -------- -->
-<section class="footer contact-us" #contact>
-  <div class="contact-us-header">
-    <div style="margin: auto 0">
-      <img
-        src="../../../assets/images/logo.jpg"
-        style="
-          height: 40px;
-          width: 40px;
-          border-radius: 50%;
-          margin-right: 10px;
-        "
-      />
-    </div>
-    <div>
-      <h4 style="color: #527853">VIVADENT DENTAL LABORATORY</h4>
-    </div>
-  </div>
-  <div>
-    <p>
-      A complete Dental Laboratory, provides All in "One Lab" service (PFM,
-      Zirconia, E-max, Implant Crown, Flexible and CCP Dentures, Ortho
-      Appliance).
-    </p>
-
-    <div
-      style="
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 10px;
-      "
-    >
-      <i-feather class="contact-us-icon" name="mail"></i-feather>
-      <a
-        href="mailto:vivadentsdnbhd@gmail.com"
-        style="margin-top: 5px; color: #777"
-        >vivadentsdnbhd@gmail.com</a
-      >
-    </div>
-    <div style="display: flex; justify-content: center">
-      <i-feather class="contact-us-icon" name="phone"></i-feather>
-      <p>
-        Admin : 011 8888 6191 | Finance : 016 676 2891 | Technician: 016 444
-        1905
-      </p>
-    </div>
-    <div style="display: flex; justify-content: center">
-      <span style="margin-bottom: 5px; margin-top: 10px"
-        >Customer Service Admin Cases In/Out: 011 8888 6191</span
-      >
-    </div>
-    <div style="display: flex; justify-content: center">
-      <span style="margin-bottom: 5px"
-        >Technical Support Line(Dental Technician): 016 444 1905</span
-      >
-    </div>
-    <div style="display: flex; justify-content: center">
-      <span style="margin-bottom: 5px"
-        >Billing & Accounts Enquiries: 016 676 2891</span
-      >
-    </div>
-    <div style="display: flex; justify-content: center">
-      <i-feather class="contact-us-icon" name="map-pin"></i-feather>
-      <p>
-        No 43, Tingkat Atas, Jalan Pinang B 18/B, Seksyen 18, 40200 Shah Alam,
-        Selangor, Malaysia
-      </p>
-    </div>
-  </div>
-
-  <div class="copyright">
-    <div>
-      <p>
-        © {{ currentYear }} Copyright:
-        <a href="#" style="color: #51b984">Vivadent SDN BHD</a>
-      </p>
-    </div>
-    <div>
-      <p style="padding: 5px 0px !important">
-        Made with
-        <i-feather name="heart" class="heart"></i-feather>
-        <a
-          href="https://abdullah-al-jahid.vercel.app/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Abdullah Al Jahid
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer" #contact>
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <a class="brand cursor" (click)="scrollTop()">
+          <img src="../../../assets/images/logo.jpg" alt="Vivadent" class="brand__logo" />
+          <span class="brand__text">
+            <strong>Vivadent</strong>
+            <small>Dental Laboratory</small>
+          </span>
         </a>
+        <p class="footer__motto"><i-feather name="zap"></i-feather> Urgency Is Our Priority</p>
+        <p>
+          A complete Dental Laboratory providing All-in "One Lab" service — PFM, Zirconia, E-max,
+          Implant Crown, Flexible &amp; CCP Dentures and Ortho Appliances.
+        </p>
+      </div>
+
+      <div class="footer__col">
+        <h5>Explore</h5>
+        <a class="cursor" (click)="go(about)">About Us</a>
+        <a class="cursor" (click)="go(facilities)">Facilities</a>
+        <a class="cursor" (click)="go(why)">Why Us</a>
+        <a class="cursor" (click)="go(target)">Location</a>
+      </div>
+
+      <div class="footer__col">
+        <h5>Get in touch</h5>
+        <a href="mailto:vivadentsdnbhd@gmail.com">
+          <i-feather name="mail"></i-feather> vivadentsdnbhd@gmail.com
+        </a>
+        <a href="tel:01188886191"><i-feather name="phone"></i-feather> Admin · 011 8888 6191</a>
+        <a href="tel:0166762891"><i-feather name="credit-card"></i-feather> Finance · 016 676 2891</a>
+        <a href="tel:0164441905"><i-feather name="tool"></i-feather> Technician · 016 444 1905</a>
+      </div>
+
+      <div class="footer__col footer__col--wide">
+        <h5>Support lines</h5>
+        <p><strong>Customer Service</strong> (Cases In/Out): 011 8888 6191</p>
+        <p><strong>Technical Support</strong> (Dental Technician): 016 444 1905</p>
+        <p><strong>Billing &amp; Accounts</strong> Enquiries: 016 676 2891</p>
+        <p class="footer__addr">
+          <i-feather name="map-pin"></i-feather>
+          No 43, Tingkat Atas, Jalan Pinang B 18/B, Seksyen 18, 40200 Shah Alam, Selangor, Malaysia
+        </p>
+      </div>
+    </div>
+
+    <div class="footer__bar">
+      <p>© {{ currentYear }} <a href="#" (click)="scrollTop()">Vivadent SDN BHD</a>. All rights reserved.</p>
+      <p class="made">
+        Made with <i-feather name="heart" class="heart"></i-feather>
+        <a href="https://abdullah-al-jahid.vercel.app/" target="_blank" rel="noopener noreferrer">Abdullah Al Jahid</a>
       </p>
     </div>
-  </div>
-</section>
+  </footer>
+
+  <!-- ==================== BACK TO TOP ==================== -->
+  <button
+    class="to-top"
+    [class.show]="showToTop"
+    [class.launching]="launching"
+    (click)="launchToTop()"
+    aria-label="Back to top"
+    title="Back to top"
+  >
+    <span class="to-top__ico"><i class="fas fa-tooth"></i></span>
+    <span class="to-top__arrow"><i-feather name="chevron-up"></i-feather></span>
+  </button>
+</div>
