@@ -1,0 +1,104 @@
+<div class="ph-container">
+  <!-- Header Section -->
+  <div class="header-section">
+    <div class="title-section">
+      <h4 class="page-title">Payment History</h4>
+      <span class="ph-count" *ngIf="total">{{ total }} payment{{ total > 1 ? "s" : "" }}</span>
+    </div>
+  </div>
+
+  <!-- Card Container -->
+  <mat-card class="table-card">
+    <mat-card-content>
+      <!-- Toolbar Section -->
+      <div class="toolbar-section">
+        <div class="filter-group">
+          <div class="search-box">
+            <mat-icon class="search-icon">search</mat-icon>
+            <input
+              type="text"
+              placeholder="Search by client, doctor, amount..."
+              (input)="applyFilter($event.target)"
+              class="search-input"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading -->
+      <div class="ph-state" *ngIf="loading">
+        <mat-spinner diameter="40"></mat-spinner>
+        <p>Loading payment history...</p>
+      </div>
+
+      <!-- Table -->
+      <div class="table-container" *ngIf="!loading">
+        <table mat-table [dataSource]="dataSource" class="ph-table">
+          <ng-container matColumnDef="client">
+            <th *matHeaderCellDef mat-header-cell>Client</th>
+            <td *matCellDef="let row" mat-cell>
+              <span class="cell-strong">{{ row.client?.name || "-" }}</span>
+              <span class="cell-sub" *ngIf="row.client?.client_no">#{{ row.client?.client_no }}</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="doctor">
+            <th *matHeaderCellDef mat-header-cell>Doctor</th>
+            <td *matCellDef="let row" mat-cell>{{ row.client?.doctor_name || "-" }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="total_amount">
+            <th *matHeaderCellDef mat-header-cell>Total Amount</th>
+            <td *matCellDef="let row" mat-cell>
+              <span class="cell-amount">{{ formatCurrency(row.total_amount) }}</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="payment_date">
+            <th *matHeaderCellDef mat-header-cell>Payment Date</th>
+            <td *matCellDef="let row" mat-cell>{{ formatDateTime(row.payment_date) }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th *matHeaderCellDef mat-header-cell>Actions</th>
+            <td *matCellDef="let row" mat-cell>
+              <button
+                mat-raised-button
+                class="view-details-btn"
+                (click)="viewDetails(row.id)"
+              >
+                <mat-icon>visibility</mat-icon>
+                View Details
+              </button>
+            </td>
+          </ng-container>
+
+          <tr *matHeaderRowDef="displayedColumns; sticky: true" mat-header-row></tr>
+          <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
+
+          <!-- No Data Row -->
+          <tr class="no-data-row" *matNoDataRow>
+            <td [attr.colspan]="displayedColumns.length" class="no-data-cell">
+              <div class="no-data-content">
+                <mat-icon>receipt_long</mat-icon>
+                <span>No payment records found</span>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="ph-pagination" *ngIf="!loading && lastPage > 1">
+        <app-pagination
+          [first]="firstPage"
+          [last]="lastPage"
+          [current]="currentPage"
+          (prevBtn)="onPrev()"
+          (nextBtn)="onNext()"
+          (numberBtn)="onPage($event)"
+        ></app-pagination>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

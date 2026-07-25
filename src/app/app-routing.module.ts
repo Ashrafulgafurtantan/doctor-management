@@ -36,6 +36,8 @@ import { PeticashCreateComponent } from "./components/peticash-create/peticash-c
 import { SaleInvoiceComponent } from "./components/sale-invoice/sale-invoice.component";
 import { CashSaleComponent } from "./components/cash-sale/cash-sale.component";
 import { InstantInvoiceComponent } from "./components/instant-invoice/instant-invoice.component";
+import { PaymentHistoryComponent } from "./components/payment-history/payment-history.component";
+import { PaymentHistoryDetailComponent } from "./components/payment-history-detail/payment-history-detail.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "/welcome", pathMatch: "full" },
@@ -170,6 +172,16 @@ const routes: Routes = [
   {
     path: "sale-invoice",
     component: SaleInvoiceComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "payment-history",
+    component: PaymentHistoryComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "payment-history/:id",
+    component: PaymentHistoryDetailComponent,
     canActivate: [AuthGuard],
   },
   {

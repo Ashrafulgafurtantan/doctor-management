@@ -54,5 +54,12 @@ body {
   }
 }
 
+/* Order items dialog: edge-to-edge, rounded panel (scoped to this dialog only) */
+.oid-dialog-panel .mat-dialog-container {
+  padding: 0;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';

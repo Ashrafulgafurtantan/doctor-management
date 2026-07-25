@@ -1,0 +1,179 @@
+<div class="phd-container">
+  <div class="phd-topbar">
+    <button mat-button class="back-btn" (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+      Back
+    </button>
+    <h4 class="phd-title">Payment Details</h4>
+  </div>
+
+  <!-- Loading -->
+  <div class="phd-state" *ngIf="loading">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Loading payment details...</p>
+  </div>
+
+  <ng-container *ngIf="!loading && summary">
+    <!-- Payment summary info -->
+    <mat-card class="phd-summary">
+      <div class="phd-summary__head">
+        <div class="phd-summary__client">
+          <span class="phd-avatar">{{ (summary.client?.name || "?").charAt(0) }}</span>
+          <div class="phd-summary__id">
+            <h3>{{ summary.client?.name || "-" }}</h3>
+            <p>
+              <mat-icon>medical_services</mat-icon>
+              {{ summary.client?.doctor_name || "-" }}
+            </p>
+          </div>
+        </div>
+
+        <div class="phd-summary__amount">
+          <span class="label">Total Paid</span>
+          <span class="value">{{ formatCurrency(summary.total_amount) }}</span>
+          <span class="chip"><mat-icon>verified</mat-icon> Payment recorded</span>
+        </div>
+      </div>
+
+      <div class="phd-summary__grid">
+        <div class="phd-info">
+          <span class="phd-info__icon phd-info__icon--blue"><mat-icon>tag</mat-icon></span>
+          <div class="phd-info__text">
+            <span class="k">Payment ID</span>
+            <span class="v">#{{ summary.id }}</span>
+          </div>
+        </div>
+
+        <div class="phd-info">
+          <span class="phd-info__icon phd-info__icon--indigo"><mat-icon>badge</mat-icon></span>
+          <div class="phd-info__text">
+            <span class="k">Client No</span>
+            <span class="v">{{ summary.client?.client_no || "-" }}</span>
+          </div>
+        </div>
+
+        <div class="phd-info">
+          <span class="phd-info__icon phd-info__icon--teal"><mat-icon>event</mat-icon></span>
+          <div class="phd-info__text">
+            <span class="k">Payment Date</span>
+            <span class="v">{{ formatDateTime(summary.payment_date) }}</span>
+          </div>
+        </div>
+
+        <div class="phd-info">
+          <span class="phd-info__icon phd-info__icon--green"><mat-icon>call</mat-icon></span>
+          <div class="phd-info__text">
+            <span class="k">Phone</span>
+            <span class="v">{{ summary.client?.phone || "-" }}</span>
+          </div>
+        </div>
+
+        <div class="phd-info">
+          <span class="phd-info__icon phd-info__icon--amber"><mat-icon>receipt_long</mat-icon></span>
+          <div class="phd-info__text">
+            <span class="k">Orders</span>
+            <span class="v">{{ orderCount }}</span>
+          </div>
+        </div>
+
+        <div class="phd-info">
+          <span class="phd-info__icon phd-info__icon--purple"><mat-icon>person</mat-icon></span>
+          <div class="phd-info__text">
+            <span class="k">Created By</span>
+            <span class="v">{{ summary.created_by?.name || "-" }}</span>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+
+    <!-- Orders table -->
+    <mat-card class="phd-card">
+      <div class="phd-card__head">
+        <div class="phd-card__title">
+          <h4>Orders in this Payment</h4>
+          <span class="phd-badge">{{ orderCount }} order{{ orderCount > 1 ? "s" : "" }}</span>
+        </div>
+        <div class="search-box">
+          <mat-icon class="search-icon">search</mat-icon>
+          <input
+            type="text"
+            placeholder="Search by order no, patient, item..."
+            (input)="applyFilter($event.target)"
+            class="search-input"
+          />
+        </div>
+      </div>
+
+      <div class="phd-state small" *ngIf="orderCount === 0">
+        <mat-icon>inbox</mat-icon>
+        <p>No orders linked to this payment.</p>
+      </div>
+
+      <div class="phd-table-wrap" *ngIf="orderCount > 0">
+        <table mat-table [dataSource]="dataSource" class="phd-table">
+          <ng-container matColumnDef="order_no">
+            <th *matHeaderCellDef mat-header-cell>Order No</th>
+            <td *matCellDef="let order" mat-cell>
+              <span class="cell-strong">{{ order.order_no }}</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="patient_name">
+            <th *matHeaderCellDef mat-header-cell>Patient</th>
+            <td *matCellDef="let order" mat-cell>{{ order.patient_name || "-" }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="items">
+            <th *matHeaderCellDef mat-header-cell>Items</th>
+            <td *matCellDef="let order" mat-cell>
+              <span class="cell-items" [title]="itemsSummary(order)">{{ itemsSummary(order) }}</span>
+              <button
+                type="button"
+                class="cell-sub-link"
+                (click)="openItems(order)"
+                [title]="'View ' + itemsCount(order) + ' item details'"
+              >
+                {{ itemsCount(order) }} item{{ itemsCount(order) > 1 ? "s" : "" }}
+                <mat-icon>open_in_new</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="order_date">
+            <th *matHeaderCellDef mat-header-cell>Order Date</th>
+            <td *matCellDef="let order" mat-cell>{{ formatDate(order.order_date) }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="delivery_date">
+            <th *matHeaderCellDef mat-header-cell>Delivery Date</th>
+            <td *matCellDef="let order" mat-cell>{{ formatDate(order.delivery_date) }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="total_amount">
+            <th *matHeaderCellDef mat-header-cell class="text-end">Amount</th>
+            <td *matCellDef="let order" mat-cell class="text-end">
+              <span class="cell-amount">{{ formatCurrency(order.total_amount) }}</span>
+            </td>
+          </ng-container>
+
+          <tr *matHeaderRowDef="displayedColumns; sticky: true" mat-header-row></tr>
+          <tr *matRowDef="let order; columns: displayedColumns" mat-row></tr>
+
+          <tr class="no-data-row" *matNoDataRow>
+            <td [attr.colspan]="displayedColumns.length" class="no-data-cell">
+              <div class="no-data-content">
+                <mat-icon>search_off</mat-icon>
+                <span>No orders match your search</span>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <div class="phd-total-row">
+          <span>Total</span>
+          <span class="phd-total-amount">{{ formatCurrency(ordersTotal()) }}</span>
+        </div>
+      </div>
+    </mat-card>
+  </ng-container>
+</div>

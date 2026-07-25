@@ -60,6 +60,8 @@ export enum ApiConfig {
   page = "orders?page=",
   getItemList = "items/all",
   getActiveItemList = "items/active",
+  getPaymentSummaries = "payment-summaries",
+  getPaymentSummaryById = "payment-summaries/",
   putPasswordChange = "users/password",
   markAllAsPaid = "orders/clients/mark-as-paid",
   markSelectedAsPaid = "orders/selected/mark-as-paid",

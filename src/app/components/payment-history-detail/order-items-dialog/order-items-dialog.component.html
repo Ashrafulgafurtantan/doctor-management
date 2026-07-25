@@ -1,0 +1,86 @@
+<div class="oid">
+  <!-- Header -->
+  <div class="oid__head">
+    <div class="oid__head-main">
+      <span class="oid__eyebrow"><mat-icon>receipt_long</mat-icon> Order Items</span>
+      <h2 class="oid__title">Order #{{ order.order_no }}</h2>
+      <p class="oid__patient" *ngIf="order.patient_name">
+        <mat-icon>person</mat-icon> {{ order.patient_name }}
+      </p>
+    </div>
+    <button
+      type="button"
+      class="oid__close"
+      (click)="close()"
+      aria-label="Close dialog"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- Meta chips -->
+  <div class="oid__meta">
+    <span class="oid__chip oid__chip--strong">
+      {{ items.length }} item{{ items.length !== 1 ? "s" : "" }}
+    </span>
+    <span class="oid__chip" *ngIf="totalQuantity()">
+      <mat-icon>inventory_2</mat-icon> {{ totalQuantity() }} qty total
+    </span>
+    <span class="oid__chip" *ngIf="order.order_date">
+      <mat-icon>event</mat-icon> Ordered {{ formatDate(order.order_date) }}
+    </span>
+    <span class="oid__chip" *ngIf="order.delivery_date">
+      <mat-icon>local_shipping</mat-icon> Delivery {{ formatDate(order.delivery_date) }}
+    </span>
+  </div>
+
+  <!-- Items table -->
+  <div class="oid__body">
+    <ng-container *ngIf="items.length; else emptyState">
+      <div class="oid__table">
+        <div class="oid__row oid__row--head">
+          <span class="c-name">Item</span>
+          <span class="c-qty">Qty</span>
+          <span class="c-price">Unit Price</span>
+          <span class="c-total">Line Total</span>
+        </div>
+
+        <div class="oid__row" *ngFor="let it of items; let i = index">
+          <span class="c-name">
+            <span class="oid__idx">{{ i + 1 }}</span>
+            <span class="oid__name-text">
+              {{ it.name }}
+              <small *ngIf="it.description">{{ it.description }}</small>
+            </span>
+          </span>
+          <span class="c-qty" data-label="Qty">{{ it.quantity }}</span>
+          <span class="c-price" data-label="Unit Price">{{ formatCurrency(it.price) }}</span>
+          <span class="c-total" data-label="Line Total">{{ formatCurrency(lineTotal(it)) }}</span>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #emptyState>
+      <div class="oid__empty">
+        <mat-icon>inbox</mat-icon>
+        <p>No items found for this order.</p>
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- Totals -->
+  <div class="oid__foot" *ngIf="items.length">
+    <div class="oid__foot-line">
+      <span>Items subtotal</span>
+      <span>{{ formatCurrency(itemsSubtotal()) }}</span>
+    </div>
+    <div class="oid__foot-line" *ngIf="additionalPrice > 0">
+      <span>Additional charge</span>
+      <span>{{ formatCurrency(additionalPrice) }}</span>
+    </div>
+    <div class="oid__foot-line oid__foot-line--total">
+      <span>Order total</span>
+      <span>{{ formatCurrency(order.total_amount) }}</span>
+    </div>
+  </div>
+</div>
