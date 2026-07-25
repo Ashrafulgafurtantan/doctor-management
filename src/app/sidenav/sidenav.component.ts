@@ -31,7 +31,32 @@ export class SidenavComponent implements OnInit {
 
     ngOnInit(): void {
         this.screenWidth = window.innerWidth;
-        this.currentUser = JSON.parse(this._storage.getStorage('user_info'));
+        this.currentUser = JSON.parse(this._storage.getStorage('user_info') || '{}');
+
+        // Restrict the menu for read-only users
+        if (this._authService.isReadOnly()) {
+            this.dataSource.data = this.filterMenuForReadOnly(TREE_DATA);
+        }
+    }
+
+    /** Hidden top-level menu items for read-only users */
+    private readonly readOnlyHiddenMenus = ['Cash Sale', 'Instant Invoice'];
+    /** The only report a read-only user may see */
+    private readonly readOnlyAllowedReports = ['All Clinic Work Status Summary'];
+
+    filterMenuForReadOnly(nodes: SideNavNode[]): SideNavNode[] {
+        return nodes
+            .filter(node => !this.readOnlyHiddenMenus.includes(node.name))
+            .map(node => {
+                if (node.name === 'Reports' && node.children) {
+                    return {
+                        ...node,
+                        children: node.children.filter(child =>
+                            this.readOnlyAllowedReports.includes(child.name))
+                    };
+                }
+                return node;
+            });
     }
 
     logout() {

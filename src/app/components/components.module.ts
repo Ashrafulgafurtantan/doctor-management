@@ -41,6 +41,7 @@ import { SaleInvoiceComponent } from './sale-invoice/sale-invoice.component';
 import { ShareLinkDialogComponent } from './sale-invoice/share-link-dialog/share-link-dialog.component';
 import { CashSaleComponent } from './cash-sale/cash-sale.component';
 import { InstantInvoiceComponent } from './instant-invoice/instant-invoice.component';
+import { ReadonlyActionHideDirective } from '../directives/readonly-action-hide.directive';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { InstantInvoiceComponent } from './instant-invoice/instant-invoice.compo
     ShareLinkDialogComponent,
     CashSaleComponent,
     InstantInvoiceComponent,
+    ReadonlyActionHideDirective,
   ],
   imports: [
     CommonModule,

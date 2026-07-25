@@ -235,60 +235,102 @@
 .w-100 { width: 100%; }
 
 .field {
-    margin-bottom: .35rem;
+    margin-bottom: 1.15rem;
 
-    .field-ico {
-        color: var(--muted);
-        margin-right: .35rem;
-        font-size: 20px;
-        height: 20px;
+    &__label {
+        display: block;
+        font-size: .85rem;
+        font-weight: 600;
+        letter-spacing: .1px;
+        color: var(--ink);
+        margin-bottom: .5rem;
+    }
+
+    /* icon + input + toggle on one centered row — guarantees vertical centering */
+    &__control {
+        display: flex;
+        align-items: center;
+        gap: .65rem;
+        height: 52px;
+        padding: 0 .9rem;
+        border-radius: 12px;
+        background: var(--field-bg);
+        border: 1.5px solid var(--line);
+        transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
+
+        &:focus-within {
+            background: #fff;
+            border-color: var(--brand-cyan);
+            box-shadow: 0 0 0 4px rgba(3, 201, 215, .12);
+
+            .field__ico { color: var(--brand-cyan); }
+        }
+    }
+
+    &__ico {
+        flex: 0 0 auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         width: 20px;
+        height: 20px;
+        font-size: 20px;
+        line-height: 20px;
+        color: var(--muted);
+        transition: color .2s ease;
     }
 
-    ::ng-deep {
-        .mat-form-field-wrapper { padding-bottom: 1.1em; }
+    &__input {
+        flex: 1 1 auto;
+        min-width: 0;
+        height: 100%;
+        border: none;
+        outline: none;
+        background: transparent;
+        font-family: inherit;
+        font-size: 1rem;
+        color: var(--ink);
+        caret-color: var(--brand-cyan);
 
-        .mat-form-field-flex {
-            background: var(--field-bg);
-            border-radius: 12px;
-            transition: background .2s ease;
+        &::placeholder { color: #aab4c9; }
+
+        /* keep browser autofill from repainting the field */
+        &:-webkit-autofill,
+        &:-webkit-autofill:hover,
+        &:-webkit-autofill:focus {
+            -webkit-text-fill-color: var(--ink);
+            -webkit-box-shadow: 0 0 0 40px var(--field-bg) inset;
+            transition: background-color 9999s ease;
         }
-
-        .mat-form-field-outline {
-            color: var(--line);
-        }
-        .mat-form-field-outline-thick {
-            color: var(--line);
-        }
-
-        /* rounded outline corners */
-        .mat-form-field-outline-start { border-radius: 12px 0 0 12px; min-width: 12px; }
-        .mat-form-field-outline-end   { border-radius: 0 12px 12px 0; }
-
-        .mat-form-field-infix { padding: .7em 0; }
-
-        input.mat-input-element {
-            color: var(--ink);
-            caret-color: var(--brand-cyan);
-        }
-        input.mat-input-element::placeholder { color: #aab4c9; }
-
-        .mat-form-field-label { color: var(--muted); }
     }
 
-    /* focused state */
-    &.mat-focused,
-    ::ng-deep .mat-focused {
-        .mat-form-field-flex { background: #fff; }
-        .mat-form-field-outline-thick { color: var(--brand-cyan); }
-        .mat-form-field-label { color: var(--brand-cyan); }
-        .field-ico { color: var(--brand-cyan); }
-    }
-}
+    &__toggle {
+        flex: 0 0 auto;
+        display: grid;
+        place-items: center;
+        width: 32px;
+        height: 32px;
+        border: none;
+        border-radius: 8px;
+        background: transparent;
+        color: var(--muted);
+        cursor: pointer;
+        transition: color .2s ease, background .2s ease;
 
-.pw-toggle {
-    color: var(--muted);
-    &:hover { color: var(--brand-cyan); }
+        mat-icon {
+            font-size: 20px;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+        }
+        &:hover { color: var(--brand-cyan); background: rgba(3, 201, 215, .08); }
+    }
+
+    &__err {
+        margin: .45rem 0 0;
+        font-size: .8rem;
+        color: #d92d20;
+    }
 }
 
 /* options row */

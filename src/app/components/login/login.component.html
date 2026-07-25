@@ -65,27 +65,32 @@
                     <span>{{ errorMessage }}</span>
                 </div>
 
-                <mat-form-field class="w-100 field anim-item" appearance="outline">
-                    <mat-label>Email or username</mat-label>
-                    <mat-icon matPrefix class="field-ico">person_outline</mat-icon>
-                    <input matInput placeholder="you@vivadent.com" type="text"
-                           formControlName="username" autocomplete="username" required>
-                    <mat-error>Please provide a valid username</mat-error>
-                </mat-form-field>
+                <div class="field anim-item">
+                    <label class="field__label" for="loginEmail">Email or username</label>
+                    <div class="field__control">
+                        <mat-icon class="field__ico">person_outline</mat-icon>
+                        <input id="loginEmail" class="field__input" type="text"
+                               formControlName="username" autocomplete="username"
+                               placeholder="you@vivadent.com">
+                    </div>
+                    <p class="field__err" *ngIf="invalid('username')">Please provide a valid username</p>
+                </div>
 
-                <mat-form-field class="w-100 field anim-item" appearance="outline">
-                    <mat-label>Password</mat-label>
-                    <mat-icon matPrefix class="field-ico">lock_outline</mat-icon>
-                    <input matInput placeholder="Enter your password"
-                           [type]="visibilityForPass ? 'text' : 'password'"
-                           formControlName="password" autocomplete="current-password" required>
-                    <button mat-icon-button matSuffix type="button" class="pw-toggle"
-                            (click)="toggleVisibility()"
-                            [attr.aria-label]="visibilityForPass ? 'Hide password' : 'Show password'">
-                        <mat-icon>{{ visibilityForPass ? 'visibility' : 'visibility_off' }}</mat-icon>
-                    </button>
-                    <mat-error>Please provide a valid password</mat-error>
-                </mat-form-field>
+                <div class="field anim-item">
+                    <label class="field__label" for="loginPass">Password</label>
+                    <div class="field__control">
+                        <mat-icon class="field__ico">lock_outline</mat-icon>
+                        <input id="loginPass" class="field__input"
+                               [type]="visibilityForPass ? 'text' : 'password'"
+                               formControlName="password" autocomplete="current-password"
+                               placeholder="Enter your password">
+                        <button type="button" class="field__toggle" (click)="toggleVisibility()"
+                                [attr.aria-label]="visibilityForPass ? 'Hide password' : 'Show password'">
+                            <mat-icon>{{ visibilityForPass ? 'visibility' : 'visibility_off' }}</mat-icon>
+                        </button>
+                    </div>
+                    <p class="field__err" *ngIf="invalid('password')">Please provide a valid password</p>
+                </div>
 
                 <div class="auth__options anim-item">
                     <mat-checkbox color="primary" class="remember">Remember me</mat-checkbox>
