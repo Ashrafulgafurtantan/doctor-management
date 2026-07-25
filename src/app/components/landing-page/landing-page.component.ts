@@ -7,6 +7,7 @@ import {
 } from "@angular/core";
 import { Router } from "@angular/router";
 import { ApiConfig } from "../../utility/apiConfig";
+import { animate, inView, stagger } from "motion";
 
 @Component({
   selector: "app-landing-page",
@@ -26,6 +27,20 @@ export class LandingPageComponent implements AfterViewInit, OnDestroy {
   /** Back-to-top button visibility + click animation flag */
   showToTop = false;
   launching = false;
+
+  /** True once motion.dev is available and driving section animations */
+  motionReady = false;
+
+  /** Category label shown as the chip on each facility card */
+  get activeTabLabel(): string {
+    const labels: { [key: string]: string } = {
+      crowns: "Crowns & Bridges",
+      orthodontics: "Hawley Retainers",
+      dentures: "Dentures",
+      other: "Other Services",
+    };
+    return labels[this.activeTab] || "";
+  }
 
   /** Rotating product showcase inside the hero visual */
   heroSlides = [
@@ -229,10 +244,109 @@ export class LandingPageComponent implements AfterViewInit, OnDestroy {
     this.host.nativeElement
       .querySelectorAll(".reveal")
       .forEach((el: Element) => this.observer?.observe(el));
+
+    // motion.dev animations for the redesigned Facilities & About sections
+    try {
+      this.motionReady = typeof inView === "function";
+      if (this.motionReady) {
+        this.setupMotion();
+        setTimeout(() => this.moveTabIndicator(false), 90);
+        // reposition once fonts have settled (widths can shift)
+        setTimeout(() => this.moveTabIndicator(false), 400);
+      }
+    } catch {
+      this.motionReady = false;
+    }
   }
 
   ngOnDestroy(): void {
     this.observer?.disconnect();
+  }
+
+  /* ---------- motion.dev helpers ---------- */
+
+  private setupMotion(): void {
+    const host = this.host.nativeElement as HTMLElement;
+    host.querySelector(".lp")?.classList.add("motion-on");
+
+    this.motionReveal(host.querySelector(".facilities"), ".section-head, .tabs-wrap", 0.12, 0.2);
+    this.motionReveal(host.querySelector(".about"), ".about__intro, .acard", 0.09, 0.15);
+  }
+
+  /** Reveal children with a staggered fade + rise the first time the container scrolls into view. */
+  private motionReveal(
+    container: Element | null,
+    childSelector: string,
+    staggerBy: number,
+    amount: number,
+  ): void {
+    if (!container) return;
+    let stop: (() => void) | undefined;
+    stop = inView(
+      container,
+      () => {
+        const targets = Array.from(
+          container.querySelectorAll<HTMLElement>(childSelector),
+        );
+        if (targets.length) {
+          this.runReveal(targets, staggerBy, 0.6, 24);
+        }
+        if (stop) stop();
+      },
+      { amount },
+    );
+  }
+
+  private runReveal(
+    targets: HTMLElement[],
+    staggerBy: number,
+    duration: number,
+    rise: number,
+  ): void {
+    const controls = animate(
+      targets,
+      { opacity: [0, 1], y: [rise, 0] },
+      { delay: stagger(staggerBy), duration, easing: [0.22, 1, 0.36, 1] },
+    );
+    // Pin the resting state so the cards stay visible and hover transforms work.
+    controls.finished
+      .then(() =>
+        targets.forEach((el) => {
+          el.style.opacity = "1";
+          el.style.transform = "";
+        }),
+      )
+      .catch(() => {});
+  }
+
+  /** Slide the segmented-control indicator under the active tab. */
+  private moveTabIndicator(withAnim: boolean): void {
+    const host = this.host.nativeElement as HTMLElement;
+    const tabsEl = host.querySelector(".tabs") as HTMLElement | null;
+    const indicator = host.querySelector(".tab-indicator") as HTMLElement | null;
+    const activeBtn = host.querySelector(".tab.active") as HTMLElement | null;
+    if (!tabsEl || !indicator || !activeBtn) return;
+
+    tabsEl.classList.add("js-tabs");
+    const left = activeBtn.offsetLeft;
+    const width = activeBtn.offsetWidth;
+
+    if (withAnim && this.motionReady) {
+      animate(
+        indicator,
+        { left: `${left}px`, width: `${width}px` },
+        { duration: 0.45, easing: [0.34, 1.56, 0.64, 1] },
+      );
+    } else {
+      indicator.style.left = `${left}px`;
+      indicator.style.width = `${width}px`;
+    }
+    indicator.style.opacity = "1";
+  }
+
+  @HostListener("window:resize")
+  onWindowResize(): void {
+    if (this.motionReady) this.moveTabIndicator(false);
   }
 
   /* ---------- Navigation helpers ---------- */
@@ -271,7 +385,12 @@ export class LandingPageComponent implements AfterViewInit, OnDestroy {
   }
 
   setActiveTab(tab: string) {
+    if (this.activeTab === tab) return;
     this.activeTab = tab;
+    // slide the segmented-control indicator once the active class is applied
+    if (this.motionReady) {
+      setTimeout(() => this.moveTabIndicator(true), 0);
+    }
   }
 
   getAllActiveFacilities() {

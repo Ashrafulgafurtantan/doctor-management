@@ -116,7 +116,7 @@
 
   <!-- ==================== FACILITIES ==================== -->
   <section class="facilities" #facilities>
-    <div class="section-head reveal">
+    <div class="section-head">
       <span class="eyebrow eyebrow--dark"><span class="dot"></span> What we craft</span>
       <h2 class="section-title">Our <span class="grad">Facilities</span></h2>
       <p class="section-sub">
@@ -124,32 +124,36 @@
       </p>
     </div>
 
-    <div class="tabs reveal">
-      <button class="tab" [class.active]="activeTab === 'crowns'" (click)="setActiveTab('crowns')">
-        <i-feather name="award"></i-feather><span>Crowns &amp; Bridges</span>
-      </button>
-      <button class="tab" [class.active]="activeTab === 'orthodontics'" (click)="setActiveTab('orthodontics')">
-        <i-feather name="activity"></i-feather><span>Hawley Retainers</span>
-      </button>
-      <button class="tab" [class.active]="activeTab === 'dentures'" (click)="setActiveTab('dentures')">
-        <i-feather name="smile"></i-feather><span>Dentures</span>
-      </button>
-      <button class="tab" [class.active]="activeTab === 'other'" (click)="setActiveTab('other')">
-        <i-feather name="package"></i-feather><span>Other Services</span>
-      </button>
+    <div class="tabs-wrap">
+      <div class="tabs" role="tablist">
+        <span class="tab-indicator" aria-hidden="true"></span>
+        <button class="tab" [class.active]="activeTab === 'crowns'" (click)="setActiveTab('crowns')">
+          <i-feather name="award"></i-feather><span>Crowns &amp; Bridges</span>
+        </button>
+        <button class="tab" [class.active]="activeTab === 'orthodontics'" (click)="setActiveTab('orthodontics')">
+          <i-feather name="activity"></i-feather><span>Hawley Retainers</span>
+        </button>
+        <button class="tab" [class.active]="activeTab === 'dentures'" (click)="setActiveTab('dentures')">
+          <i-feather name="smile"></i-feather><span>Dentures</span>
+        </button>
+        <button class="tab" [class.active]="activeTab === 'other'" (click)="setActiveTab('other')">
+          <i-feather name="package"></i-feather><span>Other Services</span>
+        </button>
+      </div>
     </div>
 
-    <div class="marquee reveal" (mouseenter)="pauseMarquee()" (mouseleave)="resumeMarquee()">
+    <div class="marquee" (mouseenter)="pauseMarquee()" (mouseleave)="resumeMarquee()">
       <div class="marquee__track" [class.paused]="isMarqueePaused">
-        <div class="marquee__set" *ngFor="let dup of [0,1]">
+        <div class="marquee__set" *ngFor="let dup of [0, 1]">
           <article class="fcard" *ngFor="let facility of getAllActiveFacilities()">
             <div class="fcard__media">
-              <img [src]="'../../../assets/images/' + facility.image" [alt]="facility.title" />
-              <span class="fcard__badge">View Details</span>
+              <img [src]="'../../../assets/images/' + facility.image" [alt]="facility.title" loading="lazy" />
+              <span class="fcard__chip">{{ activeTabLabel }}</span>
             </div>
             <div class="fcard__body">
               <h3>{{ facility.title }}</h3>
               <p>{{ facility.description }}</p>
+              <span class="fcard__more">Learn more <i-feather name="arrow-up-right"></i-feather></span>
             </div>
           </article>
         </div>
@@ -161,44 +165,55 @@
   <section class="about" #about>
     <div class="about__bg" aria-hidden="true"></div>
     <div class="about__inner">
-      <div class="section-head reveal">
+      <div class="about__intro">
         <span class="eyebrow eyebrow--dark"><span class="dot"></span> Who we are</span>
-        <h2 class="section-title">About <span class="grad">Vivadent</span></h2>
+        <h2 class="section-title">Dental work you can <span class="grad">rely on.</span></h2>
         <p class="section-sub">
-          Delivering excellence in dental laboratory services with precision, quality, and care.
+          Delivering excellence in dental laboratory services with precision, quality, and care —
+          so you can focus on what matters most: your patients.
         </p>
+        <div class="about__chips">
+          <span><i-feather name="check-circle"></i-feather> All-in-One Lab</span>
+          <span><i-feather name="check-circle"></i-feather> Premium Materials</span>
+          <span><i-feather name="check-circle"></i-feather> Urgent Turnaround</span>
+        </div>
       </div>
 
-      <div class="about__grid">
-        <article class="acard reveal">
-          <span class="acard__no">01</span>
+      <div class="about__cards">
+        <article class="acard">
           <span class="acard__ico"><i-feather name="award"></i-feather></span>
-          <h3>Quality Focused</h3>
-          <p>
-            We are highly focused on delivering products that meet your expectations for high
-            quality — so you don't need to waste valuable chair time adjusting the work and can
-            focus fully on your patient.
-          </p>
+          <div class="acard__text">
+            <h3>Quality Focused</h3>
+            <p>
+              Highly focused on products that meet your expectations for quality — so you don't
+              waste chair time adjusting the work and can focus fully on your patient.
+            </p>
+          </div>
+          <span class="acard__no">01</span>
         </article>
 
-        <article class="acard reveal">
-          <span class="acard__no">02</span>
+        <article class="acard">
           <span class="acard__ico"><i-feather name="clock"></i-feather></span>
-          <h3>Fast Turnaround</h3>
-          <p>
-            Time is of the essence. We treat every case with urgency so you can provide your
-            patient with a high-quality product in the minimum possible time.
-          </p>
+          <div class="acard__text">
+            <h3>Fast Turnaround</h3>
+            <p>
+              Time is of the essence. We treat every case with urgency so you can deliver a
+              high-quality result to your patient in the minimum possible time.
+            </p>
+          </div>
+          <span class="acard__no">02</span>
         </article>
 
-        <article class="acard reveal">
-          <span class="acard__no">03</span>
+        <article class="acard">
           <span class="acard__ico"><i-feather name="target"></i-feather></span>
-          <h3>Our Mission</h3>
-          <p>
-            To provide exceptional dental laboratory products with less fuss. We strive to be your
-            trusted, long-term partner in delivering outstanding dental care.
-          </p>
+          <div class="acard__text">
+            <h3>Our Mission</h3>
+            <p>
+              To provide exceptional dental laboratory products with less fuss — your trusted,
+              long-term partner in delivering outstanding dental care.
+            </p>
+          </div>
+          <span class="acard__no">03</span>
         </article>
       </div>
     </div>
