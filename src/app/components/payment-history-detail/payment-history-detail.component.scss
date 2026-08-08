@@ -15,21 +15,58 @@
 .phd-topbar {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   margin-bottom: 18px;
+  padding: 10px 14px;
+  background: #ffffff;
+  border: 1px solid var(--phd-line);
+  border-radius: 14px;
+  box-shadow: 0 8px 24px -20px rgba(13, 32, 60, 0.4);
 
   .back-btn {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
+    min-width: 0;
+    padding: 6px 14px 6px 10px;
+    border-radius: 10px;
     color: var(--phd-primary);
     font-weight: 600;
+    background: #eef5ff;
+    transition: background 0.2s ease;
+    &:hover { background: #e1edff; }
+    mat-icon { font-size: 18px; width: 18px; height: 18px; }
   }
+
+  .phd-topbar__divider {
+    width: 1px;
+    height: 22px;
+    background: var(--phd-line);
+  }
+
   .phd-title {
-    font-size: 1.4rem;
+    font-size: 1.25rem;
     font-weight: 700;
     color: var(--phd-ink);
     margin: 0;
+  }
+
+  .phd-print-btn {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 40px;
+    background: #2e7d32 !important;
+    color: #fff !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    padding: 0 18px !important;
+    border-radius: 10px !important;
+    box-shadow: 0 8px 18px -10px rgba(46, 125, 50, 0.7);
+
+    mat-icon { font-size: 18px; width: 18px; height: 18px; }
+    &:hover { background: #1b5e20 !important; }
   }
 }
 
@@ -117,33 +154,33 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 5px;
-  padding: 14px 22px;
-  border-radius: 16px;
+  gap: 3px;
+  padding: 9px 16px;
+  border-radius: 12px;
   background: linear-gradient(135deg, #2a6a63 0%, #245752 100%);
-  box-shadow: 0 14px 28px -16px rgba(36, 87, 82, 0.8);
+  box-shadow: 0 10px 22px -14px rgba(36, 87, 82, 0.75);
 
   .label {
-    font-size: 0.72rem;
+    font-size: 0.6rem;
     font-weight: 600;
     color: rgba(255, 255, 255, 0.78);
     text-transform: uppercase;
     letter-spacing: 0.6px;
   }
   .value {
-    font-size: 1.85rem;
+    font-size: 1.2rem;
     font-weight: 800;
-    line-height: 1.05;
+    line-height: 1.1;
     color: #ffffff;
   }
   .chip {
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    font-size: 0.72rem;
+    font-size: 0.6rem;
     font-weight: 600;
     color: #cdf3e6;
-    mat-icon { font-size: 15px; width: 15px; height: 15px; }
+    mat-icon { font-size: 13px; width: 13px; height: 13px; }
   }
 }
 

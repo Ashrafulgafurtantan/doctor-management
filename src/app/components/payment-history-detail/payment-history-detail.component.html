@@ -4,7 +4,19 @@
       <mat-icon>arrow_back</mat-icon>
       Back
     </button>
+    <span class="phd-topbar__divider"></span>
     <h4 class="phd-title">Payment Details</h4>
+    <a
+      *ngIf="summary"
+      mat-raised-button
+      class="phd-print-btn"
+      [href]="apiConfig.downloadPdfUrl + 'payment-summary/' + id"
+      target="_blank"
+      [matTooltip]="'Print this summary'"
+    >
+      <mat-icon>print</mat-icon>
+      Print
+    </a>
   </div>
 
   <!-- Loading -->

@@ -23,6 +23,56 @@
             />
           </div>
         </div>
+
+        <!-- Date-range report -->
+        <div class="report-group" [formGroup]="rangeForm">
+          <div class="date-box" [class.filled]="startDate" (click)="fromPicker.open()">
+            <mat-icon class="date-icon">event</mat-icon>
+            <div class="date-text">
+              <span class="date-caption">From</span>
+              <span class="date-value">{{ formatDisplayDate(rangeForm.value.startDate) }}</span>
+            </div>
+            <input
+              class="date-native"
+              readonly
+              [matDatepicker]="fromPicker"
+              formControlName="startDate"
+              (dateChange)="onStartDateChange()"
+            />
+            <mat-datepicker #fromPicker></mat-datepicker>
+          </div>
+
+          <span class="date-sep">—</span>
+
+          <div class="date-box" [class.filled]="endDate" (click)="toPicker.open()">
+            <mat-icon class="date-icon">event</mat-icon>
+            <div class="date-text">
+              <span class="date-caption">To</span>
+              <span class="date-value">{{ formatDisplayDate(rangeForm.value.endDate) }}</span>
+            </div>
+            <input
+              class="date-native"
+              readonly
+              [matDatepicker]="toPicker"
+              formControlName="endDate"
+              (dateChange)="onEndDateChange()"
+            />
+            <mat-datepicker #toPicker></mat-datepicker>
+          </div>
+
+          <a
+            mat-raised-button
+            class="print-report-btn"
+            [class.disabled]="!rangeReady"
+            [href]="rangeReady ? reportHref : null"
+            [attr.target]="rangeReady ? '_blank' : null"
+            [attr.aria-disabled]="!rangeReady"
+            [matTooltip]="rangeReady ? 'Print report for selected range' : 'Select from & to dates first'"
+          >
+            <mat-icon>print</mat-icon>
+            Print Report
+          </a>
+        </div>
       </div>
 
       <!-- Loading -->
@@ -62,14 +112,28 @@
           <ng-container matColumnDef="actions">
             <th *matHeaderCellDef mat-header-cell>Actions</th>
             <td *matCellDef="let row" mat-cell>
-              <button
-                mat-raised-button
-                class="view-details-btn"
-                (click)="viewDetails(row.id)"
-              >
-                <mat-icon>visibility</mat-icon>
-                View Details
-              </button>
+              <div class="row-actions">
+                <button
+                  mat-raised-button
+                  class="view-details-btn"
+                  (click)="viewDetails(row.id)"
+                >
+                  <mat-icon>visibility</mat-icon>
+                  View Details
+                </button>
+                <a
+                  [href]="apiConfig.downloadPdfUrl + 'payment-summary/' + row.id"
+                  target="_blank"
+                >
+                  <button
+                    mat-icon-button
+                    class="row-print-btn"
+                    [matTooltip]="'Print this summary'"
+                  >
+                    <mat-icon>print</mat-icon>
+                  </button>
+                </a>
+              </div>
             </td>
           </ng-container>
 

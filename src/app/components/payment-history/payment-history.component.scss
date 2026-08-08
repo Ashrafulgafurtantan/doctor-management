@@ -65,6 +65,106 @@
     gap: 16px;
   }
 
+  .report-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .date-sep {
+      color: #b0bec5;
+      font-weight: 600;
+    }
+
+    // Custom date "pill" — matches the search box aesthetic
+    .date-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 6px 14px;
+      min-width: 148px;
+      cursor: pointer;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+
+      &:hover { border-color: #90caf9; }
+      &:focus-within {
+        border-color: #1976d2;
+        box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+      }
+      &.filled { background: #f7fbff; border-color: #d6e4f5; }
+
+      .date-icon {
+        color: #1976d2;
+        font-size: 20px;
+        height: 20px;
+        width: 20px;
+        flex-shrink: 0;
+      }
+
+      .date-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.2;
+        min-width: 0;
+      }
+      .date-caption {
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #90a4ae;
+      }
+      .date-value {
+        font-size: 13.5px;
+        font-weight: 600;
+        color: #37474f;
+        white-space: nowrap;
+      }
+
+      // Functional-but-invisible datepicker input (anchors the popup, holds the control)
+      .date-native {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        border: 0;
+        background: transparent;
+        pointer-events: none;
+      }
+    }
+
+    .print-report-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 44px;
+      background: #2e7d32 !important;
+      color: #fff !important;
+      font-size: 0.82rem !important;
+      font-weight: 600 !important;
+      padding: 0 18px !important;
+      border-radius: 8px !important;
+      white-space: nowrap;
+      margin-left: 4px;
+      box-shadow: 0 6px 16px -8px rgba(46, 125, 50, 0.7);
+
+      mat-icon { font-size: 18px; width: 18px; height: 18px; }
+      &:hover { background: #1b5e20 !important; }
+
+      &.disabled {
+        background: #cfd8dc !important;
+        color: #eceff1 !important;
+        box-shadow: none;
+        pointer-events: none;
+        cursor: default;
+      }
+    }
+  }
+
   .search-box {
     display: flex;
     align-items: center;
@@ -171,6 +271,14 @@
   .cell-amount { font-weight: 700; color: #2e7d32; }
 }
 
+.row-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  a { display: inline-flex; align-items: center; line-height: 0; }
+}
+
 .view-details-btn {
   display: inline-flex;
   align-items: center;
@@ -185,6 +293,24 @@
 
   mat-icon { font-size: 18px; width: 18px; height: 18px; }
   &:hover { background: #0d47a1 !important; }
+}
+
+.row-print-btn {
+  width: 38px;
+  height: 38px;
+  line-height: 38px;
+  border-radius: 8px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    background: #2e7d32;
+    color: #fff;
+    box-shadow: 0 6px 16px -8px rgba(46, 125, 50, 0.7);
+  }
+
+  mat-icon { font-size: 19px; width: 19px; height: 19px; }
 }
 
 // No Data
@@ -211,9 +337,17 @@
 @media (max-width: 768px) {
   .toolbar-section {
     flex-direction: column;
+    align-items: stretch;
     gap: 12px;
     .filter-group { width: 100%; }
     .search-box { width: 100%; }
+    .report-group {
+      width: 100%;
+      flex-wrap: wrap;
+      .date-sep { display: none; }
+      .date-box { flex: 1 1 140px; min-width: 0; }
+      .print-report-btn { flex: 1 1 100%; justify-content: center; }
+    }
   }
   .table-container { max-height: 55vh; }
   .view-details-btn span { display: none; }

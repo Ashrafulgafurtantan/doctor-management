@@ -5,6 +5,7 @@ import { MatTableDataSource } from "@angular/material/table";
 import { MatDialog } from "@angular/material/dialog";
 import { PaymentSummaryService } from "../../services/payment-summary.service";
 import { OrderItemsDialogComponent } from "./order-items-dialog/order-items-dialog.component";
+import { ApiConfig } from "../../utility/apiConfig";
 
 @Component({
   selector: "app-payment-history-detail",
@@ -12,6 +13,7 @@ import { OrderItemsDialogComponent } from "./order-items-dialog/order-items-dial
   styleUrls: ["./payment-history-detail.component.scss"],
 })
 export class PaymentHistoryDetailComponent implements OnInit {
+  apiConfig = ApiConfig;
   id: any;
   summary: any = null;
   dataSource = new MatTableDataSource<any>([]);

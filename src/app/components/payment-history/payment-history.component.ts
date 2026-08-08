@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { MatTableDataSource } from "@angular/material/table";
 import { PaymentSummaryService } from "../../services/payment-summary.service";
+import { ApiConfig } from "../../utility/apiConfig";
 
 @Component({
   selector: "app-payment-history",
@@ -9,8 +11,15 @@ import { PaymentSummaryService } from "../../services/payment-summary.service";
   styleUrls: ["./payment-history.component.scss"],
 })
 export class PaymentHistoryComponent implements OnInit {
+  apiConfig = ApiConfig;
   dataSource = new MatTableDataSource<any>([]);
   loading = false;
+
+  // date-range report filter
+  rangeForm!: FormGroup;
+  startDate = "";
+  endDate = "";
+  reportHref = "";
 
   // server-side pagination meta
   firstPage = 1;
@@ -28,7 +37,8 @@ export class PaymentHistoryComponent implements OnInit {
 
   constructor(
     private paymentSummaryService: PaymentSummaryService,
-    private router: Router
+    private router: Router,
+    private formBuilder: FormBuilder
   ) {
     this.dataSource.filterPredicate = (data: any, filter: string) => {
       const haystack = [
@@ -45,7 +55,61 @@ export class PaymentHistoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Default the range to the current month (start → end) for an out-of-the-box report.
+    const now = new Date();
+    const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+    const monthEnd = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+
+    this.rangeForm = this.formBuilder.group({
+      startDate: [monthStart],
+      endDate: [monthEnd],
+    });
+    this.startDate = this.toYmd(monthStart);
+    this.endDate = this.toYmd(monthEnd);
+    this.updateReportHref();
+
     this.load(1);
+  }
+
+  onStartDateChange(): void {
+    this.startDate = this.toYmd(this.rangeForm.value.startDate);
+    this.updateReportHref();
+  }
+
+  onEndDateChange(): void {
+    this.endDate = this.toYmd(this.rangeForm.value.endDate);
+    this.updateReportHref();
+  }
+
+  get rangeReady(): boolean {
+    return !!this.startDate && !!this.endDate;
+  }
+
+  formatDisplayDate(value: any): string {
+    if (!value) return "Select date";
+    const date = new Date(value);
+    if (isNaN(date.getTime())) return "Select date";
+    return date.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+  }
+
+  private toYmd(value: any): string {
+    if (!value) return "";
+    const date = new Date(value);
+    if (isNaN(date.getTime())) return "";
+    const y = date.getFullYear();
+    const m = `${date.getMonth() + 1}`.padStart(2, "0");
+    const d = `${date.getDate()}`.padStart(2, "0");
+    return `${y}-${m}-${d}`;
+  }
+
+  private updateReportHref(): void {
+    this.reportHref = this.rangeReady
+      ? `${this.apiConfig.downloadPdfUrl}payment-summaries/start/${this.startDate}/end/${this.endDate}`
+      : "";
   }
 
   load(page: number): void {
